@@ -2,122 +2,159 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/pregame_open_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="PREGAME"
+    <TextView
+        android:id="@+id/scouter_Name"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:text="Name"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/PREGAME"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="128dp"
-        android:background="#8C8C8C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    <TextView
+        android:id="@+id/Match"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:text="Match#"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/scouter_Name" />
 
-        <Button
-            android:id="@+id/pregame_close_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="CLOSE"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+    <TextView
+        android:id="@+id/Team"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:text="Team"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Match" />
 
-        <CheckBox
-            android:id="@+id/No_Show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="94dp"
-            android:layout_marginLeft="94dp"
-            android:layout_marginEnd="94dp"
-            android:layout_marginRight="94dp"
-            android:layout_marginBottom="100dp"
-            android:text="No Show?"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/Red_Alliance"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginLeft="236dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:backgroundTint="#CC2121"
+        app:layout_constraintEnd_toStartOf="@+id/Blue_Alliance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Alliance"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-        <Button
-            android:id="@+id/Red"
-            android:layout_width="53dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginLeft="48dp"
-            android:layout_marginTop="200dp"
-            app:backgroundTint="#EC0F0F"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@android:color/holo_red_dark"
-            tools:ignore="SpeakableTextPresentCheck" />
+    <Button
+        android:id="@+id/Blue_Alliance"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="237dp"
+        android:layout_marginRight="237dp"
+        app:backgroundTint="#3F51B5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Red_Alliance"
+        app:layout_constraintTop_toBottomOf="@+id/Alliance"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-        <Button
-            android:id="@+id/Blue"
-            android:layout_width="53dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="200dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginRight="80dp"
-            app:backgroundTint="#0C51DA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@android:color/holo_red_dark"
-            tools:ignore="SpeakableTextPresentCheck" />
+    <TextView
+        android:id="@+id/Alliance"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginRight="57dp"
+        android:text="  Alliance"
+        android:textColor="#040303"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/No_Show"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/Name_Input"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="101dp"
-            android:layout_marginLeft="101dp"
-            android:layout_marginTop="45dp"
-            android:text="Name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/No_Show"
+        android:layout_width="130dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:text="No Show?"
+        android:textColor="#0C0C0C"
+        android:textSize="24sp"
+        app:backgroundTint="#FAF7F7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/Team_Input"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="101dp"
-            android:layout_marginLeft="101dp"
-            android:layout_marginTop="10dp"
-            android:text="Team#"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Name_Input" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="241dp"
+        android:layout_height="194dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/_022hangar" />
 
-        <TextView
-            android:id="@+id/Match_Input"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="101dp"
-            android:layout_marginLeft="101dp"
-            android:layout_marginTop="10dp"
-            android:text="Match#"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Team_Input" />
+    <CheckBox
+        android:id="@+id/Low_Rung"
+        android:layout_width="150dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="518dp"
+        android:text="Low Rung"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Team" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <CheckBox
+        android:id="@+id/Mid_Rung"
+        android:layout_width="121dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="474dp"
+        android:text="Mid Rung"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Red_Alliance" />
+
+    <CheckBox
+        android:id="@+id/High_Rung"
+        android:layout_width="97dp"
+        android:layout_height="81dp"
+        android:text="High Rung"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="313dp"
+        tools:layout_editor_absoluteY="628dp" />
+
+    <CheckBox
+        android:id="@+id/Traversal_Rung"
+        android:layout_width="136dp"
+        android:layout_height="98dp"
+        android:text="Traversal Rung"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="443dp"
+        tools:layout_editor_absoluteY="622dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
