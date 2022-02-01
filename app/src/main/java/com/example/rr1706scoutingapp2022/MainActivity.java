@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         //final ConstraintLayout PREGAME = findViewById(R.id.PREGAME);
         final ConstraintLayout Background = findViewById(R.id.Background);
         final ConstraintLayout Pregame = findViewById(R.id.Pregame);
+        final ConstraintLayout Endgame = findViewById(R.id.Endgame);
         //Lines
 
         //Buttons
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         final Button Blue_Alliance = findViewById(R.id.Blue_Alliance);
         final Button Red_Alliance = findViewById(R.id.Red_Alliance);
         final Button Pregame_Box = findViewById(R.id.Pregame_Box);
+        final Button Endgame_Box = findViewById(R.id.Endgame_Box);
         //ImageViews
 
         //TextViews
@@ -73,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
                 Pregame.setVisibility(View.VISIBLE);
             else if(Pregame.getVisibility()==View.VISIBLE)
                 Pregame.setVisibility(View.INVISIBLE);
+        });
+        Endgame.setVisibility(View.INVISIBLE);
+        Endgame_Box.setOnClickListener(view -> {
+            if(Endgame.getVisibility()==View.VISIBLE)
+                Endgame.setVisibility(View.INVISIBLE);
+            else if(Endgame.getVisibility()==View.INVISIBLE)
+                Endgame.setVisibility(View.VISIBLE);
         });
 
         Blue_Alliance.setOnClickListener(new View.OnClickListener() {
