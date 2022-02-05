@@ -5,10 +5,173 @@
     android:id="@+id/Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/team_1"
+    android:background="@drawable/appbackground"
     android:maxWidth="601dp"
     android:maxHeight="890dp"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/upperText2"
+        android:layout_width="121dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="103dp"
+        android:text="Upper"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lowerText"
+        android:layout_width="121dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="49dp"
+        android:text="Lower"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upperText2" />
+
+    <ImageButton
+        android:id="@+id/teleop_upper_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="281dp"
+        app:layout_constraintStart_toEndOf="@+id/teleop_upper_text"
+        app:layout_constraintTop_toBottomOf="@+id/auto_lower_minus"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageButton
+        android:id="@+id/teleop_upper_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="281dp"
+        app:layout_constraintStart_toEndOf="@+id/UpperText"
+        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus"
+        app:srcCompat="@drawable/plus" />
+
+    <TextView
+        android:id="@+id/teleop_upper_text"
+        android:layout_width="5dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="311dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintStart_toEndOf="@+id/teleop_upper_plus"
+        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
+
+    <TextView
+        android:id="@+id/teleop_lower_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="57dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintStart_toEndOf="@+id/teleop_lower_plus"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus" />
+
+    <ImageButton
+        android:id="@+id/teleop_lower_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintStart_toEndOf="@+id/LowerText"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus"
+        app:srcCompat="@drawable/plus" />
+
+    <ImageButton
+        android:id="@+id/teleop_lower_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintStart_toEndOf="@+id/teleop_lower_text"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_minus"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageButton
+        android:id="@+id/auto_upper_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="103dp"
+        app:layout_constraintStart_toEndOf="@+id/upperText2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/plus" />
+
+    <ImageButton
+        android:id="@+id/auto_lower_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintStart_toEndOf="@+id/lowerText"
+        app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus"
+        app:srcCompat="@drawable/plus" />
+
+    <ImageButton
+        android:id="@+id/auto_upper_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="103dp"
+        app:layout_constraintStart_toEndOf="@+id/auto_upper_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageButton
+        android:id="@+id/auto_lower_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintStart_toEndOf="@+id/auto_lower_text"
+        app:layout_constraintTop_toBottomOf="@+id/auto_upper_minus"
+        app:srcCompat="@drawable/minus" />
+
+    <TextView
+        android:id="@+id/auto_lower_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="57dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintStart_toEndOf="@+id/auto_lower_plus"
+        app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus" />
+
+    <TextView
+        android:id="@+id/auto_upper_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="133dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/auto_upper_minus"
+        app:layout_constraintStart_toEndOf="@+id/auto_upper_plus"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Endgame_Box"
@@ -20,6 +183,20 @@
         android:background="#FFFFFF"
         android:text="Endgame"
         android:textColor="@color/team_1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/Pregame_Box"
+        android:layout_width="154dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="110dp"
+        android:background="#FFFFFF"
+        android:text="Pregame"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +226,7 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/Alliance"
@@ -135,20 +312,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/Pregame_Box"
-        android:layout_width="154dp"
-        android:layout_height="58dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="110dp"
-        android:background="#FFFFFF"
-        android:text="Pregame"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="TextContrastCheck" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Endgame"
         android:layout_width="400dp"
@@ -219,9 +382,33 @@
         android:id="@+id/data_submitted"
         android:layout_width="600dp"
         android:layout_height="891dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/check" />
+
+    <TextView
+        android:id="@+id/UpperText"
+        android:layout_width="121dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="289dp"
+        android:text="Upper"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lowerText" />
+
+    <TextView
+        android:id="@+id/LowerText"
+        android:layout_width="121dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="48dp"
+        android:text="Lower"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UpperText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -35,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
         int team;
         int round;
-        int autolow;
-        int autohigh;
-        int telelow;
-        int telehigh;
+        int autoLowerScore;
+        int autoUpperScore;
+        int teleopUpperScore;
+        int teleopLowerScore;
         int missedshots;
         int chooseAlliance = 1000;
         String alliance = "none";
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         final EditText team_input = findViewById(R.id.team_input);
         final EditText round_input = findViewById(R.id.round_input);
         final EditText notes = findViewById(R.id.notes);
+        final TextView auto_upper_text = findViewById(R.id.auto_upper_text);
+        final TextView auto_lower_text = findViewById(R.id.auto_lower_text);
+        final TextView teleop_upper_text = findViewById(R.id.teleop_upper_text);
+        final TextView teleop_lower_text = findViewById(R.id.teleop_lower_text);
         data_submitted.setVisibility(View.INVISIBLE);
         //Buttons
         //final Button pregame_open_button = findViewById(R.id.pregame_open_button);
@@ -76,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
         final Button Endgame_Box = findViewById(R.id.Endgame_Box);
         final Button no_show = findViewById(R.id.no_show);
         final Button submit = findViewById(R.id.submit);
+        final ImageView auto_upper_plus = findViewById(R.id.auto_upper_plus);
+        final ImageView auto_upper_minus = findViewById(R.id.auto_upper_minus);
+        final ImageView auto_lower_plus = findViewById(R.id.auto_lower_plus);
+        final ImageView auto_lower_minus = findViewById(R.id.auto_lower_minus);
+        final ImageView teleop_upper_plus = findViewById(R.id.teleop_upper_plus);
+        final ImageView teleop_upper_minus = findViewById(R.id.teleop_upper_minus);
+        final ImageView teleop_lower_plus = findViewById(R.id.teleop_lower_plus);
+        final ImageView teleop_lower_minus = findViewById(R.id.teleop_lower_minus);
         //No Show
         final DialogInterface.OnClickListener NoShowDialog = new DialogInterface.OnClickListener() {
             @Override
@@ -164,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                             //data_submitted stuff
                             if (ds_cooldown > 0) { ds_cooldown--; }
 
-                            if (ds_cooldown == 0) { data_submitted.setVisibility(View.INVISIBLE); }
+                            if (ds_cooldown == 0) { data_submitted.setVisibility(View.GONE); }
                         }
                     });
                 }
@@ -172,6 +185,66 @@ public class MainActivity extends AppCompatActivity {
         };
         Thread myThread = new Thread(myRunnable);
         myThread.start();
+        auto_upper_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (autoUpperScore < 99) { autoUpperScore++; }
+                auto_upper_text.setText(Integer.toString(autoUpperScore));
+            }
+        });
+        auto_upper_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (autoUpperScore > 0) { autoUpperScore--; }
+                auto_upper_text.setText(Integer.toString(autoUpperScore));
+            }
+        });
+
+        auto_lower_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (autoLowerScore < 99) { autoLowerScore++; }
+                auto_lower_text.setText(Integer.toString(autoLowerScore));
+            }
+        });
+        auto_lower_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (autoLowerScore > 0) { autoLowerScore--; }
+                auto_lower_text.setText(Integer.toString(autoLowerScore));
+            }
+        });
+
+
+        teleop_upper_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (teleopUpperScore < 99) { teleopUpperScore++; }
+                teleop_upper_text.setText(Integer.toString(teleopUpperScore));
+            }
+        });
+        teleop_upper_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (teleopUpperScore > 0) { teleopUpperScore--; }
+                teleop_upper_text.setText(Integer.toString(teleopUpperScore));
+            }
+        });
+
+        teleop_lower_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (teleopLowerScore < 99) { teleopLowerScore++; }
+                teleop_lower_text.setText(Integer.toString(teleopLowerScore));
+            }
+        });
+        teleop_lower_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (teleopLowerScore > 0) { teleopLowerScore--; }
+                teleop_lower_text.setText(Integer.toString(teleopLowerScore));
+            }
+        });
         //ImageViews
 
         //TextViews
