@@ -38,9 +38,12 @@
         android:id="@+id/teleop_upper_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="281dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="280dp"
+        android:layout_marginEnd="242dp"
+        android:layout_marginRight="242dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/teleop_upper_text"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_minus"
         app:srcCompat="@drawable/minus" />
@@ -55,18 +58,6 @@
         app:layout_constraintStart_toEndOf="@+id/UpperText"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus"
         app:srcCompat="@drawable/plus" />
-
-    <TextView
-        android:id="@+id/teleop_upper_text"
-        android:layout_width="5dp"
-        android:layout_height="14dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="311dp"
-        android:text="0"
-        android:textSize="24dp"
-        app:layout_constraintStart_toEndOf="@+id/teleop_upper_plus"
-        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
 
     <TextView
         android:id="@+id/teleop_lower_text"
@@ -157,6 +148,21 @@
         android:textSize="24dp"
         app:layout_constraintStart_toEndOf="@+id/auto_lower_plus"
         app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus" />
+
+    <TextView
+        android:id="@+id/teleop_upper_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="307dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/teleop_upper_minus"
+        app:layout_constraintStart_toEndOf="@+id/teleop_upper_plus"
+        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
 
     <TextView
         android:id="@+id/auto_upper_text"
