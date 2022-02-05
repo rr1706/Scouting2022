@@ -5,23 +5,38 @@
     android:id="@+id/Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/team_1"
     android:maxWidth="601dp"
     android:maxHeight="890dp"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/Endgame_Box"
-        android:layout_width="136dp"
-        android:layout_height="57dp"
+        android:layout_width="156dp"
+        android:layout_height="58dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="36dp"
         android:background="#FFFFFF"
         android:text="Endgame"
+        android:textColor="@color/team_1"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/notes"
+        android:layout_width="185dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="37dp"
+        android:ems="10"
+        android:hint="Notes"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Pregame"
@@ -34,7 +49,7 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/Alliance"
@@ -75,7 +90,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/No_Show"
+            android:id="@+id/no_show"
             android:layout_width="119dp"
             android:layout_height="70dp"
             android:layout_marginStart="140dp"
@@ -87,7 +102,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/Name"
+            android:id="@+id/name_input"
             android:layout_width="185dp"
             android:layout_height="50dp"
             android:ems="10"
@@ -97,7 +112,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/Round"
+            android:id="@+id/round_input"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -105,11 +120,11 @@
             android:ems="10"
             android:hint="Round#"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toEndOf="@+id/Name"
+            app:layout_constraintStart_toEndOf="@+id/name_input"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/Team"
+            android:id="@+id/team_input"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:ems="10"
@@ -122,8 +137,8 @@
 
     <Button
         android:id="@+id/Pregame_Box"
-        android:layout_width="136dp"
-        android:layout_height="57dp"
+        android:layout_width="154dp"
+        android:layout_height="58dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="110dp"
@@ -131,7 +146,8 @@
         android:text="Pregame"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Endgame"
@@ -142,7 +158,8 @@
         android:layout_marginTop="243dp"
         android:background="#7F7F7F"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
 
         <ImageView
             android:id="@+id/imageView"
@@ -154,6 +171,57 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/_022hangar" />
+
+        <Spinner
+            android:id="@+id/endgameClimb"
+            android:layout_width="109dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="36dp"
+            android:background="@color/team_1"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/endgameClimb"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Spinner
+            android:id="@+id/endgameResults"
+            android:layout_width="109dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="272dp"
+            android:layout_marginLeft="272dp"
+            android:layout_marginTop="144dp"
+            android:background="@color/team_1"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/endgameResults"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="280dp"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="236dp"
+            android:text="Submit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/data_submitted"
+        android:layout_width="600dp"
+        android:layout_height="891dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/check" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
