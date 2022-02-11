@@ -90,145 +90,110 @@ public class MainActivity extends AppCompatActivity {
         final ImageView teleop_lower_plus = findViewById(R.id.teleop_lower_plus);
         final ImageView teleop_lower_minus = findViewById(R.id.teleop_lower_minus);
         //No Show
-        final DialogInterface.OnClickListener NoShowDialog = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        data_submitted.setVisibility(View.VISIBLE);
-                        data_submitted.setImageResource(R.drawable.check);
-                        ds_cooldown = 150;
+        final DialogInterface.OnClickListener NoShowDialog = (dialog, which) -> {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    data_submitted.setImageResource(R.drawable.check);
+                    data_submitted.setVisibility(View.VISIBLE);
+                    ds_cooldown = 150;
 
-                        SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
-                        File dir = getDataDirectory();
+                    SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
+                    File dir = getDataDirectory();
 
-                        try {
-                            File myFile = new File(dir, team + "_" + round + "_" + time.format(new Date()) + ".txt");
-                            FileOutputStream fOut = new FileOutputStream(myFile, true);
-                            PrintWriter myOutWriter = new PrintWriter(new OutputStreamWriter(fOut));
+                    try {
+                        File myFile = new File(dir, team + "_" + round + "_" + time.format(new Date()) + ".txt");
+                        FileOutputStream fOut = new FileOutputStream(myFile, true);
+                        PrintWriter myOutWriter = new PrintWriter(new OutputStreamWriter(fOut));
 
-                            myOutWriter.println("Scouter: " + name_input.getText());
-                            myOutWriter.println("Team: " + team);
-                            myOutWriter.println("Timestamp: " + time.format(new Date()));
-                            myOutWriter.println("Match: " + round);
+                        myOutWriter.println("Scouter: " + name_input.getText());
+                        myOutWriter.println("Team: " + team);
+                        myOutWriter.println("Timestamp: " + time.format(new Date()));
+                        myOutWriter.println("Match: " + round);
 
-                            myOutWriter.flush();
-                            myOutWriter.close();
-                            fOut.close();
+                        myOutWriter.flush();
+                        myOutWriter.close();
+                        fOut.close();
 
-                            Toast.makeText(getApplicationContext(), "Data Submitted!", Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
-                            Toast.makeText(getApplicationContext(), "Data Submission Failed! (Tell scouting)", Toast.LENGTH_SHORT).show();
-                            Log.e("Exception", "File write failed: " + e.toString());
-                        }
+                        Toast.makeText(getApplicationContext(), "Data Submitted!", Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        Toast.makeText(getApplicationContext(), "Data Submission Failed! (Tell scouting)", Toast.LENGTH_SHORT).show();
+                        Log.e("Exception", "File write failed: " + e.toString());
+                    }
 
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        break;
-                }
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
             }
         };
 
-        no_show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String submitError = "";
+        no_show.setOnClickListener(v -> {
+            String submitError = "";
 
-                //Special handling
-                if (team_input.getText().toString().equals("")) { team = -1; }
-                else { team = Integer.parseInt(team_input.getText().toString()); }
+            //Special handling
 
-                if (round_input.getText().toString().equals("")) { round = -1; }
-                else { round = Integer.parseInt(round_input.getText().toString()); }
+            if (alliance == "none") { submitError += " No Alliance,"; }
+            if (name_input.getText().toString().equals("")) { submitError += " No Name,"; }
+            if (team_input.getText().toString().equals("")) { submitError += " No Team#,"; }
+            if (round_input.getText().toString().equals("")) { submitError += " No Round#,"; }
+            if (!submitError.equals("")) { submitError = submitError.substring(0,submitError.length()-1)+"."; }
 
-                if (alliance == "none") { submitError += " No Alliance,"; }
-                if (name_input.getText().toString().equals("")) { submitError += " No Name,"; }
-                if (team == -1) { submitError += " No Team#,"; }
-                if (round == -1) { submitError += " No Round#,"; }
-                if (!submitError.equals("")) { submitError = submitError.substring(0,submitError.length()-1)+"."; }
+            if (!(submitError.equals(""))) {
+                Toast.makeText(getApplicationContext(), "Submit Error:"+submitError, Toast.LENGTH_LONG).show();
 
-                if (!(submitError.equals(""))) {
-                    Toast.makeText(getApplicationContext(), "Submit Error:"+submitError, Toast.LENGTH_LONG).show();
+                data_submitted.setVisibility(View.VISIBLE);
+                data_submitted.setImageResource(R.drawable.x);
+                ds_cooldown = 150;
+            } else {
+                builder.setMessage("Are you sure the team is a no show?")
+                        .setPositiveButton("Yes", NoShowDialog)
+                        .setNegativeButton("No", NoShowDialog)
+                        .show();
 
-                    data_submitted.setVisibility(View.VISIBLE);
-                    data_submitted.setImageResource(R.drawable.x);
-                    ds_cooldown = 150;
-                } else {
-                    builder.setMessage("Are you sure the team is a no show?")
-                            .setPositiveButton("Yes", NoShowDialog)
-                            .setNegativeButton("No", NoShowDialog)
-                            .show();
-
-                }
             }
         });
         //The great while loop (100/sec)
-        Runnable myRunnable = new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    data_submitted.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            //data_submitted stuff
-                            if (ds_cooldown > 0) { ds_cooldown--; }
-
-                            if (ds_cooldown == 0) { data_submitted.setVisibility(View.GONE); }
-                        }
-                    });
+        Runnable myRunnable = () -> {
+            while (true) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                data_submitted.post(() -> {
+                    //data_submitted stuff
+                    if (ds_cooldown > 0) { ds_cooldown--; }
+
+                    if (ds_cooldown == 0) { data_submitted.setVisibility(View.GONE); }
+                });
             }
         };
         Thread myThread = new Thread(myRunnable);
         myThread.start();
-        auto_upper_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (autoUpperScore < 99) { autoUpperScore++; }
-                auto_upper_text.setText(Integer.toString(autoUpperScore));
-            }
+        auto_upper_plus.setOnClickListener(v -> {
+            if (autoUpperScore < 99) { autoUpperScore++; }
+            auto_upper_text.setText(Integer.toString(autoUpperScore));
         });
-        auto_upper_minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (autoUpperScore > 0) { autoUpperScore--; }
-                auto_upper_text.setText(Integer.toString(autoUpperScore));
-            }
+        auto_upper_minus.setOnClickListener(v -> {
+            if (autoUpperScore > 0) { autoUpperScore--; }
+            auto_upper_text.setText(Integer.toString(autoUpperScore));
         });
 
-        auto_lower_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (autoLowerScore < 99) { autoLowerScore++; }
-                auto_lower_text.setText(Integer.toString(autoLowerScore));
-            }
+        auto_lower_plus.setOnClickListener(v -> {
+            if (autoLowerScore < 99) { autoLowerScore++; }
+            auto_lower_text.setText(Integer.toString(autoLowerScore));
         });
-        auto_lower_minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (autoLowerScore > 0) { autoLowerScore--; }
-                auto_lower_text.setText(Integer.toString(autoLowerScore));
-            }
+        auto_lower_minus.setOnClickListener(v -> {
+            if (autoLowerScore > 0) { autoLowerScore--; }
+            auto_lower_text.setText(Integer.toString(autoLowerScore));
         });
 
 
-        teleop_upper_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (teleopUpperScore < 99) { teleopUpperScore++; }
-                teleop_upper_text.setText(Integer.toString(teleopUpperScore));
-            }
+        teleop_upper_plus.setOnClickListener(v -> {
+            if (teleopUpperScore < 99) { teleopUpperScore++; }
+            teleop_upper_text.setText(Integer.toString(teleopUpperScore));
         });
-        teleop_upper_minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (teleopUpperScore > 0) { teleopUpperScore--; }
-                teleop_upper_text.setText(Integer.toString(teleopUpperScore));
-            }
+        teleop_upper_minus.setOnClickListener(v -> {
+            if (teleopUpperScore > 0) { teleopUpperScore--; }
+            teleop_upper_text.setText(Integer.toString(teleopUpperScore));
         });
 
         teleop_lower_plus.setOnClickListener(v -> {
@@ -257,34 +222,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Pregame
-        /*pregame_open_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {"
-                PREGAME.setVisibility(View.VISIBLE);
-            }
-        });
-
-        pregame_close_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PREGAME.setVisibility(View.INVISIBLE);
-            }
-        });*/
+        Endgame.setVisibility(View.INVISIBLE);
         Pregame_Box.setOnClickListener(view -> {
             if(Pregame.getVisibility()==View.INVISIBLE) {
-                Pregame.setVisibility(View.VISIBLE);
                 Endgame.setVisibility(View.INVISIBLE);
+                Pregame.setVisibility(View.VISIBLE);
             }
             else if(Pregame.getVisibility()==View.VISIBLE) {
                 Pregame.setVisibility(View.INVISIBLE);
-                Endgame.setVisibility(View.VISIBLE);
+                Endgame.setVisibility(View.INVISIBLE);
             }
         });
-        Endgame.setVisibility(View.INVISIBLE);
         Endgame_Box.setOnClickListener(view -> {
             if(Endgame.getVisibility()==View.VISIBLE) {
+                Pregame.setVisibility(View.INVISIBLE);
                 Endgame.setVisibility(View.INVISIBLE);
-                Pregame.setVisibility(View.VISIBLE);
             }
             else if(Endgame.getVisibility()==View.INVISIBLE) {
                 Endgame.setVisibility(View.VISIBLE);
