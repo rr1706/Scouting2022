@@ -3,5 +3,6 @@
     <string-array name="endgameResults">
         <item>Win</item>
         <item>Loss</item>
+        <item>Tie</item>
     </string-array>
 </resources>

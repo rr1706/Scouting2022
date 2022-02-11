@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.transition.Fade;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         int teleopUpperScore;
         int teleopLowerScore;
         int missedshots;
-        int chooseAlliance = 1000;
         String alliance = "none";
         boolean autoUpdateTeams = false;
     @Override
@@ -231,19 +231,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        teleop_lower_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (teleopLowerScore < 99) { teleopLowerScore++; }
-                teleop_lower_text.setText(Integer.toString(teleopLowerScore));
-            }
+        teleop_lower_plus.setOnClickListener(v -> {
+            if (teleopLowerScore < 99) { teleopLowerScore++; }
+            teleop_lower_text.setText(Integer.toString(teleopLowerScore));
         });
-        teleop_lower_minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (teleopLowerScore > 0) { teleopLowerScore--; }
-                teleop_lower_text.setText(Integer.toString(teleopLowerScore));
-            }
+        teleop_lower_minus.setOnClickListener(v -> {
+            if (teleopLowerScore > 0) { teleopLowerScore--; }
+            teleop_lower_text.setText(Integer.toString(teleopLowerScore));
         });
         //ImageViews
 
@@ -277,37 +271,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
         Pregame_Box.setOnClickListener(view -> {
-            if(Pregame.getVisibility()==View.INVISIBLE)
+            if(Pregame.getVisibility()==View.INVISIBLE) {
                 Pregame.setVisibility(View.VISIBLE);
-            else if(Pregame.getVisibility()==View.VISIBLE)
+                Endgame.setVisibility(View.INVISIBLE);
+            }
+            else if(Pregame.getVisibility()==View.VISIBLE) {
                 Pregame.setVisibility(View.INVISIBLE);
+                Endgame.setVisibility(View.VISIBLE);
+            }
         });
         Endgame.setVisibility(View.INVISIBLE);
         Endgame_Box.setOnClickListener(view -> {
-            if(Endgame.getVisibility()==View.VISIBLE)
+            if(Endgame.getVisibility()==View.VISIBLE) {
                 Endgame.setVisibility(View.INVISIBLE);
-            else if(Endgame.getVisibility()==View.INVISIBLE)
+                Pregame.setVisibility(View.VISIBLE);
+            }
+            else if(Endgame.getVisibility()==View.INVISIBLE) {
                 Endgame.setVisibility(View.VISIBLE);
-        });
-        Blue_Alliance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Background.setBackgroundColor(Color.argb(255, 223, 223, 255));
-                Pregame.setBackgroundColor(Color.argb(255, 127, 127, 247));
-                Endgame.setBackgroundColor(Color.argb(255, 127, 127, 247));
-                alliance="blue";
+                Pregame.setVisibility(View.INVISIBLE);
             }
         });
+        Blue_Alliance.setOnClickListener(v -> {
+            Background.setBackgroundResource(R.drawable.blueappbackground);
+            Pregame.setBackgroundColor(Color.argb(255, 127, 127, 247));
+            Endgame.setBackgroundColor(Color.argb(255, 127, 127, 247));
+            alliance="blue";
+        });
 
 
-        Red_Alliance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Background.setBackgroundColor(Color.argb(255, 255, 223, 223));
-                Pregame.setBackgroundColor(Color.argb(255, 247, 127, 127));
-                Endgame.setBackgroundColor(Color.argb(255, 247, 127, 127));
-                alliance="red";
-        }});
+        Red_Alliance.setOnClickListener(v -> {
+            Background.setBackgroundResource(R.drawable.redappbackground);
+            Pregame.setBackgroundColor(Color.argb(255, 247, 127, 127));
+            Endgame.setBackgroundColor(Color.argb(255, 247, 127, 127));
+            alliance="red";
+    });
     }
     private File getDataDirectory() {
         File directory = Environment.getExternalStorageDirectory();
@@ -319,5 +316,5 @@ public class MainActivity extends AppCompatActivity {
     {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    };
+    }
 }

@@ -8,7 +8,8 @@
     android:background="@drawable/appbackground"
     android:maxWidth="601dp"
     android:maxHeight="890dp"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:visibility="visible">
 
     <TextView
         android:id="@+id/upperText2"
@@ -46,7 +47,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/teleop_upper_text"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_minus"
-        app:srcCompat="@drawable/minus" />
+        app:srcCompat="@drawable/minus"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/teleop_upper_plus"
@@ -57,7 +59,8 @@
         android:layout_marginTop="281dp"
         app:layout_constraintStart_toEndOf="@+id/UpperText"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus"
-        app:srcCompat="@drawable/plus" />
+        app:srcCompat="@drawable/plus"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/teleop_lower_text"
@@ -148,6 +151,7 @@
         android:textSize="24dp"
         app:layout_constraintStart_toEndOf="@+id/auto_lower_plus"
         app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus" />
+    //Both upper Texts
 
     <TextView
         android:id="@+id/teleop_upper_text"
@@ -156,8 +160,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="307dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         android:text="0"
         android:textSize="24dp"
         app:layout_constraintEnd_toStartOf="@+id/teleop_upper_minus"
@@ -221,6 +225,32 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    //Pregame Stuff
+
+    <TextView
+        android:id="@+id/UpperText"
+        android:layout_width="121dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="289dp"
+        android:text="Upper"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lowerText" />
+
+    <TextView
+        android:id="@+id/LowerText"
+        android:layout_width="121dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="48dp"
+        android:text="Lower"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UpperText" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Pregame"
         android:layout_width="400dp"
@@ -232,7 +262,7 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/Alliance"
@@ -249,18 +279,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/Red_Alliance"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="23dp"
-            android:layout_marginRight="23dp"
-            app:backgroundTint="#CC2121"
-            app:layout_constraintEnd_toStartOf="@+id/Blue_Alliance"
-            app:layout_constraintTop_toBottomOf="@+id/Alliance"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <Button
             android:id="@+id/Blue_Alliance"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -268,6 +286,18 @@
             android:layout_marginEnd="116dp"
             android:layout_marginRight="116dp"
             app:backgroundTint="#3F51B5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Alliance"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/Red_Alliance"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="204dp"
+            android:layout_marginRight="204dp"
+            app:backgroundTint="#CC2121"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Alliance"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -317,6 +347,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    //Endgame Stuff
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Endgame"
@@ -392,29 +423,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/check" />
-
-    <TextView
-        android:id="@+id/UpperText"
-        android:layout_width="121dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="289dp"
-        android:text="Upper"
-        android:textSize="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lowerText" />
-
-    <TextView
-        android:id="@+id/LowerText"
-        android:layout_width="121dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="48dp"
-        android:text="Lower"
-        android:textSize="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UpperText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
