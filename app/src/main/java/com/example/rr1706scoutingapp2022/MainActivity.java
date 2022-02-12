@@ -113,6 +113,29 @@ public class MainActivity extends AppCompatActivity {
                     data_submitted.setImageResource(R.drawable.check);
                     data_submitted.setVisibility(View.VISIBLE);
                     ds_cooldown = 150;
+                    teleopLowerScore = 0;
+                    teleopUpperScore = 0;
+                    autoLowerScore = 0;
+                    autoUpperScore = 0;
+                    missedScore = 0;
+                    alliance = "none";
+                    notes.setText("");
+                    name_input.setText("");
+                    round_input.setText("");
+                    team_input.setText("");
+                    endgame_results.setSelection(0);
+                    speed.setSelection(0);
+                    climbResult.setSelection(0);
+                    violations.setSelection(0);
+                    shotDistance.setSelection(0);
+                    auto_no_auto.setChecked(false);
+                    autoMovement.setChecked(false);
+                    robotError.setChecked(false);
+                    teleop_upper_text.setText("0");
+                    teleop_lower_text.setText("0");
+                    auto_upper_text.setText("0");
+                    auto_lower_text.setText("0");
+                    missedShotsText.setText("0");
 
                     SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
                     File dir = getDataDirectory();
@@ -398,7 +421,25 @@ public class MainActivity extends AppCompatActivity {
                     teleopUpperScore = 0;
                     autoLowerScore = 0;
                     autoUpperScore = 0;
-
+                    missedScore = 0;
+                    alliance = "none";
+                    notes.setText("");
+                    name_input.setText("");
+                    round_input.setText("");
+                    team_input.setText("");
+                    endgame_results.setSelection(0);
+                    speed.setSelection(0);
+                    climbResult.setSelection(0);
+                    violations.setSelection(0);
+                    shotDistance.setSelection(0);
+                    auto_no_auto.setChecked(false);
+                    autoMovement.setChecked(false);
+                    robotError.setChecked(false);
+                    teleop_upper_text.setText("0");
+                    teleop_lower_text.setText("0");
+                    auto_upper_text.setText("0");
+                    auto_lower_text.setText("0");
+                    missedShotsText.setText("0");
                 }
             }
         });
