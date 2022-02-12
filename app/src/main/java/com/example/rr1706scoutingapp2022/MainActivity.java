@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         final Switch autoMovement = findViewById(R.id.autoMovementSwitch);
         final Switch robotError = findViewById(R.id.robotErrors);
         //No Show
+        Endgame.setVisibility(View.INVISIBLE);
         final DialogInterface.OnClickListener NoShowDialog = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
@@ -118,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     autoLowerScore = 0;
                     autoUpperScore = 0;
                     missedScore = 0;
-                    alliance = "none";
                     notes.setText("");
                     name_input.setText("");
                     round_input.setText("");
@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     auto_upper_text.setText("0");
                     auto_lower_text.setText("0");
                     missedShotsText.setText("0");
+
 
                     SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
                     File dir = getDataDirectory();
@@ -306,7 +307,6 @@ public class MainActivity extends AppCompatActivity {
         pregame_close.setOnClickListener(view -> {
             Pregame.setVisibility(View.INVISIBLE);
         });
-
         Endgame.setVisibility(View.INVISIBLE);
         Pregame_Box.setOnClickListener(view -> {
             if (Pregame.getVisibility() == View.INVISIBLE) {
@@ -422,7 +422,6 @@ public class MainActivity extends AppCompatActivity {
                     autoLowerScore = 0;
                     autoUpperScore = 0;
                     missedScore = 0;
-                    alliance = "none";
                     notes.setText("");
                     name_input.setText("");
                     round_input.setText("");
@@ -440,6 +439,8 @@ public class MainActivity extends AppCompatActivity {
                     auto_upper_text.setText("0");
                     auto_lower_text.setText("0");
                     missedShotsText.setText("0");
+                    Endgame.setVisibility(View.INVISIBLE);
+                    Pregame.setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -21,6 +21,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Missed Shots"
+        android:textColor="#000000"
         android:textSize="24dp"
         app:layout_constraintEnd_toStartOf="@+id/teleop_lower_plus"
         app:layout_constraintHorizontal_bias="1.0"
@@ -150,19 +151,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="TextContrastCheck" />
 
-    <EditText
-        android:id="@+id/notes"
-        android:layout_width="185dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="37dp"
-        android:ems="10"
-        android:hint="Notes"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     //Pregame Stuff
 
     <ImageView
@@ -208,6 +196,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:text="Top"
+        android:textColor="#000000"
         android:textSize="48dp"
         app:layout_constraintEnd_toStartOf="@+id/teleop_upper_plus"
         app:layout_constraintStart_toEndOf="@+id/hubTele"
@@ -262,6 +251,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Bottom"
+        android:textColor="#000000"
         android:textSize="36dp"
         app:layout_constraintEnd_toStartOf="@+id/teleop_lower_plus"
         app:layout_constraintStart_toEndOf="@+id/hubTele"
@@ -317,21 +307,10 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:text="Top"
+        android:textColor="#000000"
         android:textSize="48dp"
         app:layout_constraintEnd_toStartOf="@+id/auto_upper_plus"
         app:layout_constraintStart_toEndOf="@+id/hubauto2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/shotDistanceText"
-        android:layout_width="163dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="460dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Shot Distance"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
@@ -358,7 +337,8 @@
         android:textSize="26dp"
         app:layout_constraintEnd_toStartOf="@+id/auto_lower_plus"
         app:layout_constraintStart_toEndOf="@+id/hubauto2"
-        app:layout_constraintTop_toBottomOf="@+id/toptext" />
+        app:layout_constraintTop_toBottomOf="@+id/toptext"
+        android:textColor="#000000" />
 
     <Switch
         android:id="@+id/autoMovementSwitch"
@@ -375,10 +355,25 @@
         android:id="@+id/shotDistance"
         android:layout_width="171dp"
         android:layout_height="39dp"
-        android:layout_marginTop="496dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginTop="792dp"
+        android:layout_marginEnd="400dp"
+        android:layout_marginRight="400dp"
+        android:background="@color/team_1"
         android:entries="@array/shotDistance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shotDistanceText"
+        android:layout_width="163dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="756dp"
+        android:layout_marginEnd="404dp"
+        android:layout_marginRight="404dp"
+        android:background="@color/team_1"
+        android:text="Shot Distance"
+        android:textColor="#000000"
+        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -393,15 +388,15 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/Alliance"
-            android:layout_width="160dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="96dp"
-            android:layout_marginLeft="96dp"
-            android:layout_marginTop="148dp"
+            android:layout_width="155dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="125dp"
+            android:layout_marginLeft="125dp"
+            android:layout_marginTop="144dp"
             android:text="  Alliance"
             android:textColor="#040303"
             android:textSize="34sp"
@@ -463,8 +458,8 @@
             android:layout_marginLeft="8dp"
             android:ems="10"
             android:hint="Round#"
-            android:maxLength="3"
             android:inputType="number"
+            android:maxLength="3"
             app:layout_constraintStart_toEndOf="@+id/name_input"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -473,9 +468,9 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:ems="10"
-            android:maxLength="4"
             android:hint="Team"
             android:inputType="number"
+            android:maxLength="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -507,12 +502,12 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="241dp"
-            android:layout_height="194dp"
+            android:layout_width="197dp"
+            android:layout_height="169dp"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="112dp"
@@ -537,10 +532,10 @@
 
         <Spinner
             android:id="@+id/endgameResults"
-            android:layout_width="109dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="272dp"
-            android:layout_marginLeft="272dp"
+            android:layout_width="134dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="228dp"
+            android:layout_marginLeft="228dp"
             android:layout_marginTop="144dp"
             android:background="@color/team_1"
             android:dropDownWidth="match_parent"
@@ -578,8 +573,8 @@
 
         <Switch
             android:id="@+id/robotErrors"
-            android:layout_width="91dp"
-            android:layout_height="48dp"
+            android:layout_width="114dp"
+            android:layout_height="47dp"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="44dp"
@@ -604,8 +599,8 @@
             android:layout_width="99dp"
             android:layout_height="32dp"
             android:layout_marginTop="112dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
             android:text="Results"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -627,8 +622,8 @@
             android:id="@+id/robotSpeed"
             android:layout_width="171dp"
             android:layout_height="39dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
+            android:layout_marginStart="216dp"
+            android:layout_marginLeft="216dp"
             android:layout_marginTop="1dp"
             android:background="@color/team_1"
             android:entries="@array/robotSpeed"
@@ -639,13 +634,28 @@
             android:id="@+id/robotSpeedText"
             android:layout_width="163dp"
             android:layout_height="39dp"
-            android:layout_marginStart="34dp"
-            android:layout_marginLeft="34dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="216dp"
+            android:layout_marginLeft="216dp"
+            android:layout_marginTop="9dp"
             android:text="Robot Speed"
             android:textSize="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/endgameResults" />
+
+        <EditText
+            android:id="@+id/notes"
+            android:layout_width="208dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="49dp"
+            android:layout_marginLeft="49dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/team_1"
+            android:ems="10"
+            android:hint="Notes"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
