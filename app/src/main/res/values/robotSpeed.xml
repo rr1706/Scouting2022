@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="robotSpeed">
+        <item>No Input</item>
+        <item>NO MOVEMENT</item>
+        <item>SLOW</item>
+        <item>AVERAGE</item>
+        <item>FAST</item>
+    </string-array>
+</resources>

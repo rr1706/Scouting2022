@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="shotDistance">
+        <item>No Input</item>
+        <item>TARMAC</item>
+        <item>MEDIUM</item>
+        <item>LAUNCHPAD</item>
+        <item>FAR</item>
+    </string-array>
+</resources>

@@ -12,133 +12,101 @@
     tools:visibility="visible">
 
     <TextView
-        android:id="@+id/upperText2"
-        android:layout_width="121dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginLeft="47dp"
-        android:layout_marginTop="103dp"
-        android:text="Upper"
-        android:textSize="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/lowerText"
-        android:layout_width="121dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginLeft="47dp"
-        android:layout_marginTop="49dp"
-        android:text="Lower"
-        android:textSize="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upperText2" />
-
-    <ImageButton
-        android:id="@+id/teleop_upper_minus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="280dp"
-        android:layout_marginEnd="242dp"
-        android:layout_marginRight="242dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/teleop_upper_text"
-        app:layout_constraintTop_toBottomOf="@+id/auto_lower_minus"
-        app:srcCompat="@drawable/minus"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageButton
-        android:id="@+id/teleop_upper_plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="281dp"
-        app:layout_constraintStart_toEndOf="@+id/UpperText"
-        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus"
-        app:srcCompat="@drawable/plus"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/teleop_lower_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="57dp"
-        android:text="0"
+        android:id="@+id/missedShots"
+        android:layout_width="119dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Missed Shots"
         android:textSize="24dp"
-        app:layout_constraintStart_toEndOf="@+id/teleop_lower_plus"
-        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus" />
+        app:layout_constraintEnd_toStartOf="@+id/teleop_lower_plus"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/hubTele"
+        app:layout_constraintTop_toBottomOf="@+id/topText2" />
 
     <ImageButton
-        android:id="@+id/teleop_lower_plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="27dp"
-        app:layout_constraintStart_toEndOf="@+id/LowerText"
-        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus"
-        app:srcCompat="@drawable/plus" />
-
-    <ImageButton
-        android:id="@+id/teleop_lower_minus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="27dp"
+        android:id="@+id/missedShotsMinus"
+        android:layout_width="85dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="88dp"
         app:layout_constraintStart_toEndOf="@+id/teleop_lower_text"
         app:layout_constraintTop_toBottomOf="@+id/teleop_upper_minus"
         app:srcCompat="@drawable/minus" />
 
     <ImageButton
-        android:id="@+id/auto_upper_plus"
+        android:id="@+id/missedShotsPosititve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="103dp"
-        app:layout_constraintStart_toEndOf="@+id/upperText2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/plus" />
-
-    <ImageButton
-        android:id="@+id/auto_lower_plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginTop="27dp"
-        app:layout_constraintStart_toEndOf="@+id/lowerText"
-        app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintStart_toEndOf="@+id/bottomText2"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus"
         app:srcCompat="@drawable/plus" />
 
     <ImageButton
         android:id="@+id/auto_upper_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="103dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="108dp"
         app:layout_constraintStart_toEndOf="@+id/auto_upper_text"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/minus" />
+
+    <TextView
+        android:id="@+id/auto_upper_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/auto_upper_minus"
+        app:layout_constraintStart_toEndOf="@+id/auto_upper_plus"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/auto_upper_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="108dp"
+        app:layout_constraintStart_toEndOf="@+id/hubauto2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/plus" />
 
     <ImageButton
         android:id="@+id/auto_lower_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toEndOf="@+id/auto_lower_text"
         app:layout_constraintTop_toBottomOf="@+id/auto_upper_minus"
         app:srcCompat="@drawable/minus" />
+
+    <ImageButton
+        android:id="@+id/auto_lower_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="104dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@+id/hubauto2"
+        app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus"
+        app:srcCompat="@drawable/plus" />
 
     <TextView
         android:id="@+id/auto_lower_text"
@@ -152,36 +120,6 @@
         app:layout_constraintStart_toEndOf="@+id/auto_lower_plus"
         app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus" />
     //Both upper Texts
-
-    <TextView
-        android:id="@+id/teleop_upper_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="307dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:text="0"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/teleop_upper_minus"
-        app:layout_constraintStart_toEndOf="@+id/teleop_upper_plus"
-        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
-
-    <TextView
-        android:id="@+id/auto_upper_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="133dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:text="0"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/auto_upper_minus"
-        app:layout_constraintStart_toEndOf="@+id/auto_upper_plus"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Endgame_Box"
@@ -202,9 +140,9 @@
         android:id="@+id/Pregame_Box"
         android:layout_width="154dp"
         android:layout_height="58dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginRight="176dp"
+        android:layout_marginBottom="36dp"
         android:background="#FFFFFF"
         android:text="Pregame"
         android:textSize="20sp"
@@ -227,29 +165,222 @@
 
     //Pregame Stuff
 
-    <TextView
-        android:id="@+id/UpperText"
-        android:layout_width="121dp"
-        android:layout_height="67dp"
+    <ImageView
+        android:id="@+id/hubTele"
+        android:layout_width="223dp"
+        android:layout_height="284dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="508dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hub" />
+
+    <ImageButton
+        android:id="@+id/teleop_lower_minus"
+        android:layout_width="85dp"
+        android:layout_height="79dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="289dp"
-        android:text="Upper"
-        android:textSize="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lowerText" />
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/teleop_lower_text"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_minus"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageButton
+        android:id="@+id/teleop_lower_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/bottomText2"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus"
+        app:srcCompat="@drawable/plus" />
 
     <TextView
-        android:id="@+id/LowerText"
-        android:layout_width="121dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:id="@+id/topText2"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="248dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Top"
+        android:textSize="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/teleop_upper_plus"
+        app:layout_constraintStart_toEndOf="@+id/hubTele"
+        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
+
+    <ImageButton
+        android:id="@+id/teleop_upper_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="244dp"
+        app:layout_constraintStart_toEndOf="@+id/topText2"
+        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus"
+        app:srcCompat="@drawable/plus"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/teleop_upper_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="276dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/teleop_upper_minus"
+        app:layout_constraintStart_toEndOf="@+id/teleop_upper_plus"
+        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
+
+    <ImageButton
+        android:id="@+id/teleop_upper_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="244dp"
+        app:layout_constraintStart_toEndOf="@+id/teleop_upper_text"
+        app:layout_constraintTop_toBottomOf="@+id/auto_lower_minus"
+        app:srcCompat="@drawable/minus"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/bottomText2"
+        android:layout_width="119dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Bottom"
+        android:textSize="36dp"
+        app:layout_constraintEnd_toStartOf="@+id/teleop_lower_plus"
+        app:layout_constraintStart_toEndOf="@+id/hubTele"
+        app:layout_constraintTop_toBottomOf="@+id/topText2" />
+
+    <TextView
+        android:id="@+id/teleop_lower_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/teleop_lower_minus"
+        app:layout_constraintStart_toEndOf="@+id/teleop_lower_plus"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus" />
+
+    <TextView
+        android:id="@+id/missedShotsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/teleop_lower_minus"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toEndOf="@+id/teleop_lower_plus"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus" />
+
+    <ImageView
+        android:id="@+id/hubauto2"
+        android:layout_width="223dp"
+        android:layout_height="284dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="48dp"
-        android:text="Lower"
-        android:textSize="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UpperText" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/hub" />
+
+    <TextView
+        android:id="@+id/toptext"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Top"
+        android:textSize="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/auto_upper_plus"
+        app:layout_constraintStart_toEndOf="@+id/hubauto2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shotDistanceText"
+        android:layout_width="163dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="460dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Shot Distance"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/noAutoSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:text="No Auto?"
+        app:layout_constraintEnd_toStartOf="@+id/autoMovementSwitch"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bottomText"
+        android:layout_width="91dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="Bottom"
+        android:textSize="26dp"
+        app:layout_constraintEnd_toStartOf="@+id/auto_lower_plus"
+        app:layout_constraintStart_toEndOf="@+id/hubauto2"
+        app:layout_constraintTop_toBottomOf="@+id/toptext" />
+
+    <Switch
+        android:id="@+id/autoMovementSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:text="Auto Movement?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/shotDistance"
+        android:layout_width="171dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="496dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:entries="@array/shotDistance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Pregame"
@@ -262,15 +393,15 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/Alliance"
             android:layout_width="160dp"
             android:layout_height="40dp"
-            android:layout_marginStart="124dp"
-            android:layout_marginLeft="124dp"
-            android:layout_marginTop="156dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginLeft="96dp"
+            android:layout_marginTop="148dp"
             android:text="  Alliance"
             android:textColor="#040303"
             android:textSize="34sp"
@@ -319,7 +450,7 @@
             android:layout_width="185dp"
             android:layout_height="50dp"
             android:ems="10"
-            android:hint="Name"
+            android:hint="Scouter Name"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -332,7 +463,8 @@
             android:layout_marginLeft="8dp"
             android:ems="10"
             android:hint="Round#"
-            android:inputType="textPersonName"
+            android:maxLength="3"
+            android:inputType="number"
             app:layout_constraintStart_toEndOf="@+id/name_input"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -341,10 +473,25 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:ems="10"
+            android:maxLength="4"
             android:hint="Team"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/pregame_close"
+            android:layout_width="88dp"
+            android:layout_height="71dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="21dp"
+            android:background="#FFFFFF"
+            android:text="X"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="TextContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     //Endgame Stuff
@@ -357,9 +504,10 @@
         android:layout_marginLeft="89dp"
         android:layout_marginTop="243dp"
         android:background="#7F7F7F"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/imageView"
@@ -402,16 +550,102 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
 
+        <Spinner
+            android:id="@+id/violations"
+            android:layout_width="109dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="272dp"
+            android:layout_marginLeft="272dp"
+            android:layout_marginTop="52dp"
+            android:background="@color/team_1"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/violations"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
         <Button
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="280dp"
-            android:layout_marginLeft="280dp"
-            android:layout_marginTop="236dp"
+            android:layout_marginStart="284dp"
+            android:layout_marginLeft="284dp"
+            android:layout_marginTop="336dp"
             android:text="Submit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/robotErrors"
+            android:layout_width="91dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="44dp"
+            android:text="Robot Errors?"
+            app:layout_constraintStart_toEndOf="@+id/endgameClimb"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/violationsText"
+            android:layout_width="99dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
+            android:text="Violations"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/resultsText"
+            android:layout_width="99dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="112dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Results"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/climbText"
+            android:layout_width="125dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="248dp"
+            android:layout_marginRight="248dp"
+            android:text="Climb Height"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/robotSpeed"
+            android:layout_width="171dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/team_1"
+            android:entries="@array/robotSpeed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/robotSpeedText" />
+
+        <TextView
+            android:id="@+id/robotSpeedText"
+            android:layout_width="163dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginTop="8dp"
+            android:text="Robot Speed"
+            android:textSize="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
