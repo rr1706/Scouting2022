@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageView teleop_lower_minus = findViewById(R.id.teleop_lower_minus);
         final Switch auto_no_auto = findViewById(R.id.noAutoSwitch);
         final Switch autoMovement = findViewById(R.id.autoMovementSwitch);
+        final Switch robotError = findViewById(R.id.robotErrors);
         //No Show
         final DialogInterface.OnClickListener NoShowDialog = (dialog, which) -> {
             switch (which) {
@@ -320,8 +321,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String submitError = "";
-                String robotErrors = "";
-                String genPos;
                 SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
                 int team;
                 int round;
@@ -369,19 +368,18 @@ public class MainActivity extends AppCompatActivity {
                         myOutWriter.println("Match: "+round);
                         myOutWriter.println("Alliance: "+alliance);
                         myOutWriter.println("Speed: "+speed.getSelectedItem().toString());
-                        //Robot errors handling
-                        if (robotErrors.equals("FALSE")) { robotErrors = "None"; }
-                        myOutWriter.println("Robot Errors: "+robotErrors);
+                        myOutWriter.println("Robot Errors: "+robotError.isChecked());
                         myOutWriter.println("Auto Top Score: "+autoUpperScore);
                         myOutWriter.println("Auto Bottom Score: "+autoLowerScore);
                         myOutWriter.println("No Auto: "+auto_no_auto.isChecked());
-                        myOutWriter.println("Passed Init Line: "+autoMovement.isChecked());
+                        myOutWriter.println("Auto Movement: "+autoMovement.isChecked());
                         myOutWriter.println("Teleop Top Score: "+teleopUpperScore);
                         myOutWriter.println("Teleop Bottom Score: "+teleopLowerScore);
-                        //Rotation control handling
-                        //Generator position handling
-                        myOutWriter.println("Endgame: "+endgame_results);
+                        myOutWriter.println("Missed Shots: "+missedScore);
+                        myOutWriter.println("Shot Distance: "+shotDistance.getSelectedItem());
+                        myOutWriter.println("Endgame: "+climbResult.getSelectedItem());
                         myOutWriter.println("Results: "+endgame_results.getSelectedItem());
+                        myOutWriter.println("Violations: "+violations.getSelectedItem());
                         myOutWriter.println("Notes: "+notes.getText());
 
                         myOutWriter.flush();
