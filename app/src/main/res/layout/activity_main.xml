@@ -6,18 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/appbackground"
-    android:maxWidth="601dp"
-    android:maxHeight="890dp"
+    android:maxWidth="605dp"
+    android:maxHeight="925dp"
     tools:context=".MainActivity"
     tools:visibility="visible">
 
     <TextView
         android:id="@+id/missedShots"
-        android:layout_width="119dp"
-        android:layout_height="58dp"
+        android:layout_width="157dp"
+        android:layout_height="33dp"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Missed Shots"
@@ -32,22 +32,22 @@
         android:id="@+id/missedShotsMinus"
         android:layout_width="85dp"
         android:layout_height="79dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="88dp"
-        app:layout_constraintStart_toEndOf="@+id/teleop_lower_text"
-        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_minus"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_lower_minus"
         app:srcCompat="@drawable/minus" />
 
     <ImageButton
         android:id="@+id/missedShotsPosititve"
-        android:layout_width="wrap_content"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toEndOf="@+id/bottomText2"
-        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus"
+        app:layout_constraintTop_toBottomOf="@+id/teleop_lower_plus"
         app:srcCompat="@drawable/plus" />
 
     <ImageButton
@@ -57,6 +57,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="108dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/auto_upper_text"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/minus" />
@@ -91,10 +94,10 @@
         android:id="@+id/auto_lower_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintStart_toEndOf="@+id/auto_lower_text"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auto_upper_minus"
         app:srcCompat="@drawable/minus" />
 
@@ -102,9 +105,13 @@
         android:id="@+id/auto_lower_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginLeft="104dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/auto_lower_minus"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/hubauto2"
         app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus"
         app:srcCompat="@drawable/plus" />
@@ -113,43 +120,13 @@
         android:id="@+id/auto_lower_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="57dp"
         android:text="0"
         android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/auto_lower_minus"
+        app:layout_constraintEnd_toStartOf="@+id/auto_lower_minus"
         app:layout_constraintStart_toEndOf="@+id/auto_lower_plus"
-        app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus" />
+        app:layout_constraintTop_toTopOf="@+id/auto_lower_minus" />
     //Both upper Texts
-
-    <Button
-        android:id="@+id/Endgame_Box"
-        android:layout_width="156dp"
-        android:layout_height="58dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="36dp"
-        android:background="#FFFFFF"
-        android:text="Endgame"
-        android:textColor="@color/team_1"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="TextContrastCheck" />
-
-    <Button
-        android:id="@+id/Pregame_Box"
-        android:layout_width="154dp"
-        android:layout_height="58dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginRight="176dp"
-        android:layout_marginBottom="36dp"
-        android:background="#FFFFFF"
-        android:text="Pregame"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="TextContrastCheck" />
 
     //Pregame Stuff
 
@@ -159,7 +136,7 @@
         android:layout_height="284dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="508dp"
+        android:layout_marginTop="488dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hub" />
@@ -168,46 +145,41 @@
         android:id="@+id/teleop_lower_minus"
         android:layout_width="85dp"
         android:layout_height="79dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toEndOf="@+id/teleop_lower_text"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/teleop_upper_minus"
         app:srcCompat="@drawable/minus" />
 
     <ImageButton
         android:id="@+id/teleop_lower_plus"
-        android:layout_width="wrap_content"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toEndOf="@+id/bottomText2"
+        app:layout_constraintStart_toStartOf="@+id/teleop_upper_plus"
         app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus"
         app:srcCompat="@drawable/plus" />
 
     <TextView
         android:id="@+id/topText2"
-        android:layout_width="90dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="248dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_width="59dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="268dp"
         android:text="Top"
         android:textColor="#000000"
-        android:textSize="48dp"
-        app:layout_constraintEnd_toStartOf="@+id/teleop_upper_plus"
+        android:textSize="29dp"
         app:layout_constraintStart_toEndOf="@+id/hubTele"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
 
     <ImageButton
         android:id="@+id/teleop_upper_plus"
-        android:layout_width="wrap_content"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="244dp"
         app:layout_constraintStart_toEndOf="@+id/topText2"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus"
@@ -216,77 +188,73 @@
 
     <TextView
         android:id="@+id/teleop_upper_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="33dp"
+        android:layout_height="28dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="276dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:text="0"
         android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/teleop_lower_minus"
         app:layout_constraintEnd_toStartOf="@+id/teleop_upper_minus"
         app:layout_constraintStart_toEndOf="@+id/teleop_upper_plus"
-        app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
+        app:layout_constraintTop_toTopOf="@+id/teleop_upper_minus" />
 
     <ImageButton
         android:id="@+id/teleop_upper_minus"
-        android:layout_width="wrap_content"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
         android:layout_marginTop="244dp"
-        app:layout_constraintStart_toEndOf="@+id/teleop_upper_text"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_minus"
         app:srcCompat="@drawable/minus"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/bottomText2"
-        android:layout_width="119dp"
-        android:layout_height="58dp"
+        android:layout_width="111dp"
+        android:layout_height="38dp"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Bottom"
         android:textColor="#000000"
-        android:textSize="36dp"
+        android:textSize="31dp"
         app:layout_constraintEnd_toStartOf="@+id/teleop_lower_plus"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/hubTele"
         app:layout_constraintTop_toBottomOf="@+id/topText2" />
 
     <TextView
         android:id="@+id/teleop_lower_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_width="28dp"
+        android:layout_height="32dp"
         android:text="0"
         android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/missedShotsMinus"
         app:layout_constraintEnd_toStartOf="@+id/teleop_lower_minus"
         app:layout_constraintStart_toEndOf="@+id/teleop_lower_plus"
-        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus" />
+        app:layout_constraintTop_toTopOf="@+id/teleop_lower_minus" />
 
     <TextView
         android:id="@+id/missedShotsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_width="36dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:text="0"
         android:textSize="24dp"
-        app:layout_constraintEnd_toStartOf="@+id/teleop_lower_minus"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintBottom_toBottomOf="@+id/missedShotsMinus"
+        app:layout_constraintEnd_toStartOf="@+id/missedShotsMinus"
+        app:layout_constraintHorizontal_bias="0.409"
         app:layout_constraintStart_toEndOf="@+id/teleop_lower_plus"
-        app:layout_constraintTop_toBottomOf="@+id/teleop_upper_plus" />
+        app:layout_constraintTop_toTopOf="@+id/missedShotsMinus"
+        app:layout_constraintVertical_bias="0.531" />
 
     <ImageView
         android:id="@+id/hubauto2"
@@ -301,15 +269,16 @@
 
     <TextView
         android:id="@+id/toptext"
-        android:layout_width="90dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="107dp"
+        android:layout_width="54dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:text="Top"
         android:textColor="#000000"
-        android:textSize="48dp"
+        android:textSize="29dp"
         app:layout_constraintEnd_toStartOf="@+id/auto_upper_plus"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/hubauto2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -318,48 +287,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginRight="14dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:text="No Auto?"
         app:layout_constraintEnd_toStartOf="@+id/autoMovementSwitch"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bottomText"
-        android:layout_width="91dp"
-        android:layout_height="42dp"
+        android:layout_width="102dp"
+        android:layout_height="41dp"
         android:layout_marginStart="9dp"
         android:layout_marginLeft="9dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:text="Bottom"
-        android:textSize="26dp"
+        android:textColor="#000000"
+        android:textSize="29dp"
         app:layout_constraintEnd_toStartOf="@+id/auto_lower_plus"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/hubauto2"
-        app:layout_constraintTop_toBottomOf="@+id/toptext"
-        android:textColor="#000000" />
+        app:layout_constraintTop_toBottomOf="@+id/toptext" />
 
     <Switch
         android:id="@+id/autoMovementSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginRight="72dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
         android:text="Auto Movement?"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/shotDistance"
-        android:layout_width="171dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="792dp"
-        android:layout_marginEnd="400dp"
-        android:layout_marginRight="400dp"
-        android:background="@color/team_1"
-        android:entries="@array/shotDistance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -367,40 +325,103 @@
         android:id="@+id/shotDistanceText"
         android:layout_width="163dp"
         android:layout_height="39dp"
-        android:layout_marginTop="756dp"
-        android:layout_marginEnd="404dp"
-        android:layout_marginRight="404dp"
-        android:background="@color/team_1"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/cardview_shadow_end_color"
         android:text="Shot Distance"
         android:textColor="#000000"
         android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/shotDistance"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/shotDistance"
+        android:layout_width="164dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="36dp"
+        android:background="@color/team_1"
+        android:entries="@array/shotDistance"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/grayBox"
+        android:layout_width="600dp"
+        android:layout_height="908dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="17dp"
+        android:background="@color/cardview_shadow_end_color"
+        app:backgroundTint="@color/cardview_shadow_end_color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Pregame_Box"
+        android:layout_width="154dp"
+        android:layout_height="58dp"
+        android:elevation="100dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginRight="176dp"
+        android:layout_marginBottom="36dp"
+        android:background="#FFFFFF"
+        android:text="Pregame"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/Endgame_Box"
+        android:layout_width="156dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="36dp"
+        android:elevation="100dp"
+        android:background="#FFFFFF"
+        android:text="Endgame"
+        android:textColor="@color/team_1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Pregame"
+        android:elevation="100dp"
         android:layout_width="400dp"
         android:layout_height="400dp"
-        android:layout_marginStart="89dp"
-        android:layout_marginLeft="89dp"
-        android:layout_marginTop="243dp"
         android:background="#7F7F7F"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
         <TextView
-            android:id="@+id/Alliance"
+            android:id="@+id/alliance_text"
             android:layout_width="155dp"
             android:layout_height="37dp"
-            android:layout_marginStart="125dp"
-            android:layout_marginLeft="125dp"
+            android:layout_marginStart="122dp"
+            android:layout_marginLeft="122dp"
             android:layout_marginTop="144dp"
+            android:layout_marginEnd="122dp"
+            android:layout_marginRight="122dp"
             android:text="  Alliance"
             android:textColor="#040303"
             android:textSize="34sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -408,37 +429,49 @@
             android:id="@+id/Blue_Alliance"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginRight="116dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="112dp"
+            android:layout_marginRight="112dp"
             app:backgroundTint="#3F51B5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Alliance"
+            app:layout_constraintTop_toBottomOf="@+id/alliance_text"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/Red_Alliance"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginLeft="112dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="204dp"
-            android:layout_marginRight="204dp"
             app:backgroundTint="#CC2121"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Alliance"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alliance_text"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/no_show"
             android:layout_width="119dp"
             android:layout_height="70dp"
-            android:layout_marginStart="140dp"
-            android:layout_marginLeft="140dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginBottom="16dp"
             android:text="No Show"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/pregame_close"
+            android:layout_width="119dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="20dp"
+            android:text="Continue"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <EditText
             android:id="@+id/name_input"
@@ -447,6 +480,7 @@
             android:ems="10"
             android:hint="Scouter Name"
             android:inputType="textPersonName"
+            android:maxLength="15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -457,7 +491,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:ems="10"
-            android:hint="Round#"
+            android:hint="Match#"
             android:inputType="number"
             android:maxLength="3"
             app:layout_constraintStart_toEndOf="@+id/name_input"
@@ -474,43 +508,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/pregame_close"
-            android:layout_width="88dp"
-            android:layout_height="71dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="21dp"
-            android:background="#FFFFFF"
-            android:text="X"
-            android:textSize="40sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="TextContrastCheck" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
     //Endgame Stuff
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Endgame"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        android:layout_marginStart="89dp"
-        android:layout_marginLeft="89dp"
-        android:layout_marginTop="243dp"
+        android:elevation="100dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="486dp"
+        android:layout_height="500dp"
         android:background="#7F7F7F"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="gone">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="197dp"
-            android:layout_height="169dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="112dp"
+            android:layout_width="293dp"
+            android:layout_height="310dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="76dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/_022hangar" />
@@ -519,9 +542,9 @@
             android:id="@+id/endgameClimb"
             android:layout_width="109dp"
             android:layout_height="60dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="44dp"
             android:background="@color/team_1"
             android:dropDownWidth="match_parent"
             android:entries="@array/endgameClimb"
@@ -531,32 +554,17 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <Spinner
-            android:id="@+id/endgameResults"
-            android:layout_width="134dp"
-            android:layout_height="57dp"
-            android:layout_marginStart="228dp"
-            android:layout_marginLeft="228dp"
-            android:layout_marginTop="144dp"
-            android:background="@color/team_1"
-            android:dropDownWidth="match_parent"
-            android:entries="@array/endgameResults"
-            android:spinnerMode="dropdown"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <Spinner
             android:id="@+id/violations"
             android:layout_width="109dp"
             android:layout_height="60dp"
-            android:layout_marginStart="272dp"
-            android:layout_marginLeft="272dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/team_1"
             android:dropDownWidth="match_parent"
             android:entries="@array/violations"
             android:spinnerMode="dropdown"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -564,98 +572,113 @@
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="284dp"
-            android:layout_marginLeft="284dp"
-            android:layout_marginTop="336dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:text="Submit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <Switch
             android:id="@+id/robotErrors"
-            android:layout_width="114dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="44dp"
+            android:layout_width="106dp"
+            android:layout_height="42dp"
             android:text="Robot Errors?"
+            app:layout_constraintBottom_toTopOf="@+id/resultsText"
+            app:layout_constraintEnd_toStartOf="@+id/violations"
+            app:layout_constraintHorizontal_bias="0.56"
             app:layout_constraintStart_toEndOf="@+id/endgameClimb"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.39" />
 
         <TextView
             android:id="@+id/violationsText"
             android:layout_width="99dp"
             android:layout_height="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginTop="12dp"
             android:text="Violations"
             android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/resultsText"
-            android:layout_width="99dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="112dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginRight="60dp"
-            android:text="Results"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/violations"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="@+id/violations"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/climbText"
             android:layout_width="125dp"
             android:layout_height="31dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="248dp"
-            android:layout_marginRight="248dp"
+            android:layout_marginTop="12dp"
             android:text="Climb Height"
             android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/endgameClimb"
+            app:layout_constraintStart_toStartOf="@+id/endgameClimb"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/resultsText"
+            android:layout_width="99dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="160dp"
+            android:text="Results"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/endgameResults"
+            app:layout_constraintHorizontal_bias="0.342"
+            app:layout_constraintStart_toStartOf="@+id/endgameResults"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/robotSpeed"
-            android:layout_width="171dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="216dp"
-            android:layout_marginLeft="216dp"
-            android:layout_marginTop="1dp"
+            android:id="@+id/endgameResults"
+            android:layout_width="134dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="188dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
             android:background="@color/team_1"
-            android:entries="@array/robotSpeed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/robotSpeedText" />
+            android:dropDownWidth="match_parent"
+            android:entries="@array/endgameResults"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/robotSpeedText"
             android:layout_width="163dp"
             android:layout_height="39dp"
-            android:layout_marginStart="216dp"
-            android:layout_marginLeft="216dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="60dp"
             android:text="Robot Speed"
             android:textSize="24dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/robotSpeed"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="@+id/robotSpeed"
             app:layout_constraintTop_toBottomOf="@+id/endgameResults" />
+
+        <Spinner
+            android:id="@+id/robotSpeed"
+            android:layout_width="171dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/team_1"
+            android:entries="@array/robotSpeed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/robotSpeedText" />
 
         <EditText
             android:id="@+id/notes"
             android:layout_width="208dp"
             android:layout_height="52dp"
-            android:layout_marginStart="49dp"
-            android:layout_marginLeft="49dp"
-            android:layout_marginBottom="30dp"
             android:background="@color/team_1"
             android:ems="10"
             android:hint="Notes"
             android:inputType="textPersonName"
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/submit"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -664,6 +687,7 @@
         android:layout_width="600dp"
         android:layout_height="891dp"
         android:visibility="gone"
+        android:elevation="1000dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/check" />

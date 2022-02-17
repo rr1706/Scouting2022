@@ -2,8 +2,8 @@
 <resources>
     <string-array name="violations">
         <item>No Input</item>
-        <item>NONE</item>
-        <item>A FEW</item>
-        <item>A LOT</item>
+        <item>NONE (0)</item>
+        <item>A FEW (1-3)</item>
+        <item>A LOT (4+)</item>
     </string-array>
 </resources>

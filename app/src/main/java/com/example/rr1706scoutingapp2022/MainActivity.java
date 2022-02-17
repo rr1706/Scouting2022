@@ -2,7 +2,7 @@ package com.example.rr1706scoutingapp2022;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Group;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,15 +11,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.InputType;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -69,9 +66,11 @@ public class MainActivity extends AppCompatActivity {
         final ConstraintLayout Background = findViewById(R.id.Background);
         final ConstraintLayout Pregame = findViewById(R.id.Pregame);
         final ConstraintLayout Endgame = findViewById(R.id.Endgame);
+        final Button Gray_Box = findViewById(R.id.grayBox);
         //Lines
         final ImageView data_submitted = findViewById(R.id.data_submitted);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final TextView allianceText = findViewById(R.id.alliance_text);
         //EditTexts
         final EditText name_input = findViewById(R.id.name_input);
         final EditText team_input = findViewById(R.id.team_input);
@@ -106,11 +105,17 @@ public class MainActivity extends AppCompatActivity {
         final Switch auto_no_auto = findViewById(R.id.noAutoSwitch);
         final Switch autoMovement = findViewById(R.id.autoMovementSwitch);
         final Switch robotError = findViewById(R.id.robotErrors);
+        Drawable textBackground = name_input.getBackground();
         //No Show
         Endgame.setVisibility(View.INVISIBLE);
+        Pregame.bringToFront();
         final DialogInterface.OnClickListener NoShowDialog = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
+                    allianceText.setBackgroundColor(Color.TRANSPARENT);
+                    round_input.setBackground(textBackground);
+                    team_input.setBackground(textBackground);
+                    name_input.setBackground(textBackground);
                     data_submitted.setImageResource(R.drawable.check);
                     data_submitted.setVisibility(View.VISIBLE);
                     ds_cooldown = 150;
@@ -136,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                     auto_upper_text.setText("0");
                     auto_lower_text.setText("0");
                     missedShotsText.setText("0");
-
 
                     SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
                     File dir = getDataDirectory();
@@ -165,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         };
-
+        Gray_Box.setBackgroundColor(Color.argb(127,240,240,240));
         no_show.setOnClickListener(v -> {
             String submitError = "";
 
@@ -214,13 +218,34 @@ public class MainActivity extends AppCompatActivity {
                     if (ds_cooldown > 0) {
                         ds_cooldown--;
                     }
-
                     if (ds_cooldown == 0) {
                         data_submitted.setVisibility(View.GONE);
                     }
+
                 });
             }
         };
+        auto_no_auto.setOnClickListener(v -> {
+            if (auto_no_auto.isChecked()) {
+                autoMovement.setChecked(false);
+                autoMovement.setEnabled(false);
+                auto_lower_text.setEnabled(false);
+                auto_upper_text.setEnabled(false);
+                auto_upper_minus.setEnabled(false);
+                auto_upper_plus.setEnabled(false);
+                auto_lower_minus.setEnabled(false);
+                auto_lower_plus.setEnabled(false);
+            }
+            if (!auto_no_auto.isChecked()) {
+                autoMovement.setEnabled(true);
+                auto_lower_text.setEnabled(true);
+                auto_upper_text.setEnabled(true);
+                auto_upper_minus.setEnabled(true);
+                auto_upper_plus.setEnabled(true);
+                auto_lower_minus.setEnabled(true);
+                auto_lower_plus.setEnabled(true);
+            }
+        });
         Thread myThread = new Thread(myRunnable);
         myThread.start();
         auto_upper_plus.setOnClickListener(v -> {
@@ -287,43 +312,89 @@ public class MainActivity extends AppCompatActivity {
             }
             missedShotsText.setText(Integer.toString(missedScore));
         });
-        //ImageViews
-
-        //TextViews
-
-        //EditTexts
-
-        //CheckBoxes
-
-        //Spinners
-
-        //Other elements
-
-        //Set invisible/visible/tinted elements
-
-        //Groups
-
-        //Pregame
         pregame_close.setOnClickListener(view -> {
-            Pregame.setVisibility(View.INVISIBLE);
+            String closeError = "";
+            if (team_input.getText().toString().equals("")) {
+                closeError += " No Team,";
+                team_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
+            }
+            if (round_input.getText().toString().equals("")) {
+                closeError += " No Match,";
+                round_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
+            }
+            if (alliance == "none") { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
+            if (name_input.getText().toString().equals("")) { closeError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0));}
+            if (!closeError.equals("")) { closeError = closeError.substring(0,closeError.length()-1)+"."; }
+
+            if (!(closeError.equals(""))) {
+                Toast.makeText(getApplicationContext(), "Submit Error:"+closeError, Toast.LENGTH_LONG).show();
+
+                data_submitted.setVisibility(View.VISIBLE);
+                data_submitted.setImageResource(R.drawable.x);
+                ds_cooldown = 150;
+            } else {
+                Pregame.setVisibility(View.INVISIBLE);
+                Gray_Box.setVisibility(View.INVISIBLE);
+                allianceText.setBackgroundColor(Color.TRANSPARENT);
+                round_input.setBackground(textBackground);
+                team_input.setBackground(textBackground);
+                name_input.setBackground(textBackground);
+            }
         });
+        Gray_Box.setOnClickListener(View -> {
+            String closeError = "";
+            if (team_input.getText().toString().equals("")) {
+                closeError += " No Team,";
+                team_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
+            }
+            if (round_input.getText().toString().equals("")) {
+                closeError += " No Match,";
+                round_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
+            }
+            if (alliance == "none") { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
+            if (name_input.getText().toString().equals("")) { closeError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0));}
+            if (!closeError.equals("")) { closeError = closeError.substring(0,closeError.length()-1)+"."; }
+
+            if (!(closeError.equals(""))) {
+                Toast.makeText(getApplicationContext(), "Submit Error:"+closeError, Toast.LENGTH_LONG).show();
+
+                data_submitted.setVisibility(View.VISIBLE);
+                data_submitted.setImageResource(R.drawable.x);
+                ds_cooldown = 150;
+            } else {
+                Pregame.setVisibility(View.INVISIBLE);
+                Gray_Box.setVisibility(View.INVISIBLE);
+                allianceText.setBackgroundColor(Color.TRANSPARENT);
+                round_input.setBackground(textBackground);
+                team_input.setBackground(textBackground);
+                name_input.setBackground(textBackground);
+            }
+            Endgame.setVisibility(View.INVISIBLE);
+         });
+
         Endgame.setVisibility(View.INVISIBLE);
         Pregame_Box.setOnClickListener(view -> {
             if (Pregame.getVisibility() == View.INVISIBLE) {
                 Endgame.setVisibility(View.INVISIBLE);
                 Pregame.setVisibility(View.VISIBLE);
+                Gray_Box.setVisibility(View.VISIBLE);
+                Pregame.bringToFront();
             } else if (Pregame.getVisibility() == View.VISIBLE) {
                 Pregame.setVisibility(View.INVISIBLE);
                 Endgame.setVisibility(View.INVISIBLE);
+                Gray_Box.setVisibility(View.INVISIBLE);
             }
         });
         Endgame_Box.setOnClickListener(view -> {
             if (Endgame.getVisibility() == View.VISIBLE) {
                 Pregame.setVisibility(View.INVISIBLE);
                 Endgame.setVisibility(View.INVISIBLE);
+                Gray_Box.setVisibility(View.INVISIBLE);
             } else if (Endgame.getVisibility() == View.INVISIBLE) {
                 Endgame.setVisibility(View.VISIBLE);
                 Pregame.setVisibility(View.INVISIBLE);
+                Gray_Box.setVisibility(View.VISIBLE);
+                Endgame.bringToFront();
             }
         });
         Blue_Alliance.setOnClickListener(v -> {
@@ -349,21 +420,29 @@ public class MainActivity extends AppCompatActivity {
                 int round;
 
                 //Special handling
+                if (auto_no_auto.isChecked()) {
+                    autoUpperScore=0;
+                    autoLowerScore=0;
+                    auto_lower_text.setText("0");
+                    auto_upper_text.setText("0");
+                    autoMovement.setChecked(false);
+                }
+
                 if (team_input.getText().toString().equals("")) { team = -1; }
                 else { team = Integer.parseInt(team_input.getText().toString()); }
 
                 if (round_input.getText().toString().equals("")) { round = -1; }
                 else { round = Integer.parseInt(round_input.getText().toString()); }
 
-                if (alliance == "none") { submitError += " No Alliance,"; }
-                if (name_input.getText().toString().equals("")) { submitError += " No Name,"; }
-                if (speed.getSelectedItem().toString().equals("No Input")) { submitError += " No Speed,"; }
-                if (endgame_results.getSelectedItem().toString().equals("No Input")) { submitError += " No Results,"; }
-                if (violations.getSelectedItem().toString().equals("No Input")) { submitError += " No Violations,"; }
-                if (climbResult.getSelectedItem().toString().equals("No Input")) { submitError += " No Climb Result,"; }
-                if (shotDistance.getSelectedItem().toString().equals("No Input")) { submitError += " No Shot Distance,"; }
-                if (team_input.getText().toString().equals("")) { submitError += " No Team#,"; }
-                if (round_input.getText().toString().equals("")) { submitError += " No Round#,"; }
+                if (alliance == "none") { submitError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE);}
+                if (name_input.getText().toString().equals("")) { submitError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE);}
+                if (speed.getSelectedItem().toString().equals("No Input")) { submitError += " No Speed,"; speed.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.VISIBLE); Pregame.setVisibility(View.INVISIBLE);}
+                if (endgame_results.getSelectedItem().toString().equals("No Input")) { submitError += " No Results,"; endgame_results.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.VISIBLE); Pregame.setVisibility(View.INVISIBLE);}
+                if (violations.getSelectedItem().toString().equals("No Input")) { submitError += " No Violations,"; violations.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.VISIBLE); Pregame.setVisibility(View.INVISIBLE);}
+                if (climbResult.getSelectedItem().toString().equals("No Input")) { submitError += " No Climb Result,"; climbResult.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.VISIBLE); Pregame.setVisibility(View.INVISIBLE);}
+                if (shotDistance.getSelectedItem().toString().equals("No Input")) { submitError += " No Shot Distance,"; shotDistance.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.INVISIBLE); Gray_Box.setVisibility(View.INVISIBLE);}
+                if (team_input.getText().toString().equals("")) { submitError += " No Team#,"; team_input.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE);}
+                if (round_input.getText().toString().equals("")) { submitError += " No Round#,"; round_input.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE); }
                 if (!submitError.equals("")) { submitError = submitError.substring(0,submitError.length()-1)+"."; }
 
                 if (!(submitError.equals(""))) {
@@ -375,6 +454,15 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     data_submitted.setVisibility(View.VISIBLE);
                     data_submitted.setImageResource(R.drawable.check);
+                    team_input.setBackground(textBackground);
+                    round_input.setBackground(textBackground);
+                    shotDistance.setBackgroundResource(android.R.drawable.spinner_background);
+                    name_input.setBackground(textBackground);
+                    allianceText.setBackgroundResource(Color.TRANSPARENT);
+                    climbResult.setBackgroundResource(android.R.drawable.spinner_background);
+                    violations.setBackgroundResource(android.R.drawable.spinner_background);
+                    endgame_results.setBackgroundResource(android.R.drawable.spinner_background);
+                    speed.setBackgroundResource(android.R.drawable.spinner_background);
                     ds_cooldown = 150; //Makes the check mark appear
 
                     //Save data for transfer
@@ -422,6 +510,13 @@ public class MainActivity extends AppCompatActivity {
                     autoLowerScore = 0;
                     autoUpperScore = 0;
                     missedScore = 0;
+                    autoMovement.setEnabled(true);
+                    auto_lower_text.setEnabled(true);
+                    auto_upper_text.setEnabled(true);
+                    auto_upper_minus.setEnabled(true);
+                    auto_upper_plus.setEnabled(true);
+                    auto_lower_minus.setEnabled(true);
+                    auto_lower_plus.setEnabled(true);
                     notes.setText("");
                     name_input.setText("");
                     round_input.setText("");
