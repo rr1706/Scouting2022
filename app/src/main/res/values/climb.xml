@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="endgameClimb">
+    <item>No Input</item>
+    <item>NONE</item>
+    <item>FAIL</item>
+    <item>LOW</item>
+    <item>MIDDLE</item>
+    <item>HIGH</item>
+    <item>TRAVERSE</item>
+    </string-array>
+</resources>

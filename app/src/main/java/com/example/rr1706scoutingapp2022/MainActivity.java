@@ -125,11 +125,14 @@ public class MainActivity extends AppCompatActivity {
                     data_submitted.setImageResource(R.drawable.check);
                     data_submitted.setVisibility(View.VISIBLE);
                     ds_cooldown = 150;
+                    roundfill = Integer.parseInt(round_input.getText().toString());
+                    roundfill ++;
                     teleopLowerScore = 0;
                     teleopUpperScore = 0;
                     autoLowerScore = 0;
                     autoUpperScore = 0;
                     missedScore = 0;
+                    scouterName = name_input.getText().toString();
                     notes.setText("");
                     name_input.setText("");
                     round_input.setText(String.valueOf(roundfill));
@@ -514,6 +517,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     //Reset vars
+                    roundfill = Integer.parseInt(round_input.getText().toString());
                     roundfill ++;
                     teleopLowerScore = 0;
                     teleopUpperScore = 0;
