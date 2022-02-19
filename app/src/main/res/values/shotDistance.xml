@@ -2,6 +2,7 @@
 <resources>
     <string-array name="shotDistance">
         <item>No Input</item>
+        <item>DID NOT SHOOT</item>
         <item>TARMAC</item>
         <item>MEDIUM</item>
         <item>LAUNCHPAD</item>

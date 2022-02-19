@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
         Random rand = new Random();
         int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
         int team;
+        String scouterName;
         int round;
+        int roundfill = 1;
         int missedScore;
         int autoLowerScore;
         int autoUpperScore;
@@ -86,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
         //final Button pregame_open_button = findViewById(R.id.pregame_open_button);
         //final Button pregame_close_button = findViewById(R.id.pregame_close_button);
         final Button Blue_Alliance = findViewById(R.id.Blue_Alliance);
+        final CheckBox teamAutofill = findViewById(R.id.autoFill);
+        final Button sameScouter = findViewById(R.id.sameScouter);
         final Button Red_Alliance = findViewById(R.id.Red_Alliance);
         final Button Pregame_Box = findViewById(R.id.Pregame_Box);
         final Button pregame_close = findViewById(R.id.pregame_close);
@@ -105,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         final Switch auto_no_auto = findViewById(R.id.noAutoSwitch);
         final Switch autoMovement = findViewById(R.id.autoMovementSwitch);
         final Switch robotError = findViewById(R.id.robotErrors);
+        round_input.setText(String.valueOf(roundfill));
         Drawable textBackground = name_input.getBackground();
         //No Show
         Endgame.setVisibility(View.INVISIBLE);
@@ -126,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     missedScore = 0;
                     notes.setText("");
                     name_input.setText("");
-                    round_input.setText("");
+                    round_input.setText(String.valueOf(roundfill));
                     team_input.setText("");
                     endgame_results.setSelection(0);
                     speed.setSelection(0);
@@ -205,14 +211,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        //The great while loop (100/sec)
+        sameScouter.setOnClickListener(v-> {
+            name_input.setText(scouterName);
+        });
+        //The great while loop (100 times/sec)
         Runnable myRunnable = () -> {
             while (true) {
                 try {
                     Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                } catch (InterruptedException e) {}
                 data_submitted.post(() -> {
                     //data_submitted stuff
                     if (ds_cooldown > 0) {
@@ -246,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 auto_lower_plus.setEnabled(true);
             }
         });
+
         Thread myThread = new Thread(myRunnable);
         myThread.start();
         auto_upper_plus.setOnClickListener(v -> {
@@ -504,7 +512,9 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("Exception", "File write failed: " + e.toString());
                     }
 
+
                     //Reset vars
+                    roundfill ++;
                     teleopLowerScore = 0;
                     teleopUpperScore = 0;
                     autoLowerScore = 0;
@@ -518,8 +528,9 @@ public class MainActivity extends AppCompatActivity {
                     auto_lower_minus.setEnabled(true);
                     auto_lower_plus.setEnabled(true);
                     notes.setText("");
+                    scouterName = name_input.getText().toString();
                     name_input.setText("");
-                    round_input.setText("");
+                    round_input.setText(String.valueOf(roundfill));
                     team_input.setText("");
                     endgame_results.setSelection(0);
                     speed.setSelection(0);
@@ -543,6 +554,12 @@ public class MainActivity extends AppCompatActivity {
     private File getDataDirectory() {
         File directory = Environment.getExternalStorageDirectory();
         File myDir = new File(directory + "/ScoutingData");
+        myDir.mkdirs();
+        return myDir;
+    }
+    private File getDataDirectory2() {
+        File directory = Environment.getExternalStorageDirectory();
+        File myDir = new File(directory + "/Documents");
         myDir.mkdirs();
         return myDir;
     }
