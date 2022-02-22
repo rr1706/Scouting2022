@@ -100,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
         final Button Endgame_Box = findViewById(R.id.Endgame_Box);
         final Button no_show = findViewById(R.id.no_show);
         final Button submit = findViewById(R.id.submit);
+        final ImageView option = findViewById(R.id.option);
+        final ImageView rockerTheme = findViewById(R.id.rockerTheme);
+        final ImageView retroTheme = findViewById(R.id.retroTheme);
+        final ImageView steelTheme = findViewById(R.id.steelTheme);
+        final ImageView originalTheme = findViewById(R.id.originalTheme);
+        final ConstraintLayout optionMenu = findViewById(R.id.optionMenu);
         final ImageView missedShotsPositive = findViewById(R.id.missedShotsPosititve);
         final ImageView missedShotsMinus = findViewById(R.id.missedShotsMinus);
         final ImageView auto_upper_plus = findViewById(R.id.auto_upper_plus);
@@ -177,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Data Submitted!", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         Toast.makeText(getApplicationContext(), "Data Submission Failed! (Tell scouting)", Toast.LENGTH_SHORT).show();
-                        Log.e("Exception", "File write failed: " + e.toString());
+                        Log.e("Exception", "File write failed: " + e);
                     }
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -191,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Special handling
 
-            if (alliance == "none") {
+            if (alliance.equals("none")) {
                 submitError += " No Alliance,";
             }
             if (name_input.getText().toString().equals("")) {
@@ -392,8 +398,26 @@ public class MainActivity extends AppCompatActivity {
                 team_input.setBackground(textBackground);
                 name_input.setBackground(nameBackground);
             }
+            optionMenu.setVisibility(View.GONE);
             Endgame.setVisibility(View.INVISIBLE);
          });
+        //This is the function for the theme selector. Im bored...
+        option.setOnClickListener(view -> {
+            optionMenu.setVisibility(View.VISIBLE);
+            Gray_Box.setVisibility(View.VISIBLE);
+        });
+        rockerTheme.setOnClickListener(view -> {
+            setContentView(R.layout.activity_rockers);
+        });
+        steelTheme.setOnClickListener(view -> {
+            setContentView(R.layout.activity_rockers);
+        });
+        retroTheme.setOnClickListener(view -> {
+            setContentView(R.layout.activity_rockers);
+        });
+        originalTheme.setOnClickListener(view -> {
+            setContentView(R.layout.activity_rockers);
+        });
         //These lines are the special function toggles.
         //The Pregame_box is a dev way to open and close pregame without filling out fields
         //The Endgame_box is a operator way to open and close endgame.
