@@ -106,13 +106,15 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginTop="12dp"
-        android:elevation="10dp"
         android:background="@android:color/transparent"
+        android:elevation="10dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/hubauto2"
         app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gear" />
+        app:srcCompat="@drawable/gear"
+        tools:visibility="visible" />
 
     <ImageButton
         android:id="@+id/auto_lower_plus"
