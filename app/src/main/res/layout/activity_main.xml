@@ -102,21 +102,6 @@
         app:srcCompat="@drawable/minus" />
 
     <ImageButton
-        android:id="@+id/option"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="12dp"
-        android:background="@android:color/transparent"
-        android:elevation="10dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/hubauto2"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gear"
-        tools:visibility="visible" />
-
-    <ImageButton
         android:id="@+id/auto_lower_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -347,6 +332,7 @@
         android:text="Shot Distance"
         android:textColor="#000000"
         android:textSize="24dp"
+        android:elevation="11dp"
         app:layout_constraintBottom_toTopOf="@+id/shotDistance"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -356,6 +342,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
+        android:elevation="11dp"
         android:layout_marginBottom="36dp"
         android:background="@color/team_1"
         android:entries="@array/shotDistance"
@@ -553,145 +540,6 @@
     //Endgame Stuff
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/optionMenu"
-        android:layout_width="398dp"
-        android:layout_height="398dp"
-        android:layout_marginTop="4dp"
-        android:background="@android:color/holo_blue_dark"
-        android:clickable="true"
-        android:elevation="11dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
-
-        <ImageButton
-            android:id="@+id/retroTheme"
-            android:layout_width="156dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="119dp"
-            android:layout_marginLeft="119dp"
-            android:layout_marginTop="204dp"
-            android:layout_marginEnd="119dp"
-            android:layout_marginRight="119dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionMenuText"
-            app:srcCompat="@drawable/retrothing" />
-
-        <ImageButton
-            android:id="@+id/originalTheme"
-            android:layout_width="156dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="119dp"
-            android:layout_marginLeft="119dp"
-            android:layout_marginTop="288dp"
-            android:layout_marginEnd="119dp"
-            android:layout_marginRight="119dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionMenuText"
-            app:srcCompat="@drawable/originalthing" />
-
-        <TextView
-            android:id="@+id/steelMenuText"
-            android:layout_width="148dp"
-            android:layout_height="23dp"
-            android:layout_marginBottom="8dp"
-            android:text="Steel Theme"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/steelTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.508"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageButton
-            android:id="@+id/rockerTheme"
-            android:layout_width="160dp"
-            android:layout_height="76dp"
-            android:layout_marginStart="119dp"
-            android:layout_marginLeft="119dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="119dp"
-            android:layout_marginRight="119dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionMenuText"
-            app:srcCompat="@drawable/rockerthing" />
-
-        <ImageButton
-            android:id="@+id/steelTheme"
-            android:layout_width="156dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="119dp"
-            android:layout_marginLeft="119dp"
-            android:layout_marginTop="128dp"
-            android:layout_marginEnd="119dp"
-            android:layout_marginRight="119dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionMenuText"
-            app:srcCompat="@drawable/steeltheme" />
-
-        <TextView
-            android:id="@+id/optionMenuText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Theme Selecter"
-            android:textColor="@color/black"
-            android:textSize="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/rockerMenuText"
-            android:layout_width="148dp"
-            android:layout_height="23dp"
-            android:text="Rocker Theme"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/rockerTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/retroMenuText"
-            android:layout_width="148dp"
-            android:layout_height="23dp"
-            android:layout_marginBottom="1dp"
-            android:text="Retro Theme"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/retroTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/originalThemeText"
-            android:layout_width="139dp"
-            android:layout_height="27dp"
-            android:text="Original Theme"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/originalTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.474"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Endgame"
         android:layout_width="486dp"
         android:layout_height="500dp"
@@ -871,5 +719,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/check" />
+
+    <Button
+        android:id="@+id/devMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="9dp"
+        android:elevation="11dp"
+        android:layout_marginRight="9dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

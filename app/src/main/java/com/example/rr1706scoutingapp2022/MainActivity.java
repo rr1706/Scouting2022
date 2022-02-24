@@ -77,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
         final ImageView data_submitted = findViewById(R.id.data_submitted);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final TextView allianceText = findViewById(R.id.alliance_text);
+        final TextView toptext = findViewById(R.id.toptext);
+        final TextView bottomtext = findViewById(R.id.bottomText);
+        final TextView toptext2 = findViewById(R.id.topText2);
+        final TextView bottomtext2 = findViewById(R.id.bottomText2);
+        final TextView missedtext = findViewById(R.id.missedShots);
         //EditTexts
         final EditText name_input = findViewById(R.id.name_input);
         final EditText team_input = findViewById(R.id.team_input);
@@ -86,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView auto_lower_text = findViewById(R.id.auto_lower_text);
         final TextView missedShotsText = findViewById(R.id.missedShotsText);
         final TextView teleop_upper_text = findViewById(R.id.teleop_upper_text);
+        final TextView shotDistanceText = findViewById(R.id.shotDistanceText);
         final TextView teleop_lower_text = findViewById(R.id.teleop_lower_text);
         data_submitted.setVisibility(View.INVISIBLE);
         //Buttons
@@ -100,12 +106,7 @@ public class MainActivity extends AppCompatActivity {
         final Button Endgame_Box = findViewById(R.id.Endgame_Box);
         final Button no_show = findViewById(R.id.no_show);
         final Button submit = findViewById(R.id.submit);
-        final ImageView option = findViewById(R.id.option);
-        final ImageView rockerTheme = findViewById(R.id.rockerTheme);
-        final ImageView retroTheme = findViewById(R.id.retroTheme);
-        final ImageView steelTheme = findViewById(R.id.steelTheme);
-        final ImageView originalTheme = findViewById(R.id.originalTheme);
-        final ConstraintLayout optionMenu = findViewById(R.id.optionMenu);
+        final Button devMode = findViewById(R.id.devMode);
         final ImageView missedShotsPositive = findViewById(R.id.missedShotsPosititve);
         final ImageView missedShotsMinus = findViewById(R.id.missedShotsMinus);
         final ImageView auto_upper_plus = findViewById(R.id.auto_upper_plus);
@@ -339,6 +340,42 @@ public class MainActivity extends AppCompatActivity {
             }
             missedShotsText.setText(Integer.toString(missedScore));
         });
+        //Enter Dev Mode. Only necessary if something is broke
+        devMode.setOnClickListener(v-> {
+            if (alliance == "blue") {
+                Background.setBackgroundResource(R.drawable.bluedev);
+                auto_lower_text.setTextColor(Color.WHITE);
+                auto_upper_text.setTextColor(Color.WHITE);
+                auto_no_auto.setTextColor(Color.WHITE);
+                autoMovement.setTextColor(Color.WHITE);
+                toptext.setTextColor(Color.WHITE);
+                toptext2.setTextColor(Color.WHITE);
+                missedtext.setTextColor(Color.WHITE);
+                bottomtext.setTextColor(Color.WHITE);
+                bottomtext2.setTextColor(Color.WHITE);
+                teleop_lower_text.setTextColor(Color.WHITE);
+                teleop_upper_text.setTextColor(Color.WHITE);
+                missedShotsText.setTextColor(Color.WHITE);
+                shotDistanceText.setTextColor(Color.WHITE);
+
+            }
+            if (alliance == "red") {
+                Background.setBackgroundResource(R.drawable.reddev);
+                auto_lower_text.setTextColor(Color.WHITE);
+                auto_upper_text.setTextColor(Color.WHITE);
+                auto_no_auto.setTextColor(Color.WHITE);
+                autoMovement.setTextColor(Color.WHITE);
+                toptext.setTextColor(Color.WHITE);
+                toptext2.setTextColor(Color.WHITE);
+                missedtext.setTextColor(Color.WHITE);
+                bottomtext.setTextColor(Color.WHITE);
+                bottomtext2.setTextColor(Color.WHITE);
+                teleop_lower_text.setTextColor(Color.WHITE);
+                teleop_upper_text.setTextColor(Color.WHITE);
+                missedShotsText.setTextColor(Color.WHITE);
+                shotDistanceText.setTextColor(Color.WHITE);
+            }
+        });
         //This is validation to make sure that the fields have been filled before pregame is closed
         pregame_close.setOnClickListener(view -> {
             String closeError = "";
@@ -398,26 +435,8 @@ public class MainActivity extends AppCompatActivity {
                 team_input.setBackground(textBackground);
                 name_input.setBackground(nameBackground);
             }
-            optionMenu.setVisibility(View.GONE);
             Endgame.setVisibility(View.INVISIBLE);
          });
-        //This is the function for the theme selector. Im bored...
-        option.setOnClickListener(view -> {
-            optionMenu.setVisibility(View.VISIBLE);
-            Gray_Box.setVisibility(View.VISIBLE);
-        });
-        rockerTheme.setOnClickListener(view -> {
-            setContentView(R.layout.activity_rockers);
-        });
-        steelTheme.setOnClickListener(view -> {
-            setContentView(R.layout.activity_rockers);
-        });
-        retroTheme.setOnClickListener(view -> {
-            setContentView(R.layout.activity_rockers);
-        });
-        originalTheme.setOnClickListener(view -> {
-            setContentView(R.layout.activity_rockers);
-        });
         //These lines are the special function toggles.
         //The Pregame_box is a dev way to open and close pregame without filling out fields
         //The Endgame_box is a operator way to open and close endgame.
@@ -451,6 +470,19 @@ public class MainActivity extends AppCompatActivity {
             Background.setBackgroundResource(R.drawable.blueappbackground);
             Pregame.setBackgroundColor(Color.argb(255, 127, 127, 247));
             Endgame.setBackgroundColor(Color.argb(255, 127, 127, 247));
+            auto_lower_text.setTextColor(Color.BLACK);
+            auto_upper_text.setTextColor(Color.BLACK);
+            auto_no_auto.setTextColor(Color.BLACK);
+            autoMovement.setTextColor(Color.BLACK);
+            toptext.setTextColor(Color.BLACK);
+            toptext2.setTextColor(Color.BLACK);
+            missedtext.setTextColor(Color.BLACK);
+            bottomtext.setTextColor(Color.BLACK);
+            bottomtext2.setTextColor(Color.BLACK);
+            teleop_lower_text.setTextColor(Color.BLACK);
+            teleop_upper_text.setTextColor(Color.BLACK);
+            missedShotsText.setTextColor(Color.BLACK);
+            shotDistanceText.setTextColor(Color.BLACK);
             alliance = "blue";
         });
 
@@ -459,6 +491,19 @@ public class MainActivity extends AppCompatActivity {
             Background.setBackgroundResource(R.drawable.redappbackground);
             Pregame.setBackgroundColor(Color.argb(255, 247, 127, 127));
             Endgame.setBackgroundColor(Color.argb(255, 247, 127, 127));
+            auto_lower_text.setTextColor(Color.BLACK);
+            auto_upper_text.setTextColor(Color.BLACK);
+            auto_no_auto.setTextColor(Color.BLACK);
+            autoMovement.setTextColor(Color.BLACK);
+            toptext.setTextColor(Color.BLACK);
+            toptext2.setTextColor(Color.BLACK);
+            missedtext.setTextColor(Color.BLACK);
+            bottomtext.setTextColor(Color.BLACK);
+            bottomtext2.setTextColor(Color.BLACK);
+            teleop_lower_text.setTextColor(Color.BLACK);
+            teleop_upper_text.setTextColor(Color.BLACK);
+            missedShotsText.setTextColor(Color.BLACK);
+            shotDistanceText.setTextColor(Color.BLACK);
             alliance = "red";
         });
         //All of these OnTouchListeners are to reset the color of the boxes when they turn yellow from a lack of inputs.
