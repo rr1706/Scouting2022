@@ -1,7 +1,6 @@
 package com.example.rr1706scoutingapp2022;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,11 +8,9 @@ import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,7 +23,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,7 +35,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 public class MainActivity extends AppCompatActivity {
-        Random rand = new Random();
         int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
         int team;
         String scouterName;
@@ -52,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         int teleopLowerScore;
         int missedshots;
         String alliance = "none";
-        boolean autoUpdateTeams = false;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,27 +253,49 @@ teamAutofill.setOnClickListener(v -> {
     if (!teamAutofill.isChecked()) {
         team_input.setText("");
     }
-                });
+                                     });
         //These lines are all the auto-mode validation. This makes sure no auto works with the other auto inputs
         auto_no_auto.setOnClickListener(v -> {
             if (auto_no_auto.isChecked()) {
                 autoMovement.setChecked(false);
+                autoUpperScore = 0;
+                autoLowerScore = 0;
+                auto_upper_text.setText(Integer.toString(autoUpperScore));
+                auto_lower_text.setText(Integer.toString(autoLowerScore));
                 autoMovement.setEnabled(false);
+                autoMovement.setAlpha((float) 0.5);
                 auto_lower_text.setEnabled(false);
+                auto_lower_text.setAlpha((float) 0.5);
                 auto_upper_text.setEnabled(false);
+                auto_upper_text.setAlpha((float) 0.5);
                 auto_upper_minus.setEnabled(false);
+                auto_upper_minus.setAlpha((float) 0.5);
                 auto_upper_plus.setEnabled(false);
+                auto_upper_plus.setAlpha((float) 0.5);
                 auto_lower_minus.setEnabled(false);
+                auto_lower_minus.setAlpha((float) 0.5);
                 auto_lower_plus.setEnabled(false);
+                auto_lower_plus.setAlpha((float) 0.5);
+                toptext.setAlpha((float) 0.5);
+                bottomtext.setAlpha((float) 0.5);
             }
             if (!auto_no_auto.isChecked()) {
                 autoMovement.setEnabled(true);
+                autoMovement.setAlpha((float) 1);
                 auto_lower_text.setEnabled(true);
+                auto_lower_text.setAlpha((float) 1);
                 auto_upper_text.setEnabled(true);
+                auto_upper_text.setAlpha((float) 1);
                 auto_upper_minus.setEnabled(true);
+                auto_upper_minus.setAlpha((float) 1);
                 auto_upper_plus.setEnabled(true);
+                auto_upper_plus.setAlpha((float) 1);
                 auto_lower_minus.setEnabled(true);
+                auto_lower_minus.setAlpha((float) 1);
                 auto_lower_plus.setEnabled(true);
+                auto_lower_plus.setAlpha((float) 1);
+                toptext.setAlpha((float) 1);
+                bottomtext.setAlpha((float) 1);
             }
         });
         //This function prevents the score from going below 0 and above 99
@@ -365,6 +381,22 @@ teamAutofill.setOnClickListener(v -> {
             }
             if (alliance == "red") {
                 Background.setBackgroundResource(R.drawable.reddev);
+                auto_lower_text.setTextColor(Color.WHITE);
+                auto_upper_text.setTextColor(Color.WHITE);
+                auto_no_auto.setTextColor(Color.WHITE);
+                autoMovement.setTextColor(Color.WHITE);
+                toptext.setTextColor(Color.WHITE);
+                toptext2.setTextColor(Color.WHITE);
+                missedtext.setTextColor(Color.WHITE);
+                bottomtext.setTextColor(Color.WHITE);
+                bottomtext2.setTextColor(Color.WHITE);
+                teleop_lower_text.setTextColor(Color.WHITE);
+                teleop_upper_text.setTextColor(Color.WHITE);
+                missedShotsText.setTextColor(Color.WHITE);
+                shotDistanceText.setTextColor(Color.WHITE);
+            }
+            if (alliance == "none"){
+                Background.setBackgroundResource(R.drawable.nodev);
                 auto_lower_text.setTextColor(Color.WHITE);
                 auto_upper_text.setTextColor(Color.WHITE);
                 auto_no_auto.setTextColor(Color.WHITE);
@@ -508,50 +540,35 @@ teamAutofill.setOnClickListener(v -> {
             alliance = "red";
         });
         //All of these OnTouchListeners are to reset the color of the boxes when they turn yellow from a lack of inputs.
-        climbResult.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (!(climbResult.getSelectedItem() == "No Input")) {
-                    climbResult.setBackgroundResource(R.drawable.spinnerbackground);
-                }
-                return false;
+        climbResult.setOnTouchListener((view, motionEvent) -> {
+            if (!(climbResult.getSelectedItem() == "No Input")) {
+                climbResult.setBackgroundResource(R.drawable.spinnerbackground);
             }
+            return false;
         });
-        violations.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (!(violations.getSelectedItem() == "No Input")) {
-                    violations.setBackgroundResource(R.drawable.spinnerbackground);
-                }
-                return false;
+        violations.setOnTouchListener((view, motionEvent) -> {
+            if (!(violations.getSelectedItem() == "No Input")) {
+                violations.setBackgroundResource(R.drawable.spinnerbackground);
             }
+            return false;
         });
-        endgame_results.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (!(endgame_results.getSelectedItem() == "No Input")) {
-                    endgame_results.setBackgroundResource(R.drawable.spinnerbackground);
-                }
-                return false;
+        endgame_results.setOnTouchListener((view, motionEvent) -> {
+            if (!(endgame_results.getSelectedItem() == "No Input")) {
+                endgame_results.setBackgroundResource(R.drawable.spinnerbackground);
             }
+            return false;
         });
-        speed.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (!(speed.getSelectedItem() == "No Input")) {
-                    speed.setBackgroundResource(R.drawable.spinnerbackground);
-                }
-                return false;
+        speed.setOnTouchListener((view, motionEvent) -> {
+            if (!(speed.getSelectedItem() == "No Input")) {
+                speed.setBackgroundResource(R.drawable.spinnerbackground);
             }
+            return false;
         });
-        shotDistance.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (!(shotDistance.getSelectedItem() == "No Input")) {
-                    shotDistance.setBackgroundResource(R.drawable.spinnerbackground);
-                }
-                return false;
+        shotDistance.setOnTouchListener((view, motionEvent) -> {
+            if (!(shotDistance.getSelectedItem() == "No Input")) {
+                shotDistance.setBackgroundResource(R.drawable.spinnerbackground);
             }
+            return false;
         });
         //All of these OnFocusChanges are to get the keyboard out of the way when inputting stuff is finished
         name_input.setOnFocusChangeListener((v, hasFocus) -> {
@@ -652,7 +669,7 @@ teamAutofill.setOnClickListener(v -> {
                     Toast.makeText(getApplicationContext(), "Data Submission Failed! (Tell scouting)", Toast.LENGTH_SHORT).show();
                     Log.e("Exception", "File write failed: " + e.toString());
                 }
-                //Reset Everything
+                /*Reset Everything*/
                 roundfill = Integer.parseInt(round_input.getText().toString());
                 roundfill ++;
                 teleopLowerScore = 0;
