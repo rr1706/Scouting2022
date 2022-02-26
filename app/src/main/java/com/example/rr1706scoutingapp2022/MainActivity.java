@@ -1,5 +1,4 @@
 package com.example.rr1706scoutingapp2022;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -7,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -27,8 +27,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -36,7 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
-
 public class MainActivity extends AppCompatActivity {
         Random rand = new Random();
         int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-
         setContentView(R.layout.activity_main);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //Ints
         final Spinner speed = findViewById(R.id.robotSpeed);
         final Spinner shotDistance = findViewById(R.id.shotDistance);
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     team_input.setText("");
                     endgame_results.setSelection(0);
                     speed.setSelection(0);
+                    teamAutofill.setChecked(false);
                     climbResult.setSelection(0);
                     violations.setSelection(0);
                     shotDistance.setSelection(0);
@@ -163,30 +165,24 @@ public class MainActivity extends AppCompatActivity {
                     auto_lower_text.setText("0");
                     missedShotsText.setText("0");
                     if (roundfill>1) {sameScouter.setVisibility(View.VISIBLE);}
-
                     SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
                     File dir = getDataDirectory();
-
                     try {
                         File myFile = new File(dir, team + "_" + round + "_" + time.format(new Date()) + ".txt");
                         FileOutputStream fOut = new FileOutputStream(myFile, true);
                         PrintWriter myOutWriter = new PrintWriter(new OutputStreamWriter(fOut));
-
                         myOutWriter.println("Scouter: " + name_input.getText());
                         myOutWriter.println("Team: " + team);
                         myOutWriter.println("Timestamp: " + time.format(new Date()));
                         myOutWriter.println("Match: " + round);
-
                         myOutWriter.flush();
                         myOutWriter.close();
                         fOut.close();
-
                         Toast.makeText(getApplicationContext(), "Data Submitted!", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         Toast.makeText(getApplicationContext(), "Data Submission Failed! (Tell scouting)", Toast.LENGTH_SHORT).show();
                         Log.e("Exception", "File write failed: " + e);
                     }
-
                 case DialogInterface.BUTTON_NEGATIVE:
                     break;
             }
@@ -195,9 +191,7 @@ public class MainActivity extends AppCompatActivity {
         Gray_Box.setBackgroundColor(Color.argb(127,240,240,240));
         no_show.setOnClickListener(v -> {
             String submitError = "";
-
             //Special handling
-
             if (alliance.equals("none")) {
                 submitError += " No Alliance,";
             }
@@ -213,10 +207,8 @@ public class MainActivity extends AppCompatActivity {
             if (!submitError.equals("")) {
                 submitError = submitError.substring(0, submitError.length() - 1) + ".";
             }
-
             if (!(submitError.equals(""))) {
                 Toast.makeText(getApplicationContext(), "Submit Error:" + submitError, Toast.LENGTH_LONG).show();
-
                 data_submitted.setVisibility(View.VISIBLE);
                 data_submitted.setImageResource(R.drawable.x);
                 ds_cooldown = 150;
@@ -225,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", NoShowDialog)
                         .setNegativeButton("No", NoShowDialog)
                         .show();
-
             }
         });
         //This sets the scouters name from the previous match. It only appears above match 2
@@ -247,10 +238,28 @@ public class MainActivity extends AppCompatActivity {
                     if (ds_cooldown == 0) {
                         data_submitted.setVisibility(View.GONE);
                     }
-
                 });
             }
         };
+teamAutofill.setOnClickListener(v -> {
+    if (teamAutofill.isChecked()) {
+        String newTeam;
+        try {
+            roundfill = Integer.parseInt(round_input.getText().toString());
+            newTeam = getTeams().substring(
+                    getTeams().indexOf("." + roundfill + ":") + 1 + ("." + roundfill).length(), //Start
+                    getTeams().substring(getTeams().indexOf("." + roundfill + ":")).indexOf("\n") + getTeams().indexOf("." + roundfill + ":") //End
+            );
+        } catch (Exception e) {
+            newTeam = "";
+            Log.e("log", e.toString());
+        }
+        team_input.setText(newTeam);
+    }
+    if (!teamAutofill.isChecked()) {
+        team_input.setText("");
+    }
+                });
         //These lines are all the auto-mode validation. This makes sure no auto works with the other auto inputs
         auto_no_auto.setOnClickListener(v -> {
             if (auto_no_auto.isChecked()) {
@@ -288,7 +297,6 @@ public class MainActivity extends AppCompatActivity {
             }
             auto_upper_text.setText(Integer.toString(autoUpperScore));
         });
-
         auto_lower_plus.setOnClickListener(v -> {
             if (autoLowerScore < 99) {
                 autoLowerScore++;
@@ -301,8 +309,6 @@ public class MainActivity extends AppCompatActivity {
             }
             auto_lower_text.setText(Integer.toString(autoLowerScore));
         });
-
-
         teleop_upper_plus.setOnClickListener(v -> {
             if (teleopUpperScore < 99) {
                 teleopUpperScore++;
@@ -315,7 +321,6 @@ public class MainActivity extends AppCompatActivity {
             }
             teleop_upper_text.setText(Integer.toString(teleopUpperScore));
         });
-
         teleop_lower_plus.setOnClickListener(v -> {
             if (teleopLowerScore < 99) {
                 teleopLowerScore++;
@@ -357,7 +362,6 @@ public class MainActivity extends AppCompatActivity {
                 teleop_upper_text.setTextColor(Color.WHITE);
                 missedShotsText.setTextColor(Color.WHITE);
                 shotDistanceText.setTextColor(Color.WHITE);
-
             }
             if (alliance == "red") {
                 Background.setBackgroundResource(R.drawable.reddev);
@@ -390,10 +394,8 @@ public class MainActivity extends AppCompatActivity {
             if (alliance == "none") { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
             if (name_input.getText().toString().equals("")) { closeError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0));}
             if (!closeError.equals("")) { closeError = closeError.substring(0,closeError.length()-1)+"."; }
-
             if (!(closeError.equals(""))) {
                 Toast.makeText(getApplicationContext(), "Submit Error:"+closeError, Toast.LENGTH_LONG).show();
-
                 data_submitted.setVisibility(View.VISIBLE);
                 data_submitted.setImageResource(R.drawable.x);
                 ds_cooldown = 150;
@@ -485,7 +487,6 @@ public class MainActivity extends AppCompatActivity {
             shotDistanceText.setTextColor(Color.BLACK);
             alliance = "blue";
         });
-
         //This sets the alliance red and sets the background color red.
         Red_Alliance.setOnClickListener(v -> {
             Background.setBackgroundResource(R.drawable.redappbackground);
@@ -562,7 +563,6 @@ public class MainActivity extends AppCompatActivity {
         team_input.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) { hideKeyboard(v); }
         });
-
         notes.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) { hideKeyboard(v); }
         });
@@ -572,7 +572,6 @@ public class MainActivity extends AppCompatActivity {
             SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
             int team;
             int round;
-
             //Special handling
             if (auto_no_auto.isChecked()) {
                 autoUpperScore=0;
@@ -581,10 +580,8 @@ public class MainActivity extends AppCompatActivity {
                 auto_upper_text.setText("0");
                 autoMovement.setChecked(false);
             }
-
             if (team_input.getText().toString().equals("")) { team = -1; }
             else { team = Integer.parseInt(team_input.getText().toString()); }
-
             if (round_input.getText().toString().equals("")) { round = -1; }
             else { round = Integer.parseInt(round_input.getText().toString()); }
             //These are telling the toast what to put in the error field, and it changes the color to yellow.
@@ -619,7 +616,6 @@ public class MainActivity extends AppCompatActivity {
                 endgame_results.setBackgroundResource(R.drawable.spinnerbackground);
                 speed.setBackgroundResource(R.drawable.spinnerbackground);
                 ds_cooldown = 150; //Makes the check mark appear
-
                 //Save data for transfer
                 File dir = getDataDirectory();
                 //This creates a file
@@ -628,7 +624,6 @@ public class MainActivity extends AppCompatActivity {
                     FileOutputStream fOut = new FileOutputStream(myFile, true);
                     PrintWriter myOutWriter = new PrintWriter(new OutputStreamWriter(fOut));
                     //This prints all of the lines into the file for transfer.
-
                     myOutWriter.println("Scouter: "+name_input.getText());
                     myOutWriter.println("Team: "+team);
                     myOutWriter.println("Timestamp: "+time.format(new Date()));
@@ -648,20 +643,15 @@ public class MainActivity extends AppCompatActivity {
                     myOutWriter.println("Results: "+endgame_results.getSelectedItem());
                     myOutWriter.println("Violations: "+violations.getSelectedItem());
                     myOutWriter.println("Notes: "+notes.getText());
-
                     myOutWriter.flush();
                     myOutWriter.close();
                     fOut.close();
-
                     Toast.makeText(getApplicationContext(), "Data Submitted!", Toast.LENGTH_SHORT).show();
-
                 } catch (IOException e) {
                     //If anything goes wrong, it throws an error instead of crashing
                     Toast.makeText(getApplicationContext(), "Data Submission Failed! (Tell scouting)", Toast.LENGTH_SHORT).show();
                     Log.e("Exception", "File write failed: " + e.toString());
                 }
-
-
                 //Reset Everything
                 roundfill = Integer.parseInt(round_input.getText().toString());
                 roundfill ++;
@@ -677,6 +667,7 @@ public class MainActivity extends AppCompatActivity {
                 auto_upper_plus.setEnabled(true);
                 auto_lower_minus.setEnabled(true);
                 auto_lower_plus.setEnabled(true);
+                teamAutofill.setChecked(false);
                 notes.setText("");
                 scouterName = name_input.getText().toString();
                 name_input.setText("");
@@ -709,7 +700,24 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {}
-
+    private String getTeams() {
+        String text = "";
+        try {
+            File sdcard = Environment.getExternalStorageDirectory();
+            File file;
+            file = new File(sdcard + "/Documents/ScoutingTeams.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                text += line + "\n";
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.e("log", text);
+        return text;
+    }
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
