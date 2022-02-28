@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -37,6 +38,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
         int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
         int team;
+        int dev = 0;
         String scouterName;
         int round;
         int roundfill = 1;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         //final Button pregame_close_button = findViewById(R.id.pregame_close_button);
         final Button Blue_Alliance = findViewById(R.id.Blue_Alliance);
         final CheckBox teamAutofill = findViewById(R.id.autoFill);
+        final ImageButton rrlogo = findViewById(R.id.rrlogobtn);
         final Button sameScouter = findViewById(R.id.sameScouter);
         final Button Red_Alliance = findViewById(R.id.Red_Alliance);
         final Button Pregame_Box = findViewById(R.id.Pregame_Box);
@@ -258,10 +261,6 @@ teamAutofill.setOnClickListener(v -> {
         auto_no_auto.setOnClickListener(v -> {
             if (auto_no_auto.isChecked()) {
                 autoMovement.setChecked(false);
-                autoUpperScore = 0;
-                autoLowerScore = 0;
-                auto_upper_text.setText(Integer.toString(autoUpperScore));
-                auto_lower_text.setText(Integer.toString(autoLowerScore));
                 autoMovement.setEnabled(false);
                 autoMovement.setAlpha((float) 0.5);
                 auto_lower_text.setEnabled(false);
@@ -362,8 +361,12 @@ teamAutofill.setOnClickListener(v -> {
             missedShotsText.setText(Integer.toString(missedScore));
         });
         //Enter Dev Mode. Only necessary if something is broke
+        rrlogo.setOnClickListener(v-> {
+            if(dev == 0) {dev = 1;}
+            else if (dev == 1) {dev = 0;}
+        });
         devMode.setOnClickListener(v-> {
-            if (alliance == "blue") {
+            if (alliance == "blue" && dev == 1) {
                 Background.setBackgroundResource(R.drawable.bluedev);
                 auto_lower_text.setTextColor(Color.WHITE);
                 auto_upper_text.setTextColor(Color.WHITE);
@@ -379,7 +382,7 @@ teamAutofill.setOnClickListener(v -> {
                 missedShotsText.setTextColor(Color.WHITE);
                 shotDistanceText.setTextColor(Color.WHITE);
             }
-            if (alliance == "red") {
+            if (alliance == "red" && dev == 1) {
                 Background.setBackgroundResource(R.drawable.reddev);
                 auto_lower_text.setTextColor(Color.WHITE);
                 auto_upper_text.setTextColor(Color.WHITE);
@@ -395,7 +398,7 @@ teamAutofill.setOnClickListener(v -> {
                 missedShotsText.setTextColor(Color.WHITE);
                 shotDistanceText.setTextColor(Color.WHITE);
             }
-            if (alliance == "none"){
+            if (alliance == "none" && dev == 1){
                 Background.setBackgroundResource(R.drawable.nodev);
                 auto_lower_text.setTextColor(Color.WHITE);
                 auto_upper_text.setTextColor(Color.WHITE);
