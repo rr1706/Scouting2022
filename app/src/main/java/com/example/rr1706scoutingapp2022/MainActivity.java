@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
         int team;
         int dev = 0;
+        int apple = 0;
         String scouterName;
         int round;
         int roundfill = 1;
@@ -134,6 +136,15 @@ public class MainActivity extends AppCompatActivity {
                     name_input.setBackground(nameBackground);
                     data_submitted.setImageResource(R.drawable.check);
                     data_submitted.setVisibility(View.VISIBLE);
+                    autoMovement.setAlpha((float) 1);
+                    auto_lower_minus.setAlpha((float) 1);
+                    auto_lower_plus.setAlpha((float) 1);
+                    auto_lower_text.setAlpha((float) 1);
+                    auto_upper_minus.setAlpha((float) 1);
+                    auto_upper_plus.setAlpha((float) 1);
+                    auto_upper_text.setAlpha((float) 1);
+                    toptext.setAlpha((float) 1);
+                    bottomtext.setAlpha((float) 1);
                     ds_cooldown = 150;
                     roundfill = Integer.parseInt(round_input.getText().toString());
                     roundfill ++;
@@ -364,6 +375,10 @@ teamAutofill.setOnClickListener(v -> {
         rrlogo.setOnClickListener(v-> {
             if(dev == 0) {dev = 1;}
             else if (dev == 1) {dev = 0;}
+            apple++;
+            if(apple == 50) {rrlogo.setImageResource(R.drawable.apples);}
+            if(apple == 51) {rrlogo.setImageResource(R.drawable.rrlogo);}
+            if(apple == 52) {apple = 0;}
         });
         devMode.setOnClickListener(v-> {
             if (alliance == "blue" && dev == 1) {
@@ -578,7 +593,23 @@ teamAutofill.setOnClickListener(v -> {
             if (!hasFocus) { hideKeyboard(v); }
         });
         round_input.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) { hideKeyboard(v); }
+            if (!hasFocus) {
+                hideKeyboard(v);
+                if (teamAutofill.isChecked()) {
+                    String newTeam;
+                    try {
+                        roundfill = Integer.parseInt(round_input.getText().toString());
+                        newTeam = getTeams().substring(
+                                getTeams().indexOf("." + roundfill + ":") + 1 + ("." + roundfill).length(), //Start
+                                getTeams().substring(getTeams().indexOf("." + roundfill + ":")).indexOf("\n") + getTeams().indexOf("." + roundfill + ":") //End
+                        );
+                    } catch (Exception e) {
+                        newTeam = "";
+                        Log.e("log", e.toString());
+                    }
+                    team_input.setText(newTeam);
+                }
+            }
         });
         team_input.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) { hideKeyboard(v); }
@@ -688,6 +719,15 @@ teamAutofill.setOnClickListener(v -> {
                 auto_lower_minus.setEnabled(true);
                 auto_lower_plus.setEnabled(true);
                 teamAutofill.setChecked(false);
+                autoMovement.setAlpha((float) 1);
+                auto_lower_minus.setAlpha((float) 1);
+                auto_lower_plus.setAlpha((float) 1);
+                auto_lower_text.setAlpha((float) 1);
+                auto_upper_minus.setAlpha((float) 1);
+                auto_upper_plus.setAlpha((float) 1);
+                auto_upper_text.setAlpha((float) 1);
+                toptext.setAlpha((float) 1);
+                bottomtext.setAlpha((float) 1);
                 notes.setText("");
                 scouterName = name_input.getText().toString();
                 name_input.setText("");
