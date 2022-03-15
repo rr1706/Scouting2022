@@ -156,7 +156,8 @@
         android:layout_marginRight="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/teleop_upper_minus"
-        app:srcCompat="@drawable/minus" />
+        app:srcCompat="@drawable/minus"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/teleop_lower_plus"

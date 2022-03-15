@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,7 +34,8 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Random;
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
         int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
         int team;
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         int autoUpperScore;
         int teleopUpperScore;
         int teleopLowerScore;
-        int missedshots;
         String alliance = "none";
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_main);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //Ints
