@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -55,57 +54,55 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Setup stuff
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_main);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //Ints
+
+        //Spinners
         final Spinner endgame_results = findViewById(R.id.endgameResults);
         final Spinner climbResult = findViewById(R.id.endgameClimb);
         //Constraints
-        //final ConstraintLayout PREGAME = findViewById(R.id.PREGAME);
         final ConstraintLayout Background = findViewById(R.id.Background);
         final ConstraintLayout Pregame = findViewById(R.id.Pregame);
         final ConstraintLayout Endgame = findViewById(R.id.Endgame);
-        final Button Gray_Box = findViewById(R.id.grayBox);
-        //Lines
-        final ImageView data_submitted = findViewById(R.id.data_submitted);
+        //Alerts
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final TextView allianceText = findViewById(R.id.alliance_text);
-        final TextView toptext = findViewById(R.id.toptext);
-        final TextView bottomtext = findViewById(R.id.bottomText);
-        final TextView toptext2 = findViewById(R.id.topText2);
-        final TextView bottomtext2 = findViewById(R.id.bottomText2);
-        final TextView missedtext = findViewById(R.id.missedShots);
         //EditTexts
         final EditText name_input = findViewById(R.id.name_input);
         final EditText team_input = findViewById(R.id.team_input);
         final EditText round_input = findViewById(R.id.round_input);
         final EditText notes = findViewById(R.id.notes);
+        //TextViews
         final TextView auto_upper_text = findViewById(R.id.auto_upper_text);
         final TextView attemptedAutoText = findViewById(R.id.autoAttempted);
         final TextView auto_lower_text = findViewById(R.id.auto_lower_text);
         final TextView missedShotsText = findViewById(R.id.missedShotsText);
         final TextView teleop_upper_text = findViewById(R.id.teleop_upper_text);
         final TextView teleop_lower_text = findViewById(R.id.teleop_lower_text);
-        data_submitted.setVisibility(View.INVISIBLE);
+        final TextView allianceText = findViewById(R.id.alliance_text);
+        final TextView toptext = findViewById(R.id.toptext);
+        final TextView bottomtext = findViewById(R.id.bottomText);
+        final TextView toptext2 = findViewById(R.id.topText2);
+        final TextView bottomtext2 = findViewById(R.id.bottomText2);
+        final TextView missedtext = findViewById(R.id.missedShots);
         //Buttons
-        final SeekBar autoAttempted = findViewById(R.id.autoAttemptedBar);
-        final ImageView autoScoreAttempt = findViewById(R.id.autoScoreAttempt);
         final Button Blue_Alliance = findViewById(R.id.Blue_Alliance);
-        final CheckBox teamAutofill = findViewById(R.id.autoFill);
-        final ImageButton rrlogo = findViewById(R.id.rrlogobtn);
         final Button sameScouter = findViewById(R.id.sameScouter);
         final Button Red_Alliance = findViewById(R.id.Red_Alliance);
-        final ImageView auto_no_autoColor = findViewById(R.id.auto_no_autocolor);
+        final Button Gray_Box = findViewById(R.id.grayBox);
         final Button Pregame_Box = findViewById(R.id.Pregame_Box);
         final Button pregame_close = findViewById(R.id.pregame_close);
         final Button Endgame_Box = findViewById(R.id.Endgame_Box);
         final Button no_show = findViewById(R.id.no_show);
         final Button submit = findViewById(R.id.submit);
         final Button devMode = findViewById(R.id.devMode);
+        //Images
+        final ImageView autoScoreAttempt = findViewById(R.id.autoScoreAttempt);
+        final ImageView auto_no_autoColor = findViewById(R.id.auto_no_autocolor);
         final ImageView seekbarcover = findViewById(R.id.whiteseekbar);
         final ImageView missedShotsPositive = findViewById(R.id.missedShotsPosititve);
         final ImageView missedShotsMinus = findViewById(R.id.missedShotsMinus);
@@ -117,12 +114,22 @@ public class MainActivity extends AppCompatActivity {
         final ImageView teleop_upper_minus = findViewById(R.id.teleop_upper_minus);
         final ImageView teleop_lower_plus = findViewById(R.id.teleop_lower_plus);
         final ImageView teleop_lower_minus = findViewById(R.id.teleop_lower_minus);
+        final ImageView data_submitted = findViewById(R.id.data_submitted);
+        //Switches
         final Switch auto_no_auto = findViewById(R.id.noAutoSwitch);
         final Switch robotError = findViewById(R.id.robotErrors);
+        //Seekbars
+        final SeekBar autoAttempted = findViewById(R.id.autoAttemptedBar);
+        //Image Buttons
+        final ImageButton rrlogo = findViewById(R.id.rrlogobtn);
+        //Checkboxes
+        final CheckBox teamAutofill = findViewById(R.id.autoFill);
+
+        //Random Initial Start Things
         round_input.setText(String.valueOf(roundfill));
         Drawable textBackground = round_input.getBackground();
-        Drawable seekbarBackground = autoAttempted.getBackground();
         Drawable nameBackground = name_input.getBackground();
+        data_submitted.setVisibility(View.INVISIBLE);
         if (roundfill==1) {sameScouter.setVisibility(View.GONE);}
         //No Show
         Endgame.setVisibility(View.INVISIBLE);
@@ -263,11 +270,13 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
+        //Code for the team Autofill Stuff
 teamAutofill.setOnClickListener(v -> {
     if (teamAutofill.isChecked()) {
         String newTeam;
         try {
             roundfill = Integer.parseInt(round_input.getText().toString());
+            //Retrieve teams from conveluded list
             newTeam = getTeams().substring(
                     getTeams().indexOf("." + roundfill + ":") + 1 + ("." + roundfill).length(), //Start
                     getTeams().substring(getTeams().indexOf("." + roundfill + ":")).indexOf("\n") + getTeams().indexOf("." + roundfill + ":") //End
@@ -277,6 +286,8 @@ teamAutofill.setOnClickListener(v -> {
             Log.e("log", e.toString());
         }
         team_input.setText(newTeam);
+        //SPINNY BOI
+        if (team_input.getText().toString().equals("1706")) {rrlogo.animate().rotation(2880f).setDuration(5000).start();}
     }
     if (!teamAutofill.isChecked()) {
         team_input.setText("");
@@ -400,7 +411,7 @@ teamAutofill.setOnClickListener(v -> {
             if(apple == 52) {apple = 0;}
         });
         devMode.setOnClickListener(v-> {
-            if (alliance == "blue" && dev == 1) {
+            if (alliance.equals("blue") && dev == 1) {
                 Background.setBackgroundResource(R.drawable.bluedev);
                 auto_lower_text.setTextColor(Color.WHITE);
                 auto_upper_text.setTextColor(Color.WHITE);
@@ -417,7 +428,7 @@ teamAutofill.setOnClickListener(v -> {
                 autoScoreAttempt.setBackgroundResource(R.drawable.seekbarwhite);
                 attemptedAutoText.setTextColor(Color.WHITE);
             }
-            if (alliance == "red" && dev == 1) {
+            if (alliance.equals("red") && dev == 1) {
                 Background.setBackgroundResource(R.drawable.reddev);
                 autoScoreAttempt.setBackgroundResource(R.drawable.seekbarwhite);
                 auto_lower_text.setTextColor(Color.WHITE);
@@ -434,7 +445,7 @@ teamAutofill.setOnClickListener(v -> {
                 missedShotsText.setTextColor(Color.WHITE);
                 attemptedAutoText.setTextColor(Color.WHITE);
             }
-            if (alliance == "none" && dev == 1){
+            if (alliance.equals("none") && dev == 1){
                 Background.setBackgroundResource(R.drawable.nodev);
                 autoScoreAttempt.setBackgroundResource(R.drawable.seekbarwhite);
                 auto_lower_text.setTextColor(Color.WHITE);
@@ -463,7 +474,7 @@ teamAutofill.setOnClickListener(v -> {
                 closeError += " No Match,";
                 round_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
             }
-            if (alliance == "none") { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
+            if (alliance.equals("none")) { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
             if (name_input.getText().toString().equals("")) { closeError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0));}
             if (!closeError.equals("")) { closeError = closeError.substring(0,closeError.length()-1)+"."; }
             if (!(closeError.equals(""))) {
@@ -493,25 +504,25 @@ teamAutofill.setOnClickListener(v -> {
                 closeError += " No Match,";
                 round_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
             }
-            if (alliance == "none") { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
+            if (alliance.equals("none")) { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
             if (name_input.getText().toString().equals("")) { closeError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0));}
             if (!closeError.equals("")) { closeError = closeError.substring(0,closeError.length()-1)+"."; }
 
             if (!(closeError.equals(""))) {
                 Toast.makeText(getApplicationContext(), "Submit Error:"+closeError, Toast.LENGTH_LONG).show();
 
-                data_submitted.setVisibility(View.VISIBLE);
+                data_submitted.setVisibility(android.view.View.VISIBLE);
                 data_submitted.setImageResource(R.drawable.x);
                 ds_cooldown = 150;
             } else {
-                Pregame.setVisibility(View.INVISIBLE);
-                Gray_Box.setVisibility(View.INVISIBLE);
+                Pregame.setVisibility(android.view.View.INVISIBLE);
+                Gray_Box.setVisibility(android.view.View.INVISIBLE);
                 allianceText.setBackgroundColor(Color.TRANSPARENT);
                 round_input.setBackground(textBackground);
                 team_input.setBackground(textBackground);
                 name_input.setBackground(nameBackground);
             }
-            Endgame.setVisibility(View.INVISIBLE);
+            Endgame.setVisibility(android.view.View.INVISIBLE);
          });
         //These lines are the special function toggles.
         //The Pregame_box is a dev way to open and close pregame without filling out fields
@@ -623,6 +634,7 @@ teamAutofill.setOnClickListener(v -> {
         });
         team_input.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) { hideKeyboard(v); }
+            if (team_input.getText().toString().equals("1706")) {rrlogo.animate().rotation(2880f).setDuration(5000).start();}
         });
         notes.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) { hideKeyboard(v); }
@@ -645,12 +657,12 @@ teamAutofill.setOnClickListener(v -> {
             if (round_input.getText().toString().equals("")) { round = -1; }
             else { round = Integer.parseInt(round_input.getText().toString()); }
             //These are telling the toast what to put in the error field, and it changes the color to yellow.
-            if (alliance == "none") { submitError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE);}
+            if (alliance.equals("none")) { submitError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE);}
             if (name_input.getText().toString().equals("")) { submitError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE);}
             if (round_input.getText().toString().equals("420")) { submitError += " No. Its not even funny,"; round_input.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE);}
             if (endgame_results.getSelectedItem().toString().equals("No Input")) { submitError += " No Results,"; endgame_results.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.VISIBLE); Pregame.setVisibility(View.INVISIBLE);}
             if (climbResult.getSelectedItem().toString().equals("No Input")) { submitError += " No Climb Result,"; climbResult.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.VISIBLE); Pregame.setVisibility(View.INVISIBLE);}
-            if (autoUpperScore+autoLowerScore > Integer.parseInt(String.valueOf(autoAttempted.getProgress()))) {submitError += " More Auto than Auto Attempted,"; autoAttempted.setBackgroundColor(Color.argb(255,255,255,0));Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.INVISIBLE);}
+            if (autoUpperScore+autoLowerScore > Integer.parseInt(String.valueOf(autoAttempted.getProgress()))&& devmode=0) {submitError += " More Auto than Auto Attempted,"; autoAttempted.setBackgroundColor(Color.argb(255,255,255,0));Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.INVISIBLE);}
             if (team_input.getText().toString().equals("")) { submitError += " No Team#,"; team_input.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE);}
             if (round_input.getText().toString().equals("")) { submitError += " No Round#,"; round_input.setBackgroundColor(Color.argb(255,255,255,0)); Endgame.setVisibility(View.INVISIBLE); Pregame.setVisibility(View.VISIBLE); }
             if (!submitError.equals("")) { submitError = submitError.substring(0,submitError.length()-1)+"."; }
@@ -703,10 +715,9 @@ teamAutofill.setOnClickListener(v -> {
                 } catch (IOException e) {
                     //If anything goes wrong, it throws an error instead of crashing
                     Toast.makeText(getApplicationContext(), "Data Submission Failed! (Tell scouting)", Toast.LENGTH_SHORT).show();
-                    Log.e("Exception", "File write failed: " + e.toString());
+                    Log.e("Exception", "File write failed: " + e);
                 }
-                /*Reset Everything*/
-
+                //Reset Everything
                 roundfill = Integer.parseInt(round_input.getText().toString());
                 roundfill ++;
                 teleopLowerScore = 0;
@@ -771,14 +782,17 @@ teamAutofill.setOnClickListener(v -> {
             }
         });
     }
+    //Tells the code where to store the entries
     private File getDataDirectory() {
         File directory = Environment.getExternalStorageDirectory();
         File myDir = new File(directory + "/ScoutingData");
         myDir.mkdirs();
         return myDir;
     }
+    //Makes sure that the back button is not going to clear data
     @Override
     public void onBackPressed() {}
+    //This loads the external document to prepopulate the teams
     private String getTeams() {
         String text = "";
         try {
@@ -797,6 +811,7 @@ teamAutofill.setOnClickListener(v -> {
         Log.e("log", text);
         return text;
     }
+    //This hides the keyboard after unfocusing on a textfield
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
