@@ -361,7 +361,7 @@
 
     <Button
         android:id="@+id/Pregame_Box"
-        android:layout_width="201dp"
+        android:layout_width="150dp"
         android:layout_height="57dp"
         android:layout_marginBottom="32dp"
         android:background="#FFFFFF"
@@ -370,13 +370,27 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/Defense_Box"
+        android:layout_width="150dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="32dp"
+        android:background="#FFFFFF"
+        android:elevation="100dp"
+        android:text="Defense"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/Endgame_Box"
-        android:layout_width="201dp"
+        android:layout_width="150dp"
         android:layout_height="57dp"
         android:layout_marginBottom="32dp"
         android:background="#FFFFFF"
@@ -386,7 +400,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextContrastCheck" />
 
@@ -565,13 +579,26 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="gone">
 
+        <TextView
+            android:id="@+id/climbTimer"
+            android:layout_width="108dp"
+            android:layout_height="49dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginBottom="28dp"
+            android:text="00:00.00"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/climbText"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="293dp"
-            android:layout_height="310dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="220dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/_022hangar" />
@@ -580,9 +607,9 @@
             android:id="@+id/endgameClimb"
             android:layout_width="109dp"
             android:layout_height="60dp"
-            android:layout_marginStart="344dp"
-            android:layout_marginLeft="344dp"
-            android:layout_marginTop="92dp"
+            android:layout_marginStart="336dp"
+            android:layout_marginLeft="336dp"
+            android:layout_marginTop="248dp"
             android:background="@color/team_1"
             android:dropDownWidth="match_parent"
             android:entries="@array/endgameClimb"
@@ -590,6 +617,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/climbText"
+            android:layout_width="125dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="216dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:text="Climb Height"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/endgameResults"
+            android:layout_width="134dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="268dp"
+            android:layout_marginEnd="292dp"
+            android:layout_marginRight="292dp"
+            android:background="@color/team_1"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/endgameResults"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/resultsText"
+            android:layout_width="99dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="236dp"
+            android:text="Results"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/endgameResults"
+            app:layout_constraintHorizontal_bias="0.542"
+            app:layout_constraintStart_toStartOf="@+id/endgameResults"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/submit"
@@ -601,45 +667,6 @@
             android:text="Submit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/climbText"
-            android:layout_width="125dp"
-            android:layout_height="31dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginRight="28dp"
-            android:text="Climb Height"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/resultsText"
-            android:layout_width="99dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="180dp"
-            android:text="Results"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/endgameResults"
-            app:layout_constraintHorizontal_bias="0.457"
-            app:layout_constraintStart_toStartOf="@+id/endgameResults"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/endgameResults"
-            android:layout_width="134dp"
-            android:layout_height="57dp"
-            android:layout_marginTop="212dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/team_1"
-            android:dropDownWidth="match_parent"
-            android:entries="@array/endgameResults"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
 
         <Switch
             android:id="@+id/robotErrors"
@@ -656,9 +683,9 @@
             android:id="@+id/notes"
             android:layout_width="208dp"
             android:layout_height="52dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginLeft="56dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginBottom="24dp"
             android:background="@color/team_1"
             android:ems="10"
             android:hint="Notes"
@@ -666,6 +693,43 @@
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/climbTimerStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="12dp"
+            android:text="Start Timer"
+            app:layout_constraintBottom_toTopOf="@+id/climbTimer"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/climbTimerText"
+            android:layout_width="123dp"
+            android:layout_height="35dp"
+            android:text="Climb Timer"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@+id/climbTimerStart"
+            app:layout_constraintEnd_toEndOf="@+id/climbTimerStart"
+            app:layout_constraintStart_toStartOf="@+id/climbTimerStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/climbTimerReset"
+            android:layout_width="166dp"
+            android:layout_height="79dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#CDDC39"
+            android:gravity="center"
+            android:text="Click 3 Times to Reset Climb Timer"
+            android:textColor="#000000"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/climbTimerStart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -733,5 +797,260 @@
         android:elevation="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/autoAttempted" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Defense"
+        android:layout_width="478dp"
+        android:layout_height="413dp"
+        android:background="#7F7F7F"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:foregroundGravity="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.495"
+        tools:visibility="visible">
+
+        <ImageButton
+            android:id="@+id/blocked_upper_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DEFENSE"
+            app:srcCompat="@drawable/minus"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/blocked_lower_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/blocked_lower_plus"
+            app:layout_constraintEnd_toEndOf="@+id/blocked_upper_minus"
+            app:layout_constraintStart_toStartOf="@+id/blocked_upper_minus"
+            app:layout_constraintTop_toTopOf="@+id/blocked_lower_plus"
+            app:srcCompat="@drawable/minus"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/blocked_upper_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginRight="48dp"
+            app:layout_constraintEnd_toStartOf="@+id/blocked_upper_minus"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/plus"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/blocked_lower_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            app:layout_constraintEnd_toEndOf="@+id/blocked_upper_plus"
+            app:layout_constraintEnd_toStartOf="@+id/blocked_lower_minus"
+            app:layout_constraintHorizontal_bias="0.175"
+            app:layout_constraintStart_toStartOf="@+id/blocked_upper_plus"
+            app:layout_constraintTop_toBottomOf="@+id/blocked_upper_plus"
+            app:srcCompat="@drawable/plus"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/toptext2"
+            android:layout_width="54dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="172dp"
+            android:layout_marginLeft="172dp"
+            android:layout_marginTop="108dp"
+            android:text="Top"
+            android:textColor="#000000"
+            android:textSize="29dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/blockedShotsText"
+            android:layout_width="138dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="148dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="Blocked Shots"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.034"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bottomText3"
+            android:layout_width="102dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginLeft="136dp"
+            android:layout_marginBottom="180dp"
+            android:text="Bottom"
+            android:textColor="#000000"
+            android:textSize="29dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/blocked_lower_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="32dp"
+            android:text="0"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/blocked_lower_plus"
+            app:layout_constraintEnd_toStartOf="@+id/blocked_lower_minus"
+            app:layout_constraintStart_toEndOf="@+id/blocked_lower_plus"
+            app:layout_constraintTop_toTopOf="@+id/blocked_lower_plus" />
+
+        <TextView
+            android:id="@+id/blocked_upper_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="0"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/blocked_upper_plus"
+            app:layout_constraintEnd_toStartOf="@+id/blocked_upper_minus"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/blocked_upper_plus"
+            app:layout_constraintTop_toTopOf="@+id/blocked_upper_plus" />
+
+        <TextView
+            android:id="@+id/timeDefending"
+            android:layout_width="135dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Time       Defending"
+            android:textColor="@color/black"
+            android:textSize="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/blocked_lower_plus" />
+
+        <Button
+            android:id="@+id/startDefendingTimer"
+            android:layout_width="127dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:text="Start Timer"
+            app:layout_constraintBottom_toBottomOf="@+id/timeDefending"
+            app:layout_constraintStart_toEndOf="@+id/timeDefending"
+            app:layout_constraintTop_toTopOf="@+id/timeDefending" />
+
+        <Button
+            android:id="@+id/closeDefense"
+            android:layout_width="127dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginLeft="136dp"
+            android:layout_marginTop="24dp"
+            android:text="Close"
+            app:layout_constraintStart_toEndOf="@+id/timeDefending"
+            app:layout_constraintTop_toBottomOf="@+id/defenseTimer" />
+
+        <TextView
+            android:id="@+id/defenseTimer"
+            android:layout_width="79dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="46dp"
+            android:layout_marginRight="46dp"
+            android:gravity="center"
+            android:text="00:00.00"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.315"
+            app:layout_constraintStart_toEndOf="@+id/startDefendingTimer"
+            app:layout_constraintTop_toBottomOf="@+id/blocked_lower_minus" />
+
+        <TextView
+            android:id="@+id/DEFENSE"
+            android:layout_width="304dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="87dp"
+            android:layout_marginLeft="87dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="84dp"
+            android:layout_marginRight="84dp"
+            android:gravity="center"
+            android:text="Defense Menu"
+            android:textColor="@color/black"
+            android:textSize="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/teamDefending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:hint="Defending Against Team:"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeDefending" />
+
+        <Switch
+            android:id="@+id/playedDefense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="center"
+            android:text="Played Defense"
+            app:layout_constraintBottom_toTopOf="@+id/blockedShotsText"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/clearTimer"
+            android:layout_width="164dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:autoText="false"
+            android:background="#FFEB3B"
+            android:gravity="center"
+            android:text="Click 3 Times to Clear Timer"
+            android:textSize="25sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottomText3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

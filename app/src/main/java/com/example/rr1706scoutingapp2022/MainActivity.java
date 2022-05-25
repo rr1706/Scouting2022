@@ -25,6 +25,9 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,6 +43,13 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
         int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
         int team;
+        int centisecondsdefending = 0 ;
+        int secondsdefending = 0 ;
+        int minutesdefending = 0 ;
+        int centisecondsclimb = 0 ;
+        int secondsclimb = 0 ;
+        int minutesclimb = 0 ;
+        int milisecondsclimbraw = 0;
         int dev = 0;
         int apple = 0;
         String scouterName;
@@ -49,7 +59,16 @@ public class MainActivity extends AppCompatActivity {
         int autoLowerScore;
         int autoUpperScore;
         int teleopUpperScore;
+        int climbtimerreset;
         int teleopLowerScore;
+        int defenseUpperScore;
+        int timerReset;
+        int defenseLowerScore;
+        int milisecondsdefending = 0;
+        int milisecondsdefendingraw = 0;
+        int milisecondsclimb = 0;
+        int defensetimer = 0;
+        int climbtimer = 0;
         String alliance = "none";
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -69,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         final ConstraintLayout Background = findViewById(R.id.Background);
         final ConstraintLayout Pregame = findViewById(R.id.Pregame);
         final ConstraintLayout Endgame = findViewById(R.id.Endgame);
+        final ConstraintLayout Defense = findViewById(R.id.Defense);
         //Alerts
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //EditTexts
@@ -76,30 +96,41 @@ public class MainActivity extends AppCompatActivity {
         final EditText team_input = findViewById(R.id.team_input);
         final EditText round_input = findViewById(R.id.round_input);
         final EditText notes = findViewById(R.id.notes);
+        final EditText defendedTeam = findViewById(R.id.teamDefending);
         //TextViews
         final TextView auto_upper_text = findViewById(R.id.auto_upper_text);
+        final TextView timerClear = findViewById(R.id.clearTimer);
+        final TextView climbTimerClear = findViewById(R.id.climbTimerReset);
+        final TextView climbTimer = findViewById(R.id.climbTimer);
         final TextView attemptedAutoText = findViewById(R.id.autoAttempted);
         final TextView auto_lower_text = findViewById(R.id.auto_lower_text);
         final TextView missedShotsText = findViewById(R.id.missedShotsText);
         final TextView teleop_upper_text = findViewById(R.id.teleop_upper_text);
         final TextView teleop_lower_text = findViewById(R.id.teleop_lower_text);
+        final TextView blocked_lower_text = findViewById(R.id.blocked_lower_text);
+        final TextView blocked_upper_text = findViewById(R.id.blocked_upper_text);
         final TextView allianceText = findViewById(R.id.alliance_text);
         final TextView toptext = findViewById(R.id.toptext);
         final TextView bottomtext = findViewById(R.id.bottomText);
         final TextView toptext2 = findViewById(R.id.topText2);
         final TextView bottomtext2 = findViewById(R.id.bottomText2);
         final TextView missedtext = findViewById(R.id.missedShots);
+        final TextView defenseTimer = findViewById(R.id.defenseTimer);
         //Buttons
         final Button Blue_Alliance = findViewById(R.id.Blue_Alliance);
         final Button sameScouter = findViewById(R.id.sameScouter);
         final Button Red_Alliance = findViewById(R.id.Red_Alliance);
         final Button Gray_Box = findViewById(R.id.grayBox);
         final Button Pregame_Box = findViewById(R.id.Pregame_Box);
+        final Button Defense_Box = findViewById(R.id.Defense_Box);
         final Button pregame_close = findViewById(R.id.pregame_close);
         final Button Endgame_Box = findViewById(R.id.Endgame_Box);
         final Button no_show = findViewById(R.id.no_show);
         final Button submit = findViewById(R.id.submit);
         final Button devMode = findViewById(R.id.devMode);
+        final Button startDefenseTimer = findViewById(R.id.startDefendingTimer);
+        final Button closeDefense = findViewById(R.id.closeDefense);
+        final Button climbTimerStart = findViewById(R.id.climbTimerStart);
         //Images
         final ImageView autoScoreAttempt = findViewById(R.id.autoScoreAttempt);
         final ImageView auto_no_autoColor = findViewById(R.id.auto_no_autocolor);
@@ -114,14 +145,20 @@ public class MainActivity extends AppCompatActivity {
         final ImageView teleop_upper_minus = findViewById(R.id.teleop_upper_minus);
         final ImageView teleop_lower_plus = findViewById(R.id.teleop_lower_plus);
         final ImageView teleop_lower_minus = findViewById(R.id.teleop_lower_minus);
+        final ImageView blocked_lower_plus = findViewById(R.id.blocked_lower_plus);
+        final ImageView blocked_upper_plus = findViewById(R.id.blocked_upper_plus);
+        final ImageView blocked_upper_minus = findViewById(R.id.blocked_upper_minus);
+        final ImageView blocked_lower_minus = findViewById(R.id.blocked_lower_minus);
         final ImageView data_submitted = findViewById(R.id.data_submitted);
         //Switches
         final Switch auto_no_auto = findViewById(R.id.noAutoSwitch);
+        final Switch playedDefense = findViewById(R.id.playedDefense);
         final Switch robotError = findViewById(R.id.robotErrors);
         //Seekbars
         final SeekBar autoAttempted = findViewById(R.id.autoAttemptedBar);
         //Image Buttons
         final ImageButton rrlogo = findViewById(R.id.rrlogobtn);
+
         //Checkboxes
         final CheckBox teamAutofill = findViewById(R.id.autoFill);
 
@@ -131,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
         Drawable nameBackground = name_input.getBackground();
         data_submitted.setVisibility(View.INVISIBLE);
         if (roundfill==1) {sameScouter.setVisibility(View.GONE);}
+
+
         //No Show
         Endgame.setVisibility(View.INVISIBLE);
         Pregame.bringToFront();
@@ -172,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     auto_upper_text.setAlpha((float) 1);
                     toptext.setAlpha((float) 1);
                     bottomtext.setAlpha((float) 1);
-                    ds_cooldown = 150;
+                    ds_cooldown = 1500;
                     roundfill = Integer.parseInt(round_input.getText().toString());
                     roundfill ++;
                     teleopLowerScore = 0;
@@ -193,9 +232,44 @@ public class MainActivity extends AppCompatActivity {
                     robotError.setChecked(false);
                     teleop_upper_text.setText("0");
                     teleop_lower_text.setText("0");
+                    defenseTimer.setText("00:00.00");
+                    climbTimer.setText("00:00.00");
+                    playedDefense.setChecked(false);
+                    defensetimer = 0;
+                    climbtimer = 0;
+                    defenseLowerScore = 0;
+                    defenseUpperScore = 0;
+                    defendedTeam.setText("");
+                    Defense.setVisibility(View.INVISIBLE);
+                    blocked_lower_text.setText("0");
+                    blocked_upper_text.setText("0");
+                    startDefenseTimer.setText("Start Timer");
+                    climbTimerStart.setText("Start Timer");
+                    climbtimerreset = 0;
+                    timerReset = 0;
+                    milisecondsclimbraw = 0;
+                    milisecondsclimb = 0;
+                    milisecondsdefendingraw = 0;
+                    milisecondsdefending = 0;
+                    secondsclimb = 0;
+                    secondsdefending = 0;
+                    minutesclimb = 0;
+                    minutesdefending = 0;
                     auto_upper_text.setText("0");
                     auto_lower_text.setText("0");
                     missedShotsText.setText("0");
+                    blocked_lower_minus.setEnabled(false);
+                    blocked_upper_minus.setEnabled(false);
+                    blocked_upper_plus.setEnabled(false);
+                    blocked_lower_plus.setEnabled(false);
+                    startDefenseTimer.setEnabled(false);
+                    defendedTeam.setEnabled(false);
+                    blocked_lower_minus.setAlpha((float) 0.5);
+                    blocked_upper_minus.setAlpha((float) 0.5);
+                    blocked_upper_plus.setAlpha((float) 0.5);
+                    blocked_lower_plus.setAlpha((float) 0.5);
+                    startDefenseTimer.setAlpha((float) 0.5);
+                    defendedTeam.setAlpha((float) 0.5);
                     if (roundfill>1) {sameScouter.setVisibility(View.VISIBLE);}
                     if (teamAutofill.isChecked()) {
                         String newTeam;
@@ -219,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         //This is the gray box that allows for external box clicks from regame and endgame to close menus
-        Gray_Box.setBackgroundColor(Color.argb(127,240,240,240));
+        Gray_Box.setBackgroundColor(Color.argb(180,240,240,240));
         no_show.setOnClickListener(v -> {
             String submitError = "";
             //Special handling
@@ -242,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Submit Error:" + submitError, Toast.LENGTH_LONG).show();
                 data_submitted.setVisibility(View.VISIBLE);
                 data_submitted.setImageResource(R.drawable.x);
-                ds_cooldown = 150;
+                ds_cooldown = 1500;
             } else {
                 builder.setMessage("Are you sure the team is a no show?")
                         .setPositiveButton("Yes", NoShowDialog)
@@ -250,13 +324,14 @@ public class MainActivity extends AppCompatActivity {
                         .show();
             }
         });
+
         //This sets the scouters name from the previous match. It only appears above match 2
         sameScouter.setOnClickListener(v-> name_input.setText(scouterName));
         //The great while loop (100 times/sec)
         Runnable myRunnable = () -> {
             while (true) {
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {}
                 //This is just the big check or X if people submit data.
                 data_submitted.post(() -> {
@@ -266,11 +341,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (ds_cooldown == 0) {
                         data_submitted.setVisibility(View.GONE);
+                        timerClear.setVisibility(View.GONE);
+                        climbTimerClear.setVisibility(View.GONE);
                     }
+                    if (defensetimer == 1) {milisecondsdefendingraw++;}
+                    if (milisecondsdefending >= 1000) {secondsdefending++; milisecondsdefending = 0;}
+                    if (secondsdefending >= 60) {minutesdefending++; secondsdefending = 0;}
+                    if (defensetimer == 1) {milisecondsdefending ++; defenseTimer.setText(Integer.toString(minutesdefending)+":"+Integer.toString(secondsdefending)+"."+Integer.toString(milisecondsdefending));}
+
+                    if (climbtimer == 1) {milisecondsclimbraw++;}
+                    if (milisecondsclimb >= 1000) {secondsclimb++; milisecondsclimb = 0;}
+                    if (secondsclimb >= 60) {minutesclimb++; secondsclimb = 0;}
+                    if (climbtimer == 1) {milisecondsclimb ++; climbTimer.setText(Integer.toString(minutesclimb)+":"+Integer.toString(secondsclimb)+"."+Integer.toString(milisecondsclimb));}
+
                 });
             }
         };
         //Code for the team Autofill Stuff
+
 teamAutofill.setOnClickListener(v -> {
     if (teamAutofill.isChecked()) {
         String newTeam;
@@ -293,6 +381,53 @@ teamAutofill.setOnClickListener(v -> {
         team_input.setText("");
     }
                                      });
+        closeDefense.setOnClickListener(v-> {
+            Defense.setVisibility(View.INVISIBLE);
+            Gray_Box.setVisibility(View.GONE);
+        });
+        blocked_lower_minus.setEnabled(false);
+        blocked_upper_minus.setEnabled(false);
+        blocked_upper_plus.setEnabled(false);
+        blocked_lower_plus.setEnabled(false);
+        startDefenseTimer.setEnabled(false);
+        defendedTeam.setEnabled(false);
+        blocked_lower_minus.setAlpha((float) 0.5);
+        blocked_upper_minus.setAlpha((float) 0.5);
+        blocked_upper_plus.setAlpha((float) 0.5);
+        blocked_lower_plus.setAlpha((float) 0.5);
+        startDefenseTimer.setAlpha((float) 0.5);
+        defendedTeam.setAlpha((float) 0.5);
+
+        playedDefense.setOnClickListener(v -> {
+            if (playedDefense.isChecked()) {
+                blocked_lower_minus.setEnabled(true);
+                blocked_upper_minus.setEnabled(true);
+                blocked_upper_plus.setEnabled(true);
+                blocked_lower_plus.setEnabled(true);
+                startDefenseTimer.setEnabled(true);
+                defendedTeam.setEnabled(true);
+                blocked_lower_minus.setAlpha((float) 1);
+                blocked_upper_minus.setAlpha((float) 1);
+                blocked_upper_plus.setAlpha((float) 1);
+                blocked_lower_plus.setAlpha((float) 1);
+                startDefenseTimer.setAlpha((float) 1);
+                defendedTeam.setAlpha((float) 1);
+            }
+            if (!playedDefense.isChecked()) {
+                blocked_lower_minus.setEnabled(false);
+                blocked_upper_minus.setEnabled(false);
+                blocked_upper_plus.setEnabled(false);
+                blocked_lower_plus.setEnabled(false);
+                startDefenseTimer.setEnabled(false);
+                defendedTeam.setEnabled(false);
+                blocked_lower_minus.setAlpha((float) 0.5);
+                blocked_upper_minus.setAlpha((float) 0.5);
+                blocked_upper_plus.setAlpha((float) 0.5);
+                blocked_lower_plus.setAlpha((float) 0.5);
+                startDefenseTimer.setAlpha((float) 0.5);
+                defendedTeam.setAlpha((float) 0.5);
+            }
+        });
         //These lines are all the auto-mode validation. This makes sure no auto works with the other auto inputs
         auto_no_auto.setOnClickListener(v -> {
             if (auto_no_auto.isChecked()) {
@@ -339,6 +474,7 @@ teamAutofill.setOnClickListener(v -> {
             }
         });
         //This function prevents the score from going below 0 and above 99
+
         Thread myThread = new Thread(myRunnable);
         myThread.start();
         auto_upper_plus.setOnClickListener(v -> {
@@ -401,6 +537,66 @@ teamAutofill.setOnClickListener(v -> {
             }
             missedShotsText.setText(Integer.toString(missedScore));
         });
+
+        //Defense Area
+        blocked_lower_minus.setOnClickListener(v -> {
+            if (defenseLowerScore > 0) {
+                defenseLowerScore--;
+            }
+            blocked_lower_text.setText(Integer.toString(defenseLowerScore));
+        });
+        blocked_lower_plus.setOnClickListener(v -> {
+            if (defenseLowerScore < 99) {
+                defenseLowerScore++;
+            }
+            blocked_lower_text.setText(Integer.toString(defenseLowerScore));
+        });
+        blocked_upper_minus.setOnClickListener(v -> {
+            if (defenseUpperScore > 0) {
+                defenseUpperScore--;
+            }
+            blocked_upper_text.setText(Integer.toString(defenseUpperScore));
+        });
+        blocked_upper_plus.setOnClickListener(v -> {
+            if (defenseUpperScore < 99) {
+                defenseUpperScore++;
+            }
+            blocked_upper_text.setText(Integer.toString(defenseUpperScore));
+        });
+
+
+        climbTimerStart.setOnClickListener(v -> {
+            if (climbtimer==0) {climbTimerStart.setText("Stop Timer"); climbtimer=1; }
+            else if (climbtimer==1) { climbTimerStart.setText("Start Timer");climbtimer=0;}
+        });
+
+
+        climbTimer.setOnClickListener(v -> {
+            {
+                if (climbtimerreset==0) {climbTimerClear.setVisibility(View.VISIBLE); ds_cooldown = 750;}
+                if (climbtimerreset>=0) {climbtimerreset ++;}
+                if (climbtimerreset==3) {climbTimer.setText("00:00.00"); climbtimerreset = 0; minutesclimb = 0; secondsclimb = 0; milisecondsclimb = 0; milisecondsclimbraw = 0;}
+            }
+        });
+
+        defenseTimer.setOnClickListener(v -> {
+            {
+                if (timerReset==0) {timerClear.setVisibility(View.VISIBLE); ds_cooldown = 750;}
+                if (timerReset>=0) {timerReset ++;}
+                if (timerReset==3) {defenseTimer.setText("00:00.00"); timerReset = 0; minutesdefending = 0; secondsdefending = 0; milisecondsdefending = 0; milisecondsdefendingraw = 0;}
+            }
+        });
+
+
+
+
+
+        startDefenseTimer.setOnClickListener(v -> {
+            if (defensetimer==0) {startDefenseTimer.setText("Stop Timer"); defensetimer=1; }
+            else if (defensetimer==1) { startDefenseTimer.setText("Start Timer");defensetimer=0;}
+        });
+
+
         //Enter Dev Mode. Only necessary if something is broke
         rrlogo.setOnClickListener(v-> {
             if(dev == 0) {dev = 1;}
@@ -481,7 +677,7 @@ teamAutofill.setOnClickListener(v -> {
                 Toast.makeText(getApplicationContext(), "Submit Error:"+closeError, Toast.LENGTH_LONG).show();
                 data_submitted.setVisibility(View.VISIBLE);
                 data_submitted.setImageResource(R.drawable.x);
-                ds_cooldown = 150;
+                ds_cooldown = 1500;
             } else {
                 Pregame.setVisibility(View.INVISIBLE);
                 Gray_Box.setVisibility(View.INVISIBLE);
@@ -513,7 +709,7 @@ teamAutofill.setOnClickListener(v -> {
 
                 data_submitted.setVisibility(android.view.View.VISIBLE);
                 data_submitted.setImageResource(R.drawable.x);
-                ds_cooldown = 150;
+                ds_cooldown = 1500;
             } else {
                 Pregame.setVisibility(android.view.View.INVISIBLE);
                 Gray_Box.setVisibility(android.view.View.INVISIBLE);
@@ -523,33 +719,54 @@ teamAutofill.setOnClickListener(v -> {
                 name_input.setBackground(nameBackground);
             }
             Endgame.setVisibility(android.view.View.INVISIBLE);
-         });
+            Defense.setVisibility(android.view.View.INVISIBLE);
+        });
         //These lines are the special function toggles.
         //The Pregame_box is a dev way to open and close pregame without filling out fields
         //The Endgame_box is a operator way to open and close endgame.
-        Endgame.setVisibility(View.INVISIBLE);
+        Endgame.setVisibility(android.view.View.INVISIBLE);
+        Defense.setVisibility(android.view.View.INVISIBLE);
+
         Pregame_Box.setOnClickListener(view -> {
             if (Pregame.getVisibility() == View.INVISIBLE) {
                 Endgame.setVisibility(View.INVISIBLE);
+                Defense.setVisibility(View.INVISIBLE);
                 Pregame.setVisibility(View.VISIBLE);
                 Gray_Box.setVisibility(View.VISIBLE);
                 Pregame.bringToFront();
             } else if (Pregame.getVisibility() == View.VISIBLE) {
                 Pregame.setVisibility(View.INVISIBLE);
                 Endgame.setVisibility(View.INVISIBLE);
+                Defense.setVisibility(View.INVISIBLE);
                 Gray_Box.setVisibility(View.INVISIBLE);
             }
         });
         Endgame_Box.setOnClickListener(view -> {
             if (Endgame.getVisibility() == View.VISIBLE) {
                 Pregame.setVisibility(View.INVISIBLE);
+                Defense.setVisibility(View.INVISIBLE);
                 Endgame.setVisibility(View.INVISIBLE);
                 Gray_Box.setVisibility(View.INVISIBLE);
             } else if (Endgame.getVisibility() == View.INVISIBLE) {
                 Endgame.setVisibility(View.VISIBLE);
                 Pregame.setVisibility(View.INVISIBLE);
+                Defense.setVisibility(View.INVISIBLE);
                 Gray_Box.setVisibility(View.VISIBLE);
                 Endgame.bringToFront();
+            }
+        });
+        Defense_Box.setOnClickListener(view -> {
+            if (Defense.getVisibility() == View.VISIBLE) {
+                Pregame.setVisibility(View.INVISIBLE);
+                Defense.setVisibility(View.INVISIBLE);
+                Endgame.setVisibility(View.INVISIBLE);
+                Gray_Box.setVisibility(View.INVISIBLE);
+            } else if (Defense.getVisibility() == View.INVISIBLE) {
+                Endgame.setVisibility(View.INVISIBLE);
+                Pregame.setVisibility(View.INVISIBLE);
+                Defense.setVisibility(View.VISIBLE);
+                Gray_Box.setVisibility(View.VISIBLE);
+                Defense.bringToFront();
             }
         });
         //This sets the alliance blue and it sets the background colour blue.
@@ -557,6 +774,7 @@ teamAutofill.setOnClickListener(v -> {
             Background.setBackgroundResource(R.drawable.blueappbackground);
             Pregame.setBackgroundColor(Color.argb(255, 127, 127, 247));
             Endgame.setBackgroundColor(Color.argb(255, 127, 127, 247));
+            Defense.setBackgroundColor(Color.argb(255, 127, 127, 247));
             auto_lower_text.setTextColor(Color.BLACK);
             auto_upper_text.setTextColor(Color.BLACK);
             auto_no_auto.setTextColor(Color.BLACK);
@@ -579,6 +797,7 @@ teamAutofill.setOnClickListener(v -> {
             Background.setBackgroundResource(R.drawable.redappbackground);
             Pregame.setBackgroundColor(Color.argb(255, 247, 127, 127));
             Endgame.setBackgroundColor(Color.argb(255, 247, 127, 127));
+            Defense.setBackgroundColor(Color.argb(255, 247, 127, 127));
             auto_lower_text.setTextColor(Color.BLACK);
             auto_upper_text.setTextColor(Color.BLACK);
             auto_no_auto.setTextColor(Color.BLACK);
@@ -672,7 +891,7 @@ teamAutofill.setOnClickListener(v -> {
                 //Place an X if incorrect
                 data_submitted.setVisibility(View.VISIBLE);
                 data_submitted.setImageResource(R.drawable.x);
-                ds_cooldown = 150;
+                ds_cooldown = 1500;
             } else {
                 //This is what happens whenever all is correct
                 data_submitted.setVisibility(View.VISIBLE);
@@ -683,7 +902,7 @@ teamAutofill.setOnClickListener(v -> {
                 allianceText.setBackgroundResource(Color.TRANSPARENT);
                 climbResult.setBackgroundResource(R.drawable.spinnerbackground);
                 endgame_results.setBackgroundResource(R.drawable.spinnerbackground);
-                ds_cooldown = 150; //Makes the check mark appear
+                ds_cooldown = 1500; //Makes the check mark appear
                 //Save data for transfer
                 File dir = getDataDirectory();
                 //This creates a file
@@ -708,6 +927,15 @@ teamAutofill.setOnClickListener(v -> {
                     myOutWriter.println("Endgame: "+climbResult.getSelectedItem());
                     myOutWriter.println("Results: "+endgame_results.getSelectedItem());
                     myOutWriter.println("Notes: "+notes.getText());
+                    myOutWriter.println("Played Defense: "+playedDefense.isChecked());
+                    myOutWriter.println("Defended Top: "+defenseUpperScore);
+                    myOutWriter.println("Defended Bottom: "+defenseLowerScore);
+                    myOutWriter.println("Team Defended: "+defendedTeam.getText());
+                    myOutWriter.println("Time Defended: "+milisecondsdefendingraw);
+                    if (climbResult.getSelectedItem()=="NONE"&&milisecondsclimbraw==0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
+                    if (climbResult.getSelectedItem()=="NONE"&&milisecondsclimbraw>0) {myOutWriter.println("Climb Time: 00:00.00");}
+                    if (climbResult.getSelectedItem()!="NONE"&&milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}
+
                     myOutWriter.flush();
                     myOutWriter.close();
                     fOut.close();
@@ -759,8 +987,43 @@ teamAutofill.setOnClickListener(v -> {
                 auto_upper_text.setText("0");
                 auto_lower_text.setText("0");
                 missedShotsText.setText("0");
+                defenseTimer.setText("00:00.00");
+                climbTimer.setText("00:00.00");
+                playedDefense.setChecked(false);
+                defensetimer = 0;
+                climbtimer = 0;
+                defenseLowerScore = 0;
+                defenseUpperScore = 0;
+                defendedTeam.setText("");
+                Defense.setVisibility(View.INVISIBLE);
+                blocked_lower_text.setText("0");
+                blocked_upper_text.setText("0");
+                startDefenseTimer.setText("Start Timer");
+                climbTimerStart.setText("Start Timer");
+                climbtimerreset = 0;
+                timerReset = 0;
+                milisecondsclimbraw = 0;
+                milisecondsclimb = 0;
+                milisecondsdefendingraw = 0;
+                milisecondsdefending = 0;
+                secondsclimb = 0;
+                secondsdefending = 0;
+                minutesclimb = 0;
+                minutesdefending = 0;
                 Endgame.setVisibility(View.INVISIBLE);
                 Pregame.setVisibility(View.VISIBLE);
+                blocked_lower_minus.setEnabled(false);
+                blocked_upper_minus.setEnabled(false);
+                blocked_upper_plus.setEnabled(false);
+                blocked_lower_plus.setEnabled(false);
+                startDefenseTimer.setEnabled(false);
+                defendedTeam.setEnabled(false);
+                blocked_lower_minus.setAlpha((float) 0.5);
+                blocked_upper_minus.setAlpha((float) 0.5);
+                blocked_upper_plus.setAlpha((float) 0.5);
+                blocked_lower_plus.setAlpha((float) 0.5);
+                startDefenseTimer.setAlpha((float) 0.5);
+                defendedTeam.setAlpha((float) 0.5);
                 if (roundfill>1) {sameScouter.setVisibility(View.VISIBLE);}
                 if (teamAutofill.isChecked()) {
                     String newTeam;
