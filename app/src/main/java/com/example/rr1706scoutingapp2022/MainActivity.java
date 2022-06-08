@@ -347,12 +347,39 @@ public class MainActivity extends AppCompatActivity {
                     if (defensetimer == 1) {milisecondsdefendingraw++;}
                     if (milisecondsdefending >= 1000) {secondsdefending++; milisecondsdefending = 0;}
                     if (secondsdefending >= 60) {minutesdefending++; secondsdefending = 0;}
-                    if (defensetimer == 1) {milisecondsdefending ++; defenseTimer.setText(Integer.toString(minutesdefending)+":"+Integer.toString(secondsdefending)+"."+Integer.toString(milisecondsdefending));}
-
+                    if (defensetimer == 1) {
+                        milisecondsdefending++;
+                        if (secondsdefending < 10 && minutesdefending >= 10) {
+                            defenseTimer.setText(Integer.toString(minutesdefending) + ":" + "0"+Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
+                        }
+                        if (minutesdefending < 10 && secondsdefending >= 10) {
+                            defenseTimer.setText("0"+Integer.toString(minutesdefending) + ":" + Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
+                        }
+                        if (minutesdefending < 10 && secondsdefending < 10) {
+                            defenseTimer.setText("0"+Integer.toString(minutesdefending) + ":" + "0"+ Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
+                        }
+                        if (secondsdefending >= 10 && minutesdefending >= 10) {
+                            defenseTimer.setText(Integer.toString(minutesdefending) + ":" + Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
+                        }
+                    }
                     if (climbtimer == 1) {milisecondsclimbraw++;}
                     if (milisecondsclimb >= 1000) {secondsclimb++; milisecondsclimb = 0;}
                     if (secondsclimb >= 60) {minutesclimb++; secondsclimb = 0;}
-                    if (climbtimer == 1) {milisecondsclimb ++; climbTimer.setText(Integer.toString(minutesclimb)+":"+Integer.toString(secondsclimb)+"."+Integer.toString(milisecondsclimb));}
+                    if (climbtimer == 1) {
+                        milisecondsclimb ++;
+                        if (secondsclimb >= 10 && minutesclimb >= 10) {
+                            climbTimer.setText(Integer.toString(minutesclimb) + ":" + Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
+                        }
+                        if (secondsclimb < 10 && minutesclimb >= 10) {
+                            climbTimer.setText(Integer.toString(minutesclimb) + ":" + "0"+Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
+                        }
+                        if (secondsclimb >= 10 && minutesclimb < 10) {
+                            climbTimer.setText("0"+Integer.toString(minutesclimb) + ":" + Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
+                        }
+                        if (secondsclimb < 10 && minutesclimb < 10) {
+                            climbTimer.setText("0"+Integer.toString(minutesclimb) + ":" +"0"+ Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
+                        }
+                    }
 
                 });
             }
