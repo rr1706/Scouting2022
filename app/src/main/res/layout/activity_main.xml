@@ -668,17 +668,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <Switch
-            android:id="@+id/robotErrors"
-            android:layout_width="106dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="184dp"
-            android:layout_marginLeft="184dp"
-            android:layout_marginTop="28dp"
-            android:text="Robot Errors?"
-            app:layout_constraintStart_toEndOf="@+id/endgameClimb"
-            app:layout_constraintTop_toBottomOf="@+id/endgameResults" />
-
         <EditText
             android:id="@+id/notes"
             android:layout_width="208dp"
@@ -730,6 +719,18 @@
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/climbTimerStart" />
+
+        <Switch
+            android:id="@+id/robotErrors"
+            android:layout_width="112dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="16dp"
+            android:text="Robot Errors
+"
+            app:layout_constraintBottom_toBottomOf="@+id/endgameResults"
+            app:layout_constraintEnd_toStartOf="@+id/endgameClimb"
+            app:layout_constraintHorizontal_bias="0.424"
+            app:layout_constraintStart_toEndOf="@+id/endgameResults" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

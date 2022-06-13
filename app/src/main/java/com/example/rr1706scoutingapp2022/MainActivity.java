@@ -409,6 +409,8 @@ teamAutofill.setOnClickListener(v -> {
     }
                                      });
         closeDefense.setOnClickListener(v-> {
+            startDefenseTimer.setText("Start Timer");
+            defensetimer = 0;
             Defense.setVisibility(View.INVISIBLE);
             Gray_Box.setVisibility(View.GONE);
         });
@@ -747,6 +749,10 @@ teamAutofill.setOnClickListener(v -> {
             }
             Endgame.setVisibility(android.view.View.INVISIBLE);
             Defense.setVisibility(android.view.View.INVISIBLE);
+            startDefenseTimer.setText("Start Timer");
+            defensetimer = 0;
+            climbTimerStart.setText("Start Timer");
+            climbtimer = 0;
         });
         //These lines are the special function toggles.
         //The Pregame_box is a dev way to open and close pregame without filling out fields
@@ -774,6 +780,8 @@ teamAutofill.setOnClickListener(v -> {
                 Defense.setVisibility(View.INVISIBLE);
                 Endgame.setVisibility(View.INVISIBLE);
                 Gray_Box.setVisibility(View.INVISIBLE);
+                climbTimerStart.setText("Start Timer");
+                climbtimer = 0;
             } else if (Endgame.getVisibility() == View.INVISIBLE) {
                 Endgame.setVisibility(View.VISIBLE);
                 Pregame.setVisibility(View.INVISIBLE);
@@ -788,6 +796,9 @@ teamAutofill.setOnClickListener(v -> {
                 Defense.setVisibility(View.INVISIBLE);
                 Endgame.setVisibility(View.INVISIBLE);
                 Gray_Box.setVisibility(View.INVISIBLE);
+                startDefenseTimer.setText("Start Timer");
+                defensetimer = 0;
+
             } else if (Defense.getVisibility() == View.INVISIBLE) {
                 Endgame.setVisibility(View.INVISIBLE);
                 Pregame.setVisibility(View.INVISIBLE);
