@@ -25,9 +25,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -344,9 +342,11 @@ public class MainActivity extends AppCompatActivity {
                         timerClear.setVisibility(View.GONE);
                         climbTimerClear.setVisibility(View.GONE);
                     }
+                    //Defense Timer Starting
                     if (defensetimer == 1) {milisecondsdefendingraw++;}
                     if (milisecondsdefending >= 1000) {secondsdefending++; milisecondsdefending = 0;}
                     if (secondsdefending >= 60) {minutesdefending++; secondsdefending = 0;}
+                    //Cases for if the number does not match the type of standard number format
                     if (defensetimer == 1) {
                         milisecondsdefending++;
                         if (secondsdefending < 10 && minutesdefending >= 10) {
@@ -362,9 +362,11 @@ public class MainActivity extends AppCompatActivity {
                             defenseTimer.setText(Integer.toString(minutesdefending) + ":" + Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
                         }
                     }
+                    //Starting the climb timer
                     if (climbtimer == 1) {milisecondsclimbraw++;}
                     if (milisecondsclimb >= 1000) {secondsclimb++; milisecondsclimb = 0;}
                     if (secondsclimb >= 60) {minutesclimb++; secondsclimb = 0;}
+                    //Cases for if the number does not match the type of standard number format
                     if (climbtimer == 1) {
                         milisecondsclimb ++;
                         if (secondsclimb >= 10 && minutesclimb >= 10) {
@@ -965,11 +967,11 @@ teamAutofill.setOnClickListener(v -> {
                     myOutWriter.println("Endgame: "+climbResult.getSelectedItem());
                     myOutWriter.println("Results: "+endgame_results.getSelectedItem());
                     myOutWriter.println("Notes: "+notes.getText());
-                    myOutWriter.println("Played Defense: "+playedDefense.isChecked());
-                    myOutWriter.println("Defended Top: "+defenseUpperScore);
-                    myOutWriter.println("Defended Bottom: "+defenseLowerScore);
-                    myOutWriter.println("Team Defended: "+defendedTeam.getText());
-                    myOutWriter.println("Time Defended: "+milisecondsdefendingraw);
+                    //myOutWriter.println("Played Defense: "+playedDefense.isChecked());
+                    //myOutWriter.println("Defended Top: "+defenseUpperScore);
+                    //myOutWriter.println("Defended Bottom: "+defenseLowerScore);
+                    //myOutWriter.println("Team Defended: "+defendedTeam.getText());
+                    //myOutWriter.println("Time Defended: "+milisecondsdefendingraw);
                     if (climbResult.getSelectedItem()=="NONE"&&milisecondsclimbraw==0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
                     if (climbResult.getSelectedItem()=="NONE"&&milisecondsclimbraw>0) {myOutWriter.println("Climb Time: 00:00.00");}
                     if (climbResult.getSelectedItem()!="NONE"&&milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}

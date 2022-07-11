@@ -383,10 +383,12 @@
         android:elevation="100dp"
         android:text="Defense"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck"
+        tools:visibility="gone" />
 
     <Button
         android:id="@+id/Endgame_Box"
@@ -816,7 +818,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.495"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <ImageButton
             android:id="@+id/blocked_upper_minus"
