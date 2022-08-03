@@ -1,6 +1,12 @@
 package com.example.rr1706scoutingapp2022;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +41,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -68,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
         int defensetimer = 0;
         int climbtimer = 0;
         String alliance = "none";
+        String defending1;
+        String defending2;
+        String defending3;
+        String tabletName;
+        int tabletnumber;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         final EditText team_input = findViewById(R.id.team_input);
         final EditText round_input = findViewById(R.id.round_input);
         final EditText notes = findViewById(R.id.notes);
-        final EditText defendedTeam = findViewById(R.id.teamDefending);
         //TextViews
         final TextView auto_upper_text = findViewById(R.id.auto_upper_text);
         final TextView timerClear = findViewById(R.id.clearTimer);
@@ -105,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
         final TextView missedShotsText = findViewById(R.id.missedShotsText);
         final TextView teleop_upper_text = findViewById(R.id.teleop_upper_text);
         final TextView teleop_lower_text = findViewById(R.id.teleop_lower_text);
-        final TextView blocked_lower_text = findViewById(R.id.blocked_lower_text);
-        final TextView blocked_upper_text = findViewById(R.id.blocked_upper_text);
         final TextView allianceText = findViewById(R.id.alliance_text);
         final TextView toptext = findViewById(R.id.toptext);
         final TextView bottomtext = findViewById(R.id.bottomText);
@@ -114,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView bottomtext2 = findViewById(R.id.bottomText2);
         final TextView missedtext = findViewById(R.id.missedShots);
         final TextView defenseTimer = findViewById(R.id.defenseTimer);
+        final TextView defenseNumberText = findViewById(R.id.InputTeamDefenseT);
+        final EditText DefenseNumber = findViewById(R.id.InputTeamDefense);
         //Buttons
         final Button Blue_Alliance = findViewById(R.id.Blue_Alliance);
         final Button sameScouter = findViewById(R.id.sameScouter);
@@ -143,15 +156,12 @@ public class MainActivity extends AppCompatActivity {
         final ImageView teleop_upper_minus = findViewById(R.id.teleop_upper_minus);
         final ImageView teleop_lower_plus = findViewById(R.id.teleop_lower_plus);
         final ImageView teleop_lower_minus = findViewById(R.id.teleop_lower_minus);
-        final ImageView blocked_lower_plus = findViewById(R.id.blocked_lower_plus);
-        final ImageView blocked_upper_plus = findViewById(R.id.blocked_upper_plus);
-        final ImageView blocked_upper_minus = findViewById(R.id.blocked_upper_minus);
-        final ImageView blocked_lower_minus = findViewById(R.id.blocked_lower_minus);
         final ImageView data_submitted = findViewById(R.id.data_submitted);
         //Switches
         final Switch auto_no_auto = findViewById(R.id.noAutoSwitch);
         final Switch playedDefense = findViewById(R.id.playedDefense);
         final Switch robotError = findViewById(R.id.robotErrors);
+        final Switch defenseType = findViewById(R.id.defenseType);
         //Seekbars
         final SeekBar autoAttempted = findViewById(R.id.autoAttemptedBar);
         //Image Buttons
@@ -159,18 +169,105 @@ public class MainActivity extends AppCompatActivity {
 
         //Checkboxes
         final CheckBox teamAutofill = findViewById(R.id.autoFill);
+        final CheckBox defended1 = findViewById(R.id.defendingTeam1);
+        final CheckBox defended2 = findViewById(R.id.defendingTeam2);
+        final CheckBox defended3 = findViewById(R.id.defendingTeam3);
 
         //Random Initial Start Things
+        if (getTeams() != "") {
+            teamAutofill.setChecked(true);
+        }
         round_input.setText(String.valueOf(roundfill));
         Drawable textBackground = round_input.getBackground();
         Drawable nameBackground = name_input.getBackground();
         data_submitted.setVisibility(View.INVISIBLE);
-        if (roundfill==1) {sameScouter.setVisibility(View.GONE);}
+        if (roundfill == 1) {
+            sameScouter.setVisibility(View.GONE);
+        }
+
+        String[] splitstrArray = null;
+        String[] strArray = null;
+        strArray = getTeams().split("\n");
+        splitstrArray = strArray[roundfill - 1].split(",");
 
 
+        tabletName = Settings.Secure.getString(getContentResolver(), "bluetooth_name");
+        if (tabletName.equals("1706's 1st Fire")) {
+            tabletnumber = 4;
+        } else if (tabletName.equals("1706's 2nd Fire")) {
+            tabletnumber = 5;
+        } else if (tabletName.equals("1706's 3rd Fire")) {
+            tabletnumber = 6;
+        } else if (tabletName.equals("1706's 4th Fire")) {
+            tabletnumber = 1;
+        } else if (tabletName.equals("1706's 5th Fire")) {
+            tabletnumber = 2;
+        } else if (tabletName.equals("1706's 6th Fire")) {
+            tabletnumber = 3;
+        }
+        int tabletnumbercomp = tabletnumber - 1;
+        if (tabletnumber <= 3) {
+            dev = 0;
+            Background.setBackgroundResource(R.drawable.redappbackground);
+            Pregame.setBackgroundColor(Color.argb(255, 247, 127, 127));
+            Endgame.setBackgroundColor(Color.argb(255, 247, 127, 127));
+            Defense.setBackgroundColor(Color.argb(255, 247, 127, 127));
+            auto_lower_text.setTextColor(Color.BLACK);
+            auto_upper_text.setTextColor(Color.BLACK);
+            auto_no_auto.setTextColor(Color.BLACK);
+            autoAttempted.setBackgroundColor(Color.TRANSPARENT);
+            autoScoreAttempt.setBackgroundResource(R.drawable.seekbar);
+            attemptedAutoText.setTextColor(Color.BLACK);
+            toptext.setTextColor(Color.BLACK);
+            toptext2.setTextColor(Color.BLACK);
+            missedtext.setTextColor(Color.BLACK);
+            bottomtext.setTextColor(Color.BLACK);
+            bottomtext2.setTextColor(Color.BLACK);
+            teleop_lower_text.setTextColor(Color.BLACK);
+            seekbarcover.setImageResource(Color.TRANSPARENT);
+            teleop_upper_text.setTextColor(Color.BLACK);
+            missedShotsText.setTextColor(Color.BLACK);
+            alliance = "red";
+        }
+        if (tabletnumber >= 4) {
+            dev = 0;
+            Background.setBackgroundResource(R.drawable.blueappbackground);
+            Pregame.setBackgroundColor(Color.argb(255, 127, 127, 247));
+            Endgame.setBackgroundColor(Color.argb(255, 127, 127, 247));
+            Defense.setBackgroundColor(Color.argb(255, 127, 127, 247));
+            auto_lower_text.setTextColor(Color.BLACK);
+            auto_upper_text.setTextColor(Color.BLACK);
+            auto_no_auto.setTextColor(Color.BLACK);
+            toptext.setTextColor(Color.BLACK);
+            toptext2.setTextColor(Color.BLACK);
+            missedtext.setTextColor(Color.BLACK);
+            bottomtext.setTextColor(Color.BLACK);
+            bottomtext2.setTextColor(Color.BLACK);
+            teleop_lower_text.setTextColor(Color.BLACK);
+            teleop_upper_text.setTextColor(Color.BLACK);
+            missedShotsText.setTextColor(Color.BLACK);
+            autoAttempted.setBackgroundColor(Color.TRANSPARENT);
+            autoScoreAttempt.setBackgroundResource(R.drawable.seekbar);
+            seekbarcover.setImageResource(Color.TRANSPARENT);
+            attemptedAutoText.setTextColor(Color.BLACK);
+            alliance = "blue";
+        }
+
+        if (getTeams() != "") {
+            if (tabletnumber >= 4) {
+                defended1.setText(splitstrArray[0]);
+                defended2.setText(splitstrArray[1]);
+                defended3.setText(splitstrArray[2]);
+            } else if (tabletnumber <= 3) {
+                defended1.setText(splitstrArray[3]);
+                defended2.setText(splitstrArray[4]);
+                defended3.setText(splitstrArray[5]);
+            }
+        }
         //No Show
         Endgame.setVisibility(View.INVISIBLE);
         Pregame.bringToFront();
+        String[] finalSplitstrArray1 = splitstrArray;
         final DialogInterface.OnClickListener NoShowDialog = (dialog, which) -> {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE: //If the yes button is clicked for no show, this executes
@@ -211,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                     bottomtext.setAlpha((float) 1);
                     ds_cooldown = 1500;
                     roundfill = Integer.parseInt(round_input.getText().toString());
-                    roundfill ++;
+                    roundfill++;
                     teleopLowerScore = 0;
                     teleopUpperScore = 0;
                     autoLowerScore = 0;
@@ -237,10 +334,7 @@ public class MainActivity extends AppCompatActivity {
                     climbtimer = 0;
                     defenseLowerScore = 0;
                     defenseUpperScore = 0;
-                    defendedTeam.setText("");
                     Defense.setVisibility(View.INVISIBLE);
-                    blocked_lower_text.setText("0");
-                    blocked_upper_text.setText("0");
                     startDefenseTimer.setText("Start Timer");
                     climbTimerStart.setText("Start Timer");
                     climbtimerreset = 0;
@@ -253,35 +347,25 @@ public class MainActivity extends AppCompatActivity {
                     secondsdefending = 0;
                     minutesclimb = 0;
                     minutesdefending = 0;
+                    defended1.setChecked(false);
+                    defended2.setChecked(false);
+                    defended3.setChecked(false);
+                    DefenseNumber.setText("");
                     auto_upper_text.setText("0");
                     auto_lower_text.setText("0");
                     missedShotsText.setText("0");
-                    blocked_lower_minus.setEnabled(false);
-                    blocked_upper_minus.setEnabled(false);
-                    blocked_upper_plus.setEnabled(false);
-                    blocked_lower_plus.setEnabled(false);
                     startDefenseTimer.setEnabled(false);
-                    defendedTeam.setEnabled(false);
-                    blocked_lower_minus.setAlpha((float) 0.5);
-                    blocked_upper_minus.setAlpha((float) 0.5);
-                    blocked_upper_plus.setAlpha((float) 0.5);
-                    blocked_lower_plus.setAlpha((float) 0.5);
                     startDefenseTimer.setAlpha((float) 0.5);
-                    defendedTeam.setAlpha((float) 0.5);
-                    if (roundfill>1) {sameScouter.setVisibility(View.VISIBLE);}
-                    if (teamAutofill.isChecked()) {
-                        String newTeam;
-                        try {
-                            roundfill = Integer.parseInt(round_input.getText().toString());
-                            newTeam = getTeams().substring(
-                                    getTeams().indexOf("." + roundfill + ":") + 1 + ("." + roundfill).length(), //Start
-                                    getTeams().substring(getTeams().indexOf("." + roundfill + ":")).indexOf("\n") + getTeams().indexOf("." + roundfill + ":") //End
-                            );
-                        } catch (Exception e) {
-                            newTeam = "";
-                            Log.e("log", e.toString());
-                        }
-                        team_input.setText(newTeam);
+                    if (roundfill > 1) {
+                        sameScouter.setVisibility(View.VISIBLE);
+                    }
+                    if (teamAutofill.isChecked() && getTeams() != "") {
+                        String[] tempIntArr = null;
+                        String[] splittempIntArr = null;
+                        tempIntArr = getTeams().split("\n");
+                        roundfill = Integer.parseInt(round_input.getText().toString());
+                        splittempIntArr = tempIntArr[roundfill - 1].split(",");
+                        team_input.setText(splittempIntArr[tabletnumbercomp]);
                     }
                     if (!teamAutofill.isChecked()) {
                         team_input.setText("");
@@ -291,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         //This is the gray box that allows for external box clicks from regame and endgame to close menus
-        Gray_Box.setBackgroundColor(Color.argb(180,240,240,240));
+        Gray_Box.setBackgroundColor(Color.argb(180, 240, 240, 240));
         no_show.setOnClickListener(v -> {
             String submitError = "";
             //Special handling
@@ -324,13 +408,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //This sets the scouters name from the previous match. It only appears above match 2
-        sameScouter.setOnClickListener(v-> name_input.setText(scouterName));
+        sameScouter.setOnClickListener(v -> name_input.setText(scouterName));
         //The great while loop (100 times/sec)
         Runnable myRunnable = () -> {
             while (true) {
                 try {
                     Thread.sleep(1);
-                } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
                 //This is just the big check or X if people submit data.
                 data_submitted.post(() -> {
                     //data_submitted stuff
@@ -343,43 +428,59 @@ public class MainActivity extends AppCompatActivity {
                         climbTimerClear.setVisibility(View.GONE);
                     }
                     //Defense Timer Starting
-                    if (defensetimer == 1) {milisecondsdefendingraw++;}
-                    if (milisecondsdefending >= 1000) {secondsdefending++; milisecondsdefending = 0;}
-                    if (secondsdefending >= 60) {minutesdefending++; secondsdefending = 0;}
+                    if (defensetimer == 1) {
+                        milisecondsdefendingraw++;
+                    }
+                    if (milisecondsdefending >= 1000) {
+                        secondsdefending++;
+                        milisecondsdefending = 0;
+                    }
+                    if (secondsdefending >= 60) {
+                        minutesdefending++;
+                        secondsdefending = 0;
+                    }
                     //Cases for if the number does not match the type of standard number format
                     if (defensetimer == 1) {
                         milisecondsdefending++;
                         if (secondsdefending < 10 && minutesdefending >= 10) {
-                            defenseTimer.setText(Integer.toString(minutesdefending) + ":" + "0"+Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
+                            defenseTimer.setText(Integer.toString(minutesdefending) + ":" + "0" + Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
                         }
                         if (minutesdefending < 10 && secondsdefending >= 10) {
-                            defenseTimer.setText("0"+Integer.toString(minutesdefending) + ":" + Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
+                            defenseTimer.setText("0" + Integer.toString(minutesdefending) + ":" + Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
                         }
                         if (minutesdefending < 10 && secondsdefending < 10) {
-                            defenseTimer.setText("0"+Integer.toString(minutesdefending) + ":" + "0"+ Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
+                            defenseTimer.setText("0" + Integer.toString(minutesdefending) + ":" + "0" + Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
                         }
                         if (secondsdefending >= 10 && minutesdefending >= 10) {
                             defenseTimer.setText(Integer.toString(minutesdefending) + ":" + Integer.toString(secondsdefending) + "." + Integer.toString(milisecondsdefending));
                         }
                     }
                     //Starting the climb timer
-                    if (climbtimer == 1) {milisecondsclimbraw++;}
-                    if (milisecondsclimb >= 1000) {secondsclimb++; milisecondsclimb = 0;}
-                    if (secondsclimb >= 60) {minutesclimb++; secondsclimb = 0;}
+                    if (climbtimer == 1) {
+                        milisecondsclimbraw++;
+                    }
+                    if (milisecondsclimb >= 1000) {
+                        secondsclimb++;
+                        milisecondsclimb = 0;
+                    }
+                    if (secondsclimb >= 60) {
+                        minutesclimb++;
+                        secondsclimb = 0;
+                    }
                     //Cases for if the number does not match the type of standard number format
                     if (climbtimer == 1) {
-                        milisecondsclimb ++;
+                        milisecondsclimb++;
                         if (secondsclimb >= 10 && minutesclimb >= 10) {
                             climbTimer.setText(Integer.toString(minutesclimb) + ":" + Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
                         }
                         if (secondsclimb < 10 && minutesclimb >= 10) {
-                            climbTimer.setText(Integer.toString(minutesclimb) + ":" + "0"+Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
+                            climbTimer.setText(Integer.toString(minutesclimb) + ":" + "0" + Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
                         }
                         if (secondsclimb >= 10 && minutesclimb < 10) {
-                            climbTimer.setText("0"+Integer.toString(minutesclimb) + ":" + Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
+                            climbTimer.setText("0" + Integer.toString(minutesclimb) + ":" + Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
                         }
                         if (secondsclimb < 10 && minutesclimb < 10) {
-                            climbTimer.setText("0"+Integer.toString(minutesclimb) + ":" +"0"+ Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
+                            climbTimer.setText("0" + Integer.toString(minutesclimb) + ":" + "0" + Integer.toString(secondsclimb) + "." + Integer.toString(milisecondsclimb));
                         }
                     }
 
@@ -387,78 +488,106 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         //Code for the team Autofill Stuff
+        if (teamAutofill.isChecked() && getTeams() != "") {
+            String[] tempIntArr = null;
+            String[] splittempIntArr = null;
 
-teamAutofill.setOnClickListener(v -> {
-    if (teamAutofill.isChecked()) {
-        String newTeam;
-        try {
+            tempIntArr = getTeams().split("\n");
             roundfill = Integer.parseInt(round_input.getText().toString());
-            //Retrieve teams from conveluded list
-            newTeam = getTeams().substring(
-                    getTeams().indexOf("." + roundfill + ":") + 1 + ("." + roundfill).length(), //Start
-                    getTeams().substring(getTeams().indexOf("." + roundfill + ":")).indexOf("\n") + getTeams().indexOf("." + roundfill + ":") //End
-            );
-        } catch (Exception e) {
-            newTeam = "";
-            Log.e("log", e.toString());
+            splittempIntArr = tempIntArr[roundfill - 1].split(",");
+            team_input.setText(splittempIntArr[tabletnumbercomp]);        //SPINNY BOI
+            if (team_input.getText().toString().equals("1706")) {
+                rrlogo.animate().rotation(2880f).setDuration(5000).start();
+            }
         }
-        team_input.setText(newTeam);
-        //SPINNY BOI
-        if (team_input.getText().toString().equals("1706")) {rrlogo.animate().rotation(2880f).setDuration(5000).start();}
-    }
-    if (!teamAutofill.isChecked()) {
-        team_input.setText("");
-    }
-                                     });
-        closeDefense.setOnClickListener(v-> {
+
+
+        String[] finalSplitstrArray2 = splitstrArray;
+        teamAutofill.setOnClickListener(v -> {
+            if (teamAutofill.isChecked() && getTeams() != "") {
+
+                String[] tempIntArr = null;
+                String[] splittempIntArr = null;
+
+                tempIntArr = getTeams().split("\n");
+                roundfill = Integer.parseInt(round_input.getText().toString());
+                splittempIntArr = tempIntArr[roundfill - 1].split(",");
+                team_input.setText(splittempIntArr[tabletnumbercomp]);        //SPINNY BOI
+                if (team_input.getText().toString().equals("1706")) {
+                    rrlogo.animate().rotation(2880f).setDuration(5000).start();
+                }
+            }
+            if (!teamAutofill.isChecked()) {
+                team_input.setText("");
+            }
+        });
+        closeDefense.setOnClickListener(v -> {
             startDefenseTimer.setText("Start Timer");
             defensetimer = 0;
             Defense.setVisibility(View.INVISIBLE);
             Gray_Box.setVisibility(View.GONE);
         });
-        blocked_lower_minus.setEnabled(false);
-        blocked_upper_minus.setEnabled(false);
-        blocked_upper_plus.setEnabled(false);
-        blocked_lower_plus.setEnabled(false);
+        if (getTeams().equals("")) {
+            defenseNumberText.setVisibility(View.VISIBLE);
+            DefenseNumber.setVisibility(View.VISIBLE);
+        }
+        if (getTeams() != "") {
+            defenseNumberText.setVisibility(View.INVISIBLE);
+            DefenseNumber.setVisibility(View.INVISIBLE);
+        }
+
         startDefenseTimer.setEnabled(false);
-        defendedTeam.setEnabled(false);
-        blocked_lower_minus.setAlpha((float) 0.5);
-        blocked_upper_minus.setAlpha((float) 0.5);
-        blocked_upper_plus.setAlpha((float) 0.5);
-        blocked_lower_plus.setAlpha((float) 0.5);
         startDefenseTimer.setAlpha((float) 0.5);
-        defendedTeam.setAlpha((float) 0.5);
+        defended1.setEnabled(false);
+        defended1.setAlpha((float) 0.5);
+        defended2.setEnabled(false);
+        defended2.setAlpha((float) 0.5);
+        defended3.setEnabled(false);
+        defended3.setAlpha((float) 0.5);
+        defenseType.setEnabled(false);
+        defenseType.setAlpha((float) 0.5);
+        DefenseNumber.setEnabled(false);
+        DefenseNumber.setAlpha((float) 0.5);
 
         playedDefense.setOnClickListener(v -> {
             if (playedDefense.isChecked()) {
-                blocked_lower_minus.setEnabled(true);
-                blocked_upper_minus.setEnabled(true);
-                blocked_upper_plus.setEnabled(true);
-                blocked_lower_plus.setEnabled(true);
                 startDefenseTimer.setEnabled(true);
-                defendedTeam.setEnabled(true);
-                blocked_lower_minus.setAlpha((float) 1);
-                blocked_upper_minus.setAlpha((float) 1);
-                blocked_upper_plus.setAlpha((float) 1);
-                blocked_lower_plus.setAlpha((float) 1);
                 startDefenseTimer.setAlpha((float) 1);
-                defendedTeam.setAlpha((float) 1);
+                if (getTeams() != "") {
+                    defended1.setEnabled(true);
+                    defended1.setAlpha((float) 1);
+                    defended2.setEnabled(true);
+                    defended2.setAlpha((float) 1);
+                    defended3.setEnabled(true);
+                    defended3.setAlpha((float) 1);
+                }
+                defenseType.setEnabled(true);
+                defenseType.setAlpha((float) 1);
+                defenseNumberText.setEnabled(true);
+                defenseNumberText.setAlpha((float) 1);
+                DefenseNumber.setEnabled(true);
+                DefenseNumber.setAlpha((float) 1);
             }
             if (!playedDefense.isChecked()) {
-                blocked_lower_minus.setEnabled(false);
-                blocked_upper_minus.setEnabled(false);
-                blocked_upper_plus.setEnabled(false);
-                blocked_lower_plus.setEnabled(false);
                 startDefenseTimer.setEnabled(false);
-                defendedTeam.setEnabled(false);
-                blocked_lower_minus.setAlpha((float) 0.5);
-                blocked_upper_minus.setAlpha((float) 0.5);
-                blocked_upper_plus.setAlpha((float) 0.5);
-                blocked_lower_plus.setAlpha((float) 0.5);
                 startDefenseTimer.setAlpha((float) 0.5);
-                defendedTeam.setAlpha((float) 0.5);
+                if (getTeams() != "") {
+                    defended1.setEnabled(false);
+                    defended1.setAlpha((float) 0.5);
+                    defended2.setEnabled(false);
+                    defended2.setAlpha((float) 0.5);
+                    defended3.setEnabled(false);
+                    defended3.setAlpha((float) 0.5);
+                }
+                defenseType.setEnabled(false);
+                defenseType.setAlpha((float) 0.5);
+                defenseNumberText.setEnabled(false);
+                defenseNumberText.setAlpha((float) 0.5);
+                DefenseNumber.setEnabled(false);
+                DefenseNumber.setAlpha((float) 0.5);
             }
         });
+
         //These lines are all the auto-mode validation. This makes sure no auto works with the other auto inputs
         auto_no_auto.setOnClickListener(v -> {
             if (auto_no_auto.isChecked()) {
@@ -480,7 +609,9 @@ teamAutofill.setOnClickListener(v -> {
                 autoAttempted.setAlpha((float) 0.5);
                 autoScoreAttempt.setAlpha((float) 0.5);
                 attemptedAutoText.setAlpha((float) 0.5);
-                if (autoLowerScore>0|autoAttempted.getProgress()>0|autoUpperScore>0) {auto_no_autoColor.setBackgroundColor(Color.YELLOW);}
+                if (autoLowerScore > 0 | autoAttempted.getProgress() > 0 | autoUpperScore > 0) {
+                    auto_no_autoColor.setBackgroundColor(Color.YELLOW);
+                }
             }
             if (!auto_no_auto.isChecked()) {
                 auto_lower_text.setEnabled(true);
@@ -504,6 +635,7 @@ teamAutofill.setOnClickListener(v -> {
                 auto_no_autoColor.setBackgroundColor(Color.TRANSPARENT);
             }
         });
+
         //This function prevents the score from going below 0 and above 99
 
         Thread myThread = new Thread(myRunnable);
@@ -570,74 +702,90 @@ teamAutofill.setOnClickListener(v -> {
         });
 
         //Defense Area
-        blocked_lower_minus.setOnClickListener(v -> {
-            if (defenseLowerScore > 0) {
-                defenseLowerScore--;
-            }
-            blocked_lower_text.setText(Integer.toString(defenseLowerScore));
-        });
-        blocked_lower_plus.setOnClickListener(v -> {
-            if (defenseLowerScore < 99) {
-                defenseLowerScore++;
-            }
-            blocked_lower_text.setText(Integer.toString(defenseLowerScore));
-        });
-        blocked_upper_minus.setOnClickListener(v -> {
-            if (defenseUpperScore > 0) {
-                defenseUpperScore--;
-            }
-            blocked_upper_text.setText(Integer.toString(defenseUpperScore));
-        });
-        blocked_upper_plus.setOnClickListener(v -> {
-            if (defenseUpperScore < 99) {
-                defenseUpperScore++;
-            }
-            blocked_upper_text.setText(Integer.toString(defenseUpperScore));
-        });
 
 
         climbTimerStart.setOnClickListener(v -> {
-            if (climbtimer==0) {climbTimerStart.setText("Stop Timer"); climbtimer=1; }
-            else if (climbtimer==1) { climbTimerStart.setText("Start Timer");climbtimer=0;}
+            if (climbtimer == 0) {
+                climbTimerStart.setText("Stop Timer");
+                climbtimer = 1;
+            } else if (climbtimer == 1) {
+                climbTimerStart.setText("Start Timer");
+                climbtimer = 0;
+            }
         });
 
 
         climbTimer.setOnClickListener(v -> {
             {
-                if (climbtimerreset==0) {climbTimerClear.setVisibility(View.VISIBLE); ds_cooldown = 750;}
-                if (climbtimerreset>=0) {climbtimerreset ++;}
-                if (climbtimerreset==3) {climbTimer.setText("00:00.00"); climbtimerreset = 0; minutesclimb = 0; secondsclimb = 0; milisecondsclimb = 0; milisecondsclimbraw = 0;}
+                if (climbtimerreset == 0) {
+                    climbTimerClear.setVisibility(View.VISIBLE);
+                    ds_cooldown = 750;
+                }
+                if (climbtimerreset >= 0) {
+                    climbtimerreset++;
+                }
+                if (climbtimerreset == 3) {
+                    climbTimer.setText("00:00.00");
+                    climbtimerreset = 0;
+                    minutesclimb = 0;
+                    secondsclimb = 0;
+                    milisecondsclimb = 0;
+                    milisecondsclimbraw = 0;
+                }
             }
         });
 
         defenseTimer.setOnClickListener(v -> {
             {
-                if (timerReset==0) {timerClear.setVisibility(View.VISIBLE); ds_cooldown = 750;}
-                if (timerReset>=0) {timerReset ++;}
-                if (timerReset==3) {defenseTimer.setText("00:00.00"); timerReset = 0; minutesdefending = 0; secondsdefending = 0; milisecondsdefending = 0; milisecondsdefendingraw = 0;}
+                if (timerReset == 0) {
+                    timerClear.setVisibility(View.VISIBLE);
+                    ds_cooldown = 750;
+                }
+                if (timerReset >= 0) {
+                    timerReset++;
+                }
+                if (timerReset == 3) {
+                    defenseTimer.setText("00:00.00");
+                    timerReset = 0;
+                    minutesdefending = 0;
+                    secondsdefending = 0;
+                    milisecondsdefending = 0;
+                    milisecondsdefendingraw = 0;
+                }
             }
         });
 
 
-
-
-
         startDefenseTimer.setOnClickListener(v -> {
-            if (defensetimer==0) {startDefenseTimer.setText("Stop Timer"); defensetimer=1; }
-            else if (defensetimer==1) { startDefenseTimer.setText("Start Timer");defensetimer=0;}
+            if (defensetimer == 0) {
+                startDefenseTimer.setText("Stop Timer");
+                defensetimer = 1;
+            } else if (defensetimer == 1) {
+                startDefenseTimer.setText("Start Timer");
+                defensetimer = 0;
+            }
         });
 
 
         //Enter Dev Mode. Only necessary if something is broke
-        rrlogo.setOnClickListener(v-> {
-            if(dev == 0) {dev = 1;}
-            else if (dev == 1) {dev = 0;}
+        rrlogo.setOnClickListener(v -> {
+            if (dev == 0) {
+                dev = 1;
+            } else if (dev == 1) {
+                dev = 0;
+            }
             apple++;
-            if(apple == 50) {rrlogo.setImageResource(R.drawable.apples);}
-            if(apple == 51) {rrlogo.setImageResource(R.drawable.rrlogo);}
-            if(apple == 52) {apple = 0;}
+            if (apple == 50) {
+                rrlogo.setImageResource(R.drawable.apples);
+            }
+            if (apple == 51) {
+                rrlogo.setImageResource(R.drawable.rrlogo);
+            }
+            if (apple == 52) {
+                apple = 0;
+            }
         });
-        devMode.setOnClickListener(v-> {
+        devMode.setOnClickListener(v -> {
             if (alliance.equals("blue") && dev == 1) {
                 Background.setBackgroundResource(R.drawable.bluedev);
                 auto_lower_text.setTextColor(Color.WHITE);
@@ -672,7 +820,7 @@ teamAutofill.setOnClickListener(v -> {
                 missedShotsText.setTextColor(Color.WHITE);
                 attemptedAutoText.setTextColor(Color.WHITE);
             }
-            if (alliance.equals("none") && dev == 1){
+            if (alliance.equals("none") && dev == 1) {
                 Background.setBackgroundResource(R.drawable.nodev);
                 autoScoreAttempt.setBackgroundResource(R.drawable.seekbarwhite);
                 auto_lower_text.setTextColor(Color.WHITE);
@@ -701,11 +849,19 @@ teamAutofill.setOnClickListener(v -> {
                 closeError += " No Match,";
                 round_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
             }
-            if (alliance.equals("none")) { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
-            if (name_input.getText().toString().equals("")) { closeError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0));}
-            if (!closeError.equals("")) { closeError = closeError.substring(0,closeError.length()-1)+"."; }
+            if (alliance.equals("none")) {
+                closeError += " No Alliance,";
+                allianceText.setBackgroundColor(Color.argb(255, 255, 255, 0));
+            }
+            if (name_input.getText().toString().equals("")) {
+                closeError += " No Name,";
+                name_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
+            }
+            if (!closeError.equals("")) {
+                closeError = closeError.substring(0, closeError.length() - 1) + ".";
+            }
             if (!(closeError.equals(""))) {
-                Toast.makeText(getApplicationContext(), "Submit Error:"+closeError, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Submit Error:" + closeError, Toast.LENGTH_LONG).show();
                 data_submitted.setVisibility(View.VISIBLE);
                 data_submitted.setImageResource(R.drawable.x);
                 ds_cooldown = 1500;
@@ -718,43 +874,115 @@ teamAutofill.setOnClickListener(v -> {
                 name_input.setBackground(nameBackground);
             }
         });
+        DefenseNumber.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus == false) {
+                hideKeyboard(v);
+            }
+
+        });
         //This is the gray box that closes the endgame box
         Gray_Box.setOnClickListener(View -> {
             rrlogo.setImageResource(R.drawable.rrlogo);
             apple = 0;
-            String closeError = "";
-            if (team_input.getText().toString().equals("")) {
-                closeError += " No Team,";
-                team_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
-            }
-            if (round_input.getText().toString().equals("")) {
-                closeError += " No Match,";
-                round_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
-            }
-            if (alliance.equals("none")) { closeError += " No Alliance,"; allianceText.setBackgroundColor(Color.argb(255,255,255,0));}
-            if (name_input.getText().toString().equals("")) { closeError += " No Name,"; name_input.setBackgroundColor(Color.argb(255,255,255,0));}
-            if (!closeError.equals("")) { closeError = closeError.substring(0,closeError.length()-1)+"."; }
+            if (Pregame.getVisibility() == android.view.View.VISIBLE) {
+                String closeError = "";
+                if (team_input.getText().toString().equals("")) {
+                    closeError += " No Team,";
+                    team_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                }
+                if (round_input.getText().toString().equals("")) {
+                    closeError += " No Match,";
+                    round_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                }
+                if (alliance.equals("none")) {
+                    closeError += " No Alliance,";
+                    allianceText.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                }
+                if (name_input.getText().toString().equals("")) {
+                    closeError += " No Name,";
+                    name_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                }
+                if (!closeError.equals("")) {
+                    closeError = closeError.substring(0, closeError.length() - 1) + ".";
+                }
 
-            if (!(closeError.equals(""))) {
-                Toast.makeText(getApplicationContext(), "Submit Error:"+closeError, Toast.LENGTH_LONG).show();
 
-                data_submitted.setVisibility(android.view.View.VISIBLE);
-                data_submitted.setImageResource(R.drawable.x);
-                ds_cooldown = 1500;
-            } else {
-                Pregame.setVisibility(android.view.View.INVISIBLE);
-                Gray_Box.setVisibility(android.view.View.INVISIBLE);
-                allianceText.setBackgroundColor(Color.TRANSPARENT);
-                round_input.setBackground(textBackground);
-                team_input.setBackground(textBackground);
-                name_input.setBackground(nameBackground);
+                if (!(closeError.equals(""))) {
+                    Toast.makeText(getApplicationContext(), "Submit Error:" + closeError, Toast.LENGTH_LONG).show();
+
+                    data_submitted.setVisibility(android.view.View.VISIBLE);
+                    data_submitted.setImageResource(R.drawable.x);
+                    ds_cooldown = 1500;
+                } else {
+                    Pregame.setVisibility(android.view.View.INVISIBLE);
+                    Gray_Box.setVisibility(android.view.View.INVISIBLE);
+                    allianceText.setBackgroundColor(Color.TRANSPARENT);
+                    round_input.setBackground(textBackground);
+                    team_input.setBackground(textBackground);
+                    name_input.setBackground(nameBackground);
+                }
+            }
+            if (Defense.getVisibility() == android.view.View.VISIBLE) {
+
+                if (playedDefense.isChecked()) {
+                    String closeError = "";
+
+                    if (DefenseNumber.getText().toString().equals("") && DefenseNumber.getVisibility() == android.view.View.VISIBLE) {
+                        closeError += " No Team,";
+                        DefenseNumber.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                    }
+                    if (milisecondsdefendingraw <= 0) {
+                        closeError += " No Time,";
+                        startDefenseTimer.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                    }
+                    if (defended1.isChecked() == false && defended2.isChecked() == false && defended3.isChecked() == false) {
+                        closeError += " No Team,";
+                        defended1.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                        defended2.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                        defended3.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                    }
+
+
+                    if (!closeError.equals("")) {
+                        closeError = closeError.substring(0, closeError.length() - 1) + ".";
+                    }
+
+
+                    if (!(closeError.equals(""))) {
+                        Toast.makeText(getApplicationContext(), "Submit Error:" + closeError, Toast.LENGTH_LONG).show();
+
+                        data_submitted.setVisibility(android.view.View.VISIBLE);
+                        data_submitted.setImageResource(R.drawable.x);
+                        ds_cooldown = 1500;
+
+
+                    } else {
+                        Defense.setVisibility(android.view.View.INVISIBLE);
+                        Gray_Box.setVisibility(android.view.View.INVISIBLE);
+                        DefenseNumber.setBackground(textBackground);
+                        startDefenseTimer.setBackgroundColor(Color.argb(100, 98, 0, 238));
+                        defended1.setBackgroundColor(Color.TRANSPARENT);
+                        defended2.setBackgroundColor(Color.TRANSPARENT);
+                        defended3.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+
+                if (playedDefense.isChecked() == false) {
+                    Defense.setVisibility(android.view.View.INVISIBLE);
+                    Gray_Box.setVisibility(android.view.View.INVISIBLE);
+                    DefenseNumber.setBackground(textBackground);
+                    startDefenseTimer.setBackgroundColor(Color.argb(100, 98, 0, 238));
+                    defended1.setBackgroundColor(Color.TRANSPARENT);
+                    defended2.setBackgroundColor(Color.TRANSPARENT);
+                    defended3.setBackgroundColor(Color.TRANSPARENT);
+                }
             }
             Endgame.setVisibility(android.view.View.INVISIBLE);
-            Defense.setVisibility(android.view.View.INVISIBLE);
             startDefenseTimer.setText("Start Timer");
             defensetimer = 0;
             climbTimerStart.setText("Start Timer");
             climbtimer = 0;
+
         });
         //These lines are the special function toggles.
         //The Pregame_box is a dev way to open and close pregame without filling out fields
@@ -811,6 +1039,7 @@ teamAutofill.setOnClickListener(v -> {
         });
         //This sets the alliance blue and it sets the background colour blue.
         Blue_Alliance.setOnClickListener(v -> {
+            dev=0;
             Background.setBackgroundResource(R.drawable.blueappbackground);
             Pregame.setBackgroundColor(Color.argb(255, 127, 127, 247));
             Endgame.setBackgroundColor(Color.argb(255, 127, 127, 247));
@@ -834,6 +1063,7 @@ teamAutofill.setOnClickListener(v -> {
         });
         //This sets the alliance red and sets the background color red.
         Red_Alliance.setOnClickListener(v -> {
+            dev=0;
             Background.setBackgroundResource(R.drawable.redappbackground);
             Pregame.setBackgroundColor(Color.argb(255, 247, 127, 127));
             Endgame.setBackgroundColor(Color.argb(255, 247, 127, 127));
@@ -872,22 +1102,29 @@ teamAutofill.setOnClickListener(v -> {
         name_input.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) { hideKeyboard(v); }
         });
+        String[] finalSplitstrArray = splitstrArray;
         round_input.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
+            if (!hasFocus && getTeams() != "") {
+                String[] tempIntArr = null;
+                String[] splittempIntArr = null;
+                    tempIntArr = getTeams().split("\n");
+
+                if (round_input.getText().toString().equals("")) {round_input.setText("1");} else
+                {roundfill = Integer.parseInt(round_input.getText().toString());}
+
+                splittempIntArr = tempIntArr[roundfill-1].split(",");
+                if (tabletnumber >= 4) {
+                    defended1.setText(splittempIntArr[0]);
+                    defended2.setText(splittempIntArr[1]);
+                    defended3.setText(splittempIntArr[2]);
+                } else if (tabletnumber <= 3) {
+                    defended1.setText(splittempIntArr[3]);
+                    defended2.setText(splittempIntArr[4]);
+                    defended3.setText(splittempIntArr[5]);
+                }
                 hideKeyboard(v);
                 if (teamAutofill.isChecked()) {
-                    String newTeam;
-                    try {
-                        roundfill = Integer.parseInt(round_input.getText().toString());
-                        newTeam = getTeams().substring(
-                                getTeams().indexOf("." + roundfill + ":") + 1 + ("." + roundfill).length(), //Start
-                                getTeams().substring(getTeams().indexOf("." + roundfill + ":")).indexOf("\n") + getTeams().indexOf("." + roundfill + ":") //End
-                        );
-                    } catch (Exception e) {
-                        newTeam = "";
-                        Log.e("log", e.toString());
-                    }
-                    team_input.setText(newTeam);
+                    team_input.setText(splittempIntArr[tabletnumbercomp]);
                 }
             }
         });
@@ -899,6 +1136,7 @@ teamAutofill.setOnClickListener(v -> {
             if (!hasFocus) { hideKeyboard(v); }
         });
         //This is all of the garbage that the submit button does.
+        String[] finalSplitstrArray3 = splitstrArray;
         submit.setOnClickListener(v -> {
             String submitError = "";
             SimpleDateFormat time = new SimpleDateFormat("dd-HHmmss", Locale.getDefault());
@@ -967,14 +1205,34 @@ teamAutofill.setOnClickListener(v -> {
                     myOutWriter.println("Endgame: "+climbResult.getSelectedItem());
                     myOutWriter.println("Results: "+endgame_results.getSelectedItem());
                     myOutWriter.println("Notes: "+notes.getText());
-                    //myOutWriter.println("Played Defense: "+playedDefense.isChecked());
-                    //myOutWriter.println("Defended Top: "+defenseUpperScore);
-                    //myOutWriter.println("Defended Bottom: "+defenseLowerScore);
-                    //myOutWriter.println("Team Defended: "+defendedTeam.getText());
-                    //myOutWriter.println("Time Defended: "+milisecondsdefendingraw);
-                    if (climbResult.getSelectedItem()=="NONE"&&milisecondsclimbraw==0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
-                    if (climbResult.getSelectedItem()=="NONE"&&milisecondsclimbraw>0) {myOutWriter.println("Climb Time: 00:00.00");}
-                    if (climbResult.getSelectedItem()!="NONE"&&milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}
+                    myOutWriter.println("Played Defense: "+playedDefense.isChecked());
+                    if(defended1.isChecked() && defended2.isChecked() && defended3.isChecked()) {myOutWriter.println("Defended Teams: "+defended1.getText()+","+defended2.getText()+","+defended3.getText());}
+                    else if(defended1.isChecked() && defended2.isChecked()) {myOutWriter.println("Defended Teams: "+defended1.getText()+","+defended2.getText());}
+                    else if(defended3.isChecked() && defended2.isChecked()) {myOutWriter.println("Defended Teams: "+defended2.getText()+","+defended3.getText());}
+                    else if(defended1.isChecked() && defended3.isChecked()) {myOutWriter.println("Defended Teams: "+defended1.getText()+","+defended3.getText());}
+                    else if(defended1.isChecked()) {myOutWriter.println("Defended Teams: "+defended1.getText());}
+                    else if(defended3.isChecked()) {myOutWriter.println("Defended Teams: "+defended3.getText());}
+                    else if(defended2.isChecked()) {myOutWriter.println("Defended Teams: "+defended2.getText());}
+                    if(getTeams().equals("")) {myOutWriter.println("Defended Teams:"+DefenseNumber.getText());}
+
+                    myOutWriter.println("Time Defended: "+milisecondsdefendingraw);
+
+                    //Climb Time Detection
+                    if ((climbResult.getSelectedItem().toString().equals("FAIL")) && milisecondsclimbraw>0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
+                    if ((climbResult.getSelectedItem().toString().equals("LOW")) && milisecondsclimbraw>0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
+                    if ((climbResult.getSelectedItem().toString().equals("MIDDLE")) && milisecondsclimbraw>0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
+                    if ((climbResult.getSelectedItem().toString().equals("HIGH")) && milisecondsclimbraw>0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
+                    if ((climbResult.getSelectedItem().toString().equals("TRAVERSE")) && milisecondsclimbraw>0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
+                    if ((climbResult.getSelectedItem().toString().equals("NONE")) && milisecondsclimbraw>0) {myOutWriter.println("Climb Time: BadData");}
+                    if ((climbResult.getSelectedItem().toString().equals("FAIL")) && milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}
+                    if ((climbResult.getSelectedItem().toString().equals("LOW")) && milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}
+                    if ((climbResult.getSelectedItem().toString().equals("MIDDLE")) && milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}
+                    if ((climbResult.getSelectedItem().toString().equals("HIGH")) && milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}
+                    if ((climbResult.getSelectedItem().toString().equals("TRAVERSE")) && milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}
+                    if ((climbResult.getSelectedItem().toString().equals("NONE")) && milisecondsclimbraw==0) {myOutWriter.println("Climb Time: 0");}
+
+                    if(defenseType.isChecked()==true && playedDefense.isChecked()) {myOutWriter.println("Defense Type: LIGHT");}
+                    if(defenseType.isChecked()==false && playedDefense.isChecked()) {myOutWriter.println("Defense Type: HEAVY");}
 
                     myOutWriter.flush();
                     myOutWriter.close();
@@ -1032,12 +1290,21 @@ teamAutofill.setOnClickListener(v -> {
                 playedDefense.setChecked(false);
                 defensetimer = 0;
                 climbtimer = 0;
+                startDefenseTimer.setEnabled(false);
+                startDefenseTimer.setAlpha((float) 0.5);
+                defended1.setEnabled(false);
+                defended1.setAlpha((float) 0.5);
+                defended2.setEnabled(false);
+                defended2.setAlpha((float) 0.5);
+                defended3.setEnabled(false);
+                defended3.setAlpha((float) 0.5);
+                defenseType.setEnabled(false);
+                defenseType.setAlpha((float) 0.5);
+                DefenseNumber.setEnabled(false);
+                DefenseNumber.setAlpha((float) 0.5);
                 defenseLowerScore = 0;
                 defenseUpperScore = 0;
-                defendedTeam.setText("");
                 Defense.setVisibility(View.INVISIBLE);
-                blocked_lower_text.setText("0");
-                blocked_upper_text.setText("0");
                 startDefenseTimer.setText("Start Timer");
                 climbTimerStart.setText("Start Timer");
                 climbtimerreset = 0;
@@ -1050,34 +1317,37 @@ teamAutofill.setOnClickListener(v -> {
                 secondsdefending = 0;
                 minutesclimb = 0;
                 minutesdefending = 0;
+
+                defended1.setChecked(false);
+                defended2.setChecked(false);
+                defended3.setChecked(false);
+                DefenseNumber.setText("");
                 Endgame.setVisibility(View.INVISIBLE);
                 Pregame.setVisibility(View.VISIBLE);
-                blocked_lower_minus.setEnabled(false);
-                blocked_upper_minus.setEnabled(false);
-                blocked_upper_plus.setEnabled(false);
-                blocked_lower_plus.setEnabled(false);
                 startDefenseTimer.setEnabled(false);
-                defendedTeam.setEnabled(false);
-                blocked_lower_minus.setAlpha((float) 0.5);
-                blocked_upper_minus.setAlpha((float) 0.5);
-                blocked_upper_plus.setAlpha((float) 0.5);
-                blocked_lower_plus.setAlpha((float) 0.5);
                 startDefenseTimer.setAlpha((float) 0.5);
-                defendedTeam.setAlpha((float) 0.5);
                 if (roundfill>1) {sameScouter.setVisibility(View.VISIBLE);}
-                if (teamAutofill.isChecked()) {
-                    String newTeam;
-                    try {
-                        roundfill = Integer.parseInt(round_input.getText().toString());
-                        newTeam = getTeams().substring(
-                                getTeams().indexOf("." + roundfill + ":") + 1 + ("." + roundfill).length(), //Start
-                                getTeams().substring(getTeams().indexOf("." + roundfill + ":")).indexOf("\n") + getTeams().indexOf("." + roundfill + ":") //End
-                        );
-                    } catch (Exception e) {
-                        newTeam = "";
-                        Log.e("log", e.toString());
-                    }
-                    team_input.setText(newTeam);
+                String[] tempIntArr1 = null;
+                String[] splittempIntArr1 = null;
+                tempIntArr1 = getTeams().split("\n");
+                roundfill = Integer.parseInt(round_input.getText().toString());
+                splittempIntArr1 = tempIntArr1[roundfill-1].split(",");
+                if (tabletnumber >=4) {
+                    defended1.setText(splittempIntArr1[0]);
+                    defended2.setText(splittempIntArr1[1]);
+                    defended3.setText(splittempIntArr1[2]);
+                } else if (tabletnumber <=3) {
+                    defended1.setText(splittempIntArr1[3]);
+                    defended2.setText(splittempIntArr1[4]);
+                    defended3.setText(splittempIntArr1[5]);
+                }
+                if (teamAutofill.isChecked() && getTeams() != "") {
+                    String[] tempIntArr = null;
+                    String[] splittempIntArr = null;
+                    tempIntArr = getTeams().split("\n");
+                    roundfill = Integer.parseInt(round_input.getText().toString());
+                    splittempIntArr = tempIntArr[roundfill-1].split(",");
+                    team_input.setText(splittempIntArr[tabletnumbercomp]);
                 }
                 if (!teamAutofill.isChecked()) {
                     team_input.setText("");
@@ -1085,6 +1355,7 @@ teamAutofill.setOnClickListener(v -> {
             }
         });
     }
+
     //Tells the code where to store the entries
     private File getDataDirectory() {
         File directory = Environment.getExternalStorageDirectory();
@@ -1108,6 +1379,7 @@ teamAutofill.setOnClickListener(v -> {
                 text += line + "\n";
             }
             br.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

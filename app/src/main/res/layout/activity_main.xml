@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/appbackground"
     android:maxWidth="605dp"
-    android:maxHeight="950dp"
+    android:maxHeight="985dp"
     tools:context=".MainActivity"
     tools:visibility="visible">
 
@@ -182,7 +182,7 @@
         android:layout_height="348dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="512dp"
+        android:layout_marginTop="530dp"
         android:scaleX="1.1"
         android:scaleY="1.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -217,7 +217,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
-        android:layout_marginTop="380dp"
+        android:layout_marginTop="395dp"
         android:text="Top"
         android:textColor="#000000"
         android:textSize="29dp"
@@ -230,7 +230,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="366dp"
+        android:layout_marginTop="381dp"
         app:layout_constraintStart_toEndOf="@+id/topText2"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus"
         app:srcCompat="@drawable/plus"
@@ -255,7 +255,7 @@
         android:id="@+id/teleop_upper_minus"
         android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="366dp"
+        android:layout_marginTop="381dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -347,7 +347,7 @@
     <Button
         android:id="@+id/grayBox"
         android:layout_width="600dp"
-        android:layout_height="908dp"
+        android:layout_height="985dp"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="17dp"
@@ -383,12 +383,12 @@
         android:elevation="100dp"
         android:text="Defense"
         android:textSize="20sp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextContrastCheck"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/Endgame_Box"
@@ -591,8 +591,10 @@
             android:text="00:00.00"
             android:textColor="#000000"
             android:textSize="24sp"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/climbText"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -693,8 +695,10 @@
             android:layout_marginRight="36dp"
             android:layout_marginBottom="12dp"
             android:text="Start Timer"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/climbTimer"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/climbTimerText"
@@ -703,10 +707,12 @@
             android:text="Climb Timer"
             android:textColor="#000000"
             android:textSize="22sp"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/climbTimerStart"
             app:layout_constraintEnd_toEndOf="@+id/climbTimerStart"
             app:layout_constraintStart_toStartOf="@+id/climbTimerStart"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/climbTimerReset"
@@ -720,7 +726,8 @@
             android:textColor="#000000"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/climbTimerStart" />
+            app:layout_constraintTop_toBottomOf="@+id/climbTimerStart"
+            tools:visibility="invisible" />
 
         <Switch
             android:id="@+id/robotErrors"
@@ -803,8 +810,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Defense"
-        android:layout_width="478dp"
-        android:layout_height="413dp"
+        android:layout_width="513dp"
+        android:layout_height="589dp"
         android:background="#7F7F7F"
         android:clickable="true"
         android:elevation="10dp"
@@ -818,183 +825,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.495"
-        tools:visibility="gone">
-
-        <ImageButton
-            android:id="@+id/blocked_upper_minus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DEFENSE"
-            app:srcCompat="@drawable/minus"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/blocked_lower_minus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/blocked_lower_plus"
-            app:layout_constraintEnd_toEndOf="@+id/blocked_upper_minus"
-            app:layout_constraintStart_toStartOf="@+id/blocked_upper_minus"
-            app:layout_constraintTop_toTopOf="@+id/blocked_lower_plus"
-            app:srcCompat="@drawable/minus"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/blocked_upper_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginRight="48dp"
-            app:layout_constraintEnd_toStartOf="@+id/blocked_upper_minus"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/plus"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/blocked_lower_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginRight="56dp"
-            app:layout_constraintEnd_toEndOf="@+id/blocked_upper_plus"
-            app:layout_constraintEnd_toStartOf="@+id/blocked_lower_minus"
-            app:layout_constraintHorizontal_bias="0.175"
-            app:layout_constraintStart_toStartOf="@+id/blocked_upper_plus"
-            app:layout_constraintTop_toBottomOf="@+id/blocked_upper_plus"
-            app:srcCompat="@drawable/plus"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <TextView
-            android:id="@+id/toptext2"
-            android:layout_width="54dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="172dp"
-            android:layout_marginLeft="172dp"
-            android:layout_marginTop="108dp"
-            android:text="Top"
-            android:textColor="#000000"
-            android:textSize="29dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/blockedShotsText"
-            android:layout_width="138dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="148dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center"
-            android:text="Blocked Shots"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.034"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/bottomText3"
-            android:layout_width="102dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="136dp"
-            android:layout_marginLeft="136dp"
-            android:layout_marginBottom="180dp"
-            android:text="Bottom"
-            android:textColor="#000000"
-            android:textSize="29dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/blocked_lower_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_marginBottom="32dp"
-            android:text="0"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/blocked_lower_plus"
-            app:layout_constraintEnd_toStartOf="@+id/blocked_lower_minus"
-            app:layout_constraintStart_toEndOf="@+id/blocked_lower_plus"
-            app:layout_constraintTop_toTopOf="@+id/blocked_lower_plus" />
-
-        <TextView
-            android:id="@+id/blocked_upper_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="0"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/blocked_upper_plus"
-            app:layout_constraintEnd_toStartOf="@+id/blocked_upper_minus"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/blocked_upper_plus"
-            app:layout_constraintTop_toTopOf="@+id/blocked_upper_plus" />
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/timeDefending"
             android:layout_width="135dp"
             android:layout_height="70dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="21dp"
             android:gravity="center"
             android:text="Time       Defending"
             android:textColor="@color/black"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/blocked_lower_plus" />
+            app:layout_constraintTop_toBottomOf="@+id/playedDefense" />
 
         <Button
             android:id="@+id/startDefendingTimer"
             android:layout_width="127dp"
             android:layout_height="64dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="21dp"
             android:text="Start Timer"
-            app:layout_constraintBottom_toBottomOf="@+id/timeDefending"
-            app:layout_constraintStart_toEndOf="@+id/timeDefending"
-            app:layout_constraintTop_toTopOf="@+id/timeDefending" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeDefending" />
 
         <Button
             android:id="@+id/closeDefense"
             android:layout_width="127dp"
             android:layout_height="64dp"
-            android:layout_marginStart="136dp"
-            android:layout_marginLeft="136dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="35dp"
             android:text="Close"
-            app:layout_constraintStart_toEndOf="@+id/timeDefending"
-            app:layout_constraintTop_toBottomOf="@+id/defenseTimer" />
+            app:backgroundTint="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timeDefending" />
 
         <TextView
             android:id="@+id/defenseTimer"
-            android:layout_width="79dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="46dp"
-            android:layout_marginRight="46dp"
+            android:layout_width="108dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="352dp"
+            android:layout_marginRight="352dp"
             android:gravity="center"
             android:text="00:00.00"
             android:textColor="@color/black"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.315"
-            app:layout_constraintStart_toEndOf="@+id/startDefendingTimer"
-            app:layout_constraintTop_toBottomOf="@+id/blocked_lower_minus" />
+            app:layout_constraintTop_toBottomOf="@+id/startDefendingTimer" />
 
         <TextView
             android:id="@+id/DEFENSE"
@@ -1013,46 +898,151 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/teamDefending"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="13dp"
-            android:ems="10"
-            android:hint="Defending Against Team:"
-            android:inputType="number"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeDefending" />
-
         <Switch
             android:id="@+id/playedDefense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="169dp"
+            android:layout_height="42dp"
             android:layout_marginStart="14dp"
             android:layout_marginLeft="14dp"
-            android:layout_marginBottom="13dp"
+            android:layout_marginTop="35dp"
             android:gravity="center"
             android:text="Played Defense"
-            app:layout_constraintBottom_toTopOf="@+id/blockedShotsText"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DEFENSE" />
 
         <TextView
             android:id="@+id/clearTimer"
             android:layout_width="164dp"
             android:layout_height="95dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginRight="56dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="332dp"
+            android:layout_marginRight="332dp"
+            android:layout_marginBottom="22dp"
             android:autoText="false"
             android:background="#FFEB3B"
             android:gravity="center"
             android:text="Click 3 Times to Clear Timer"
             android:textSize="25sp"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/HeavyDefense"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottomText3" />
+            app:layout_constraintTop_toBottomOf="@+id/startDefendingTimer"
+            tools:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/defendingTeam1"
+            android:layout_width="130dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="25dp"
+            android:text="Team Input"
+            android:textSize="36sp"
+            app:layout_constraintStart_toEndOf="@+id/timeDefending"
+            app:layout_constraintTop_toBottomOf="@+id/DEFENSE" />
+
+        <CheckBox
+            android:id="@+id/defendingTeam3"
+            android:layout_width="131dp"
+            android:layout_height="93dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginLeft="31dp"
+            android:layout_marginTop="28dp"
+            android:text="Team Input"
+            android:textSize="36sp"
+            app:layout_constraintStart_toEndOf="@+id/timeDefending"
+            app:layout_constraintTop_toBottomOf="@+id/defendingTeam1" />
+
+        <CheckBox
+            android:id="@+id/defendingTeam2"
+            android:layout_width="126dp"
+            android:layout_height="91dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="25dp"
+            android:text="Team Input"
+            android:textSize="36sp"
+            app:layout_constraintStart_toEndOf="@+id/defendingTeam1"
+            app:layout_constraintTop_toBottomOf="@+id/DEFENSE" />
+
+        <Switch
+            android:id="@+id/defenseType"
+            android:layout_width="54dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="180dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:layout_constraintStart_toEndOf="@+id/HeavyDefense"
+            app:layout_constraintTop_toBottomOf="@+id/defendingTeam3" />
+
+        <TextView
+            android:id="@+id/lightDefense"
+            android:layout_width="102dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="167dp"
+            android:layout_marginBottom="75dp"
+            android:gravity="center"
+            android:text="Light Defense"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/defenseType"
+            app:layout_constraintTop_toBottomOf="@+id/defendingTeam3" />
+
+        <TextView
+            android:id="@+id/HeavyDefense"
+            android:layout_width="104dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="59dp"
+            android:gravity="center"
+            android:text="Heavy Defense"
+            android:textSize="24sp"
+            app:flow_horizontalAlign="center"
+            app:flow_verticalAlign="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/defenseType"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/defenseTimer" />
+
+        <EditText
+            android:id="@+id/InputTeamDefense"
+            android:layout_width="124dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="188dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/closeDefense"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/defendingTeam3"
+            app:layout_constraintTop_toBottomOf="@+id/InputTeamDefenseT" />
+
+        <TextView
+            android:id="@+id/InputTeamDefenseT"
+            android:layout_width="105dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="2dp"
+            android:text="INPUT TEAM NUMBER"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/InputTeamDefense"
+            app:layout_constraintStart_toEndOf="@+id/defendingTeam3"
+            app:layout_constraintTop_toBottomOf="@+id/defendingTeam2"
+            tools:visibility="invisible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
