@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
         final Switch auto_no_auto = findViewById(R.id.noAutoSwitch);
         final Switch playedDefense = findViewById(R.id.playedDefense);
         final Switch robotError = findViewById(R.id.robotErrors);
-        final Switch defenseType = findViewById(R.id.defenseType);
         //Seekbars
         final SeekBar autoAttempted = findViewById(R.id.autoAttemptedBar);
         //Image Buttons
@@ -544,8 +543,6 @@ public class MainActivity extends AppCompatActivity {
         defended2.setAlpha((float) 0.5);
         defended3.setEnabled(false);
         defended3.setAlpha((float) 0.5);
-        defenseType.setEnabled(false);
-        defenseType.setAlpha((float) 0.5);
         DefenseNumber.setEnabled(false);
         DefenseNumber.setAlpha((float) 0.5);
 
@@ -561,8 +558,6 @@ public class MainActivity extends AppCompatActivity {
                     defended3.setEnabled(true);
                     defended3.setAlpha((float) 1);
                 }
-                defenseType.setEnabled(true);
-                defenseType.setAlpha((float) 1);
                 defenseNumberText.setEnabled(true);
                 defenseNumberText.setAlpha((float) 1);
                 DefenseNumber.setEnabled(true);
@@ -579,8 +574,6 @@ public class MainActivity extends AppCompatActivity {
                     defended3.setEnabled(false);
                     defended3.setAlpha((float) 0.5);
                 }
-                defenseType.setEnabled(false);
-                defenseType.setAlpha((float) 0.5);
                 defenseNumberText.setEnabled(false);
                 defenseNumberText.setAlpha((float) 0.5);
                 DefenseNumber.setEnabled(false);
@@ -931,10 +924,10 @@ public class MainActivity extends AppCompatActivity {
                         closeError += " No Team,";
                         DefenseNumber.setBackgroundColor(Color.argb(255, 255, 255, 0));
                     }
-                    if (milisecondsdefendingraw <= 0) {
-                        closeError += " No Time,";
-                        startDefenseTimer.setBackgroundColor(Color.argb(255, 255, 255, 0));
-                    }
+                    //if (milisecondsdefendingraw <= 0) {
+                        //closeError += " No Time,";
+                        //startDefenseTimer.setBackgroundColor(Color.argb(255, 255, 255, 0));
+                    //}
                     if (defended1.isChecked() == false && defended2.isChecked() == false && defended3.isChecked() == false) {
                         closeError += " No Team,";
                         defended1.setBackgroundColor(Color.argb(255, 255, 255, 0));
@@ -1206,16 +1199,28 @@ public class MainActivity extends AppCompatActivity {
                     myOutWriter.println("Results: "+endgame_results.getSelectedItem());
                     myOutWriter.println("Notes: "+notes.getText());
                     myOutWriter.println("Played Defense: "+playedDefense.isChecked());
-                    if(defended1.isChecked() && defended2.isChecked() && defended3.isChecked()) {myOutWriter.println("Defended Teams: "+defended1.getText()+","+defended2.getText()+","+defended3.getText());}
-                    else if(defended1.isChecked() && defended2.isChecked()) {myOutWriter.println("Defended Teams: "+defended1.getText()+","+defended2.getText());}
-                    else if(defended3.isChecked() && defended2.isChecked()) {myOutWriter.println("Defended Teams: "+defended2.getText()+","+defended3.getText());}
-                    else if(defended1.isChecked() && defended3.isChecked()) {myOutWriter.println("Defended Teams: "+defended1.getText()+","+defended3.getText());}
-                    else if(defended1.isChecked()) {myOutWriter.println("Defended Teams: "+defended1.getText());}
-                    else if(defended3.isChecked()) {myOutWriter.println("Defended Teams: "+defended3.getText());}
-                    else if(defended2.isChecked()) {myOutWriter.println("Defended Teams: "+defended2.getText());}
-                    if(getTeams().equals("")) {myOutWriter.println("Defended Teams:"+DefenseNumber.getText());}
+                    if(playedDefense.isChecked()) {
+                        if (defended1.isChecked() && defended2.isChecked() && defended3.isChecked()) {
+                            myOutWriter.println("Defended Teams: " + defended1.getText() + "," + defended2.getText() + "," + defended3.getText());
+                        } else if (defended1.isChecked() && defended2.isChecked()) {
+                            myOutWriter.println("Defended Teams: " + defended1.getText() + "," + defended2.getText());
+                        } else if (defended3.isChecked() && defended2.isChecked()) {
+                            myOutWriter.println("Defended Teams: " + defended2.getText() + "," + defended3.getText());
+                        } else if (defended1.isChecked() && defended3.isChecked()) {
+                            myOutWriter.println("Defended Teams: " + defended1.getText() + "," + defended3.getText());
+                        } else if (defended1.isChecked()) {
+                            myOutWriter.println("Defended Teams: " + defended1.getText());
+                        } else if (defended3.isChecked()) {
+                            myOutWriter.println("Defended Teams: " + defended3.getText());
+                        } else if (defended2.isChecked()) {
+                            myOutWriter.println("Defended Teams: " + defended2.getText());
+                        }
+                    }
+                    if(playedDefense.isChecked()==false) {
+                        myOutWriter.println("Defended Teams: ");
 
-                    myOutWriter.println("Time Defended: "+milisecondsdefendingraw);
+                    }
+
 
                     //Climb Time Detection
                     if ((climbResult.getSelectedItem().toString().equals("FAIL")) && milisecondsclimbraw>0) {myOutWriter.println("Climb Time: "+milisecondsclimbraw);}
@@ -1231,8 +1236,6 @@ public class MainActivity extends AppCompatActivity {
                     if ((climbResult.getSelectedItem().toString().equals("TRAVERSE")) && milisecondsclimbraw==0) {myOutWriter.println("Climb Time: BadData");}
                     if ((climbResult.getSelectedItem().toString().equals("NONE")) && milisecondsclimbraw==0) {myOutWriter.println("Climb Time: 0");}
 
-                    if(defenseType.isChecked()==true && playedDefense.isChecked()) {myOutWriter.println("Defense Type: LIGHT");}
-                    if(defenseType.isChecked()==false && playedDefense.isChecked()) {myOutWriter.println("Defense Type: HEAVY");}
 
                     myOutWriter.flush();
                     myOutWriter.close();
@@ -1298,8 +1301,6 @@ public class MainActivity extends AppCompatActivity {
                 defended2.setAlpha((float) 0.5);
                 defended3.setEnabled(false);
                 defended3.setAlpha((float) 0.5);
-                defenseType.setEnabled(false);
-                defenseType.setAlpha((float) 0.5);
                 DefenseNumber.setEnabled(false);
                 DefenseNumber.setAlpha((float) 0.5);
                 defenseLowerScore = 0;

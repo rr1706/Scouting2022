@@ -810,8 +810,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Defense"
-        android:layout_width="513dp"
-        android:layout_height="589dp"
+        android:layout_width="379dp"
+        android:layout_height="498dp"
         android:background="#7F7F7F"
         android:clickable="true"
         android:elevation="10dp"
@@ -838,8 +838,10 @@
             android:text="Time       Defending"
             android:textColor="@color/black"
             android:textSize="28dp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playedDefense" />
+            app:layout_constraintTop_toBottomOf="@+id/playedDefense"
+            tools:visibility="gone" />
 
         <Button
             android:id="@+id/startDefendingTimer"
@@ -849,23 +851,22 @@
             android:layout_marginLeft="35dp"
             android:layout_marginTop="21dp"
             android:text="Start Timer"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timeDefending" />
+            app:layout_constraintTop_toBottomOf="@+id/timeDefending"
+            tools:visibility="gone" />
 
         <Button
             android:id="@+id/closeDefense"
             android:layout_width="127dp"
             android:layout_height="64dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginLeft="200dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="16dp"
             android:text="Close"
             app:backgroundTint="@color/purple_500"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/timeDefending" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/defenseTimer"
@@ -878,8 +879,10 @@
             android:text="00:00.00"
             android:textColor="@color/black"
             android:textSize="24sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/startDefendingTimer" />
+            app:layout_constraintTop_toBottomOf="@+id/startDefendingTimer"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/DEFENSE"
@@ -902,8 +905,8 @@
             android:id="@+id/playedDefense"
             android:layout_width="169dp"
             android:layout_height="42dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginLeft="14dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginLeft="120dp"
             android:layout_marginTop="35dp"
             android:gravity="center"
             android:text="Played Defense"
@@ -917,14 +920,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="332dp"
             android:layout_marginRight="332dp"
-            android:layout_marginBottom="22dp"
             android:autoText="false"
             android:background="#FFEB3B"
             android:gravity="center"
             android:text="Click 3 Times to Clear Timer"
             android:textSize="25sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/HeavyDefense"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/startDefendingTimer"
             tools:visibility="gone" />
@@ -933,84 +934,25 @@
             android:id="@+id/defendingTeam1"
             android:layout_width="130dp"
             android:layout_height="85dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
             android:text="Team Input"
             android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@+id/timeDefending"
-            app:layout_constraintTop_toBottomOf="@+id/DEFENSE" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playedDefense" />
 
         <CheckBox
             android:id="@+id/defendingTeam3"
             android:layout_width="131dp"
             android:layout_height="93dp"
-            android:layout_marginStart="31dp"
-            android:layout_marginLeft="31dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="36dp"
             android:text="Team Input"
             android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@+id/timeDefending"
-            app:layout_constraintTop_toBottomOf="@+id/defendingTeam1" />
-
-        <CheckBox
-            android:id="@+id/defendingTeam2"
-            android:layout_width="126dp"
-            android:layout_height="91dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="25dp"
-            android:text="Team Input"
-            android:textSize="36sp"
-            app:layout_constraintStart_toEndOf="@+id/defendingTeam1"
-            app:layout_constraintTop_toBottomOf="@+id/DEFENSE" />
-
-        <Switch
-            android:id="@+id/defenseType"
-            android:layout_width="54dp"
-            android:layout_height="51dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="180dp"
-            android:scaleX="2"
-            android:scaleY="2"
-            app:layout_constraintStart_toEndOf="@+id/HeavyDefense"
-            app:layout_constraintTop_toBottomOf="@+id/defendingTeam3" />
-
-        <TextView
-            android:id="@+id/lightDefense"
-            android:layout_width="102dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="167dp"
-            android:layout_marginBottom="75dp"
-            android:gravity="center"
-            android:text="Light Defense"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/defenseType"
-            app:layout_constraintTop_toBottomOf="@+id/defendingTeam3" />
-
-        <TextView
-            android:id="@+id/HeavyDefense"
-            android:layout_width="104dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="44dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="59dp"
-            android:gravity="center"
-            android:text="Heavy Defense"
-            android:textSize="24sp"
-            app:flow_horizontalAlign="center"
-            app:flow_verticalAlign="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/defenseType"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/defenseTimer" />
+            app:layout_constraintTop_toBottomOf="@+id/defendingTeam1" />
 
         <EditText
             android:id="@+id/InputTeamDefense"
@@ -1018,31 +960,40 @@
             android:layout_height="59dp"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="2dp"
             android:layout_marginEnd="36dp"
             android:layout_marginRight="36dp"
-            android:layout_marginBottom="188dp"
+            android:layout_marginBottom="48dp"
             android:ems="10"
             android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/closeDefense"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/defendingTeam3"
-            app:layout_constraintTop_toBottomOf="@+id/InputTeamDefenseT" />
+            app:layout_constraintHorizontal_bias="0.285"
+            app:layout_constraintStart_toEndOf="@+id/defendingTeam3" />
 
         <TextView
             android:id="@+id/InputTeamDefenseT"
             android:layout_width="105dp"
             android:layout_height="41dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="8dp"
             android:text="INPUT TEAM NUMBER"
             android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/InputTeamDefense"
             app:layout_constraintStart_toEndOf="@+id/defendingTeam3"
-            app:layout_constraintTop_toBottomOf="@+id/defendingTeam2"
             tools:visibility="invisible" />
+
+        <CheckBox
+            android:id="@+id/defendingTeam2"
+            android:layout_width="126dp"
+            android:layout_height="91dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="244dp"
+            android:text="Team Input"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
