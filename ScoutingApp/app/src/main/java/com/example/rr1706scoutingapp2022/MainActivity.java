@@ -934,13 +934,9 @@ public class MainActivity extends AppCompatActivity {
                         defended2.setBackgroundColor(Color.argb(255, 255, 255, 0));
                         defended3.setBackgroundColor(Color.argb(255, 255, 255, 0));
                     }
-
-
                     if (!closeError.equals("")) {
                         closeError = closeError.substring(0, closeError.length() - 1) + ".";
                     }
-
-
                     if (!(closeError.equals(""))) {
                         Toast.makeText(getApplicationContext(), "Submit Error:" + closeError, Toast.LENGTH_LONG).show();
 
