@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     int ds_cooldown = 0; //ds_cooldown is the cool down for the data_submitted animation
     int team;
@@ -125,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView missedtext = findViewById(R.id.missedShots);
         final TextView defenseTimer = findViewById(R.id.defenseTimer);
         final TextView defenseNumberText = findViewById(R.id.InputTeamDefenseT);
+        final TextView dummyTeam = findViewById(R.id.dummyTeam);
         final EditText DefenseNumber = findViewById(R.id.InputTeamDefense);
         //Buttons
         final Button Blue_Alliance = findViewById(R.id.Blue_Alliance);
@@ -170,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         final CheckBox defended1 = findViewById(R.id.defendingTeam1);
         final CheckBox defended2 = findViewById(R.id.defendingTeam2);
         final CheckBox defended3 = findViewById(R.id.defendingTeam3);
+
         try {
             //Random Initial Start Things
             if (getTeams() != "") {
@@ -372,6 +375,8 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 splittempIntArr = tempIntArr[roundfill - 1].split(",");
                                 team_input.setText(splittempIntArr[tabletnumbercomp]);
+                                dummyTeam.setText(team_input.getText());
+
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 e.printStackTrace();
 
@@ -506,6 +511,8 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     splittempIntArr = tempIntArr[roundfill - 1].split(",");
                     team_input.setText(splittempIntArr[tabletnumbercomp]); //SPINNY BOI
+                    dummyTeam.setText(team_input.getText());
+
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     e.printStackTrace();
@@ -528,6 +535,8 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         splittempIntArr = tempIntArr[roundfill - 1].split(",");
                         team_input.setText(splittempIntArr[tabletnumbercomp]); //SPINNY BOI
+                        dummyTeam.setText(team_input.getText());
+
                     } catch (ArrayIndexOutOfBoundsException e) {
                         e.printStackTrace();
                         hideKeyboard(v);
@@ -1139,6 +1148,8 @@ public class MainActivity extends AppCompatActivity {
                         hideKeyboard(v);
                         if (teamAutofill.isChecked()) {
                             team_input.setText(splittempIntArr[tabletnumbercomp]);
+                            dummyTeam.setText(team_input.getText());
+
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         e.printStackTrace();
@@ -1151,6 +1162,8 @@ public class MainActivity extends AppCompatActivity {
             team_input.setOnFocusChangeListener((v, hasFocus) -> {
                 if (!hasFocus) {
                     hideKeyboard(v);
+                    dummyTeam.setText(team_input.getText());
+
                 }
                 if (team_input.getText().toString().equals("1706")) {
                     rrlogo.animate().rotation(2880f).setDuration(5000).start();
@@ -1467,6 +1480,8 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             splittempIntArr = tempIntArr[roundfill - 1].split(",");
                             team_input.setText(splittempIntArr[tabletnumbercomp]);
+                            dummyTeam.setText(team_input.getText());
+
                         } catch (ArrayIndexOutOfBoundsException e) {
                             e.printStackTrace();
                         }
@@ -1480,6 +1495,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     //Tells the code where to store the entries
     private File getDataDirectory() {
