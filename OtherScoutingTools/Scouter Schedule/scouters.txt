@@ -1,6 +1,6 @@
-Gwen Menier
-Gus Benne
+Gwen Menier,1
+Gus Benne,0
 Mason Schulte
 Hasten Pilkington
-Thomas Mills
-Ashley Kercher
+Thomas Mills,2
+Ashley Kercher,2

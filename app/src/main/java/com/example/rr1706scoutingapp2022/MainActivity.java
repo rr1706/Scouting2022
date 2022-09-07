@@ -60,10 +60,12 @@ public class MainActivity extends AppCompatActivity {
     int apple = 0;
     String scouterName;
     int round;
+    int autoAttempted;
     int roundfill = 1;
     int missedScore;
     int autoLowerScore;
     int autoUpperScore;
+    int autoMissedScore;
     int teleopUpperScore;
     int climbtimerreset;
     int teleopLowerScore;
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView climbTimer = findViewById(R.id.climbTimer);
         final TextView attemptedAutoText = findViewById(R.id.autoAttempted);
         final TextView auto_lower_text = findViewById(R.id.auto_lower_text);
+        final TextView auto_missed_text = findViewById(R.id.auto_missed_text);
         final TextView missedShotsText = findViewById(R.id.missedShotsText);
         final TextView teleop_upper_text = findViewById(R.id.teleop_upper_text);
         final TextView teleop_lower_text = findViewById(R.id.teleop_lower_text);
@@ -144,15 +147,15 @@ public class MainActivity extends AppCompatActivity {
         final Button closeDefense = findViewById(R.id.closeDefense);
         final Button climbTimerStart = findViewById(R.id.climbTimerStart);
         //Images
-        final ImageView autoScoreAttempt = findViewById(R.id.autoScoreAttempt);
         final ImageView auto_no_autoColor = findViewById(R.id.auto_no_autocolor);
-        final ImageView seekbarcover = findViewById(R.id.whiteseekbar);
         final ImageView missedShotsPositive = findViewById(R.id.missedShotsPosititve);
         final ImageView missedShotsMinus = findViewById(R.id.missedShotsMinus);
         final ImageView auto_upper_plus = findViewById(R.id.auto_upper_plus);
         final ImageView auto_upper_minus = findViewById(R.id.auto_upper_minus);
         final ImageView auto_lower_plus = findViewById(R.id.auto_lower_plus);
         final ImageView auto_lower_minus = findViewById(R.id.auto_lower_minus);
+        final ImageView auto_missed_plus = findViewById(R.id.auto_missed_plus);
+        final ImageView auto_missed_minus = findViewById(R.id.auto_missed_minus);
         final ImageView teleop_upper_plus = findViewById(R.id.teleop_upper_plus);
         final ImageView teleop_upper_minus = findViewById(R.id.teleop_upper_minus);
         final ImageView teleop_lower_plus = findViewById(R.id.teleop_lower_plus);
@@ -162,8 +165,6 @@ public class MainActivity extends AppCompatActivity {
         final Switch auto_no_auto = findViewById(R.id.noAutoSwitch);
         final Switch playedDefense = findViewById(R.id.playedDefense);
         final Switch robotError = findViewById(R.id.robotErrors);
-        //Seekbars
-        final SeekBar autoAttempted = findViewById(R.id.autoAttemptedBar);
         //Image Buttons
         final ImageButton rrlogo = findViewById(R.id.rrlogobtn);
 
@@ -215,8 +216,6 @@ public class MainActivity extends AppCompatActivity {
                 auto_lower_text.setTextColor(Color.BLACK);
                 auto_upper_text.setTextColor(Color.BLACK);
                 auto_no_auto.setTextColor(Color.BLACK);
-                autoAttempted.setBackgroundColor(Color.TRANSPARENT);
-                autoScoreAttempt.setBackgroundResource(R.drawable.seekbar);
                 attemptedAutoText.setTextColor(Color.BLACK);
                 toptext.setTextColor(Color.BLACK);
                 toptext2.setTextColor(Color.BLACK);
@@ -224,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
                 bottomtext.setTextColor(Color.BLACK);
                 bottomtext2.setTextColor(Color.BLACK);
                 teleop_lower_text.setTextColor(Color.BLACK);
-                seekbarcover.setImageResource(Color.TRANSPARENT);
                 teleop_upper_text.setTextColor(Color.BLACK);
                 missedShotsText.setTextColor(Color.BLACK);
                 alliance = "red";
@@ -246,9 +244,6 @@ public class MainActivity extends AppCompatActivity {
                 teleop_lower_text.setTextColor(Color.BLACK);
                 teleop_upper_text.setTextColor(Color.BLACK);
                 missedShotsText.setTextColor(Color.BLACK);
-                autoAttempted.setBackgroundColor(Color.TRANSPARENT);
-                autoScoreAttempt.setBackgroundResource(R.drawable.seekbar);
-                seekbarcover.setImageResource(Color.TRANSPARENT);
                 attemptedAutoText.setTextColor(Color.BLACK);
                 alliance = "blue";
             }
@@ -308,8 +303,10 @@ public class MainActivity extends AppCompatActivity {
                         auto_lower_text.setAlpha((float) 1);
                         auto_upper_minus.setAlpha((float) 1);
                         auto_upper_plus.setAlpha((float) 1);
-                        autoAttempted.setEnabled(true);
-                        autoScoreAttempt.setAlpha((float) 1);
+                        auto_missed_plus.setEnabled(true);
+                        auto_missed_plus.setAlpha((float) 1);
+                        auto_missed_minus.setEnabled(true);
+                        auto_missed_minus.setAlpha((float) 1);
                         attemptedAutoText.setAlpha((float) 1);
                         auto_upper_text.setAlpha((float) 1);
                         toptext.setAlpha((float) 1);
@@ -322,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
                         autoLowerScore = 0;
                         autoUpperScore = 0;
                         missedScore = 0;
-                        autoAttempted.setProgress(0);
+
                         auto_no_autoColor.setBackgroundColor(Color.TRANSPARENT);
                         scouterName = name_input.getText().toString();
                         notes.setText("");
@@ -351,6 +348,8 @@ public class MainActivity extends AppCompatActivity {
                         milisecondsclimb = 0;
                         milisecondsdefendingraw = 0;
                         milisecondsdefending = 0;
+                        autoMissedScore = 0;
+                        auto_missed_text.setText("0");
                         secondsclimb = 0;
                         secondsdefending = 0;
                         minutesclimb = 0;
@@ -628,11 +627,12 @@ public class MainActivity extends AppCompatActivity {
                     auto_lower_plus.setAlpha((float) 0.5);
                     toptext.setAlpha((float) 0.5);
                     bottomtext.setAlpha((float) 0.5);
-                    autoAttempted.setEnabled(false);
-                    autoAttempted.setAlpha((float) 0.5);
-                    autoScoreAttempt.setAlpha((float) 0.5);
+                    auto_missed_minus.setEnabled(false);
+                    auto_missed_minus.setAlpha((float) 0.5);
+                    auto_missed_plus.setEnabled(false);
+                    auto_missed_plus.setAlpha((float) 0.5);
                     attemptedAutoText.setAlpha((float) 0.5);
-                    if (autoLowerScore > 0 | autoAttempted.getProgress() > 0 | autoUpperScore > 0) {
+                    if (autoLowerScore > 0 | autoMissedScore > 0 | autoUpperScore > 0) {
                         auto_no_autoColor.setBackgroundColor(Color.YELLOW);
                     }
                 }
@@ -651,10 +651,10 @@ public class MainActivity extends AppCompatActivity {
                     auto_lower_plus.setAlpha((float) 1);
                     toptext.setAlpha((float) 1);
                     bottomtext.setAlpha((float) 1);
-                    autoAttempted.setEnabled(true);
-                    autoAttempted.setAlpha((float) 1);
-                    autoScoreAttempt.setAlpha((float) 1);
-                    attemptedAutoText.setAlpha((float) 1);
+                    auto_missed_minus.setEnabled(true);
+                    auto_missed_minus.setAlpha((float) 1);
+                    auto_missed_plus.setEnabled(true);
+                    auto_missed_plus.setAlpha((float) 1);
                     auto_no_autoColor.setBackgroundColor(Color.TRANSPARENT);
                 }
             });
@@ -686,6 +686,18 @@ public class MainActivity extends AppCompatActivity {
                     autoLowerScore--;
                 }
                 auto_lower_text.setText(Integer.toString(autoLowerScore));
+            });
+            auto_missed_plus.setOnClickListener(v -> {
+                if (autoMissedScore < 99) {
+                    autoMissedScore++;
+                }
+                auto_missed_text.setText(Integer.toString(autoMissedScore));
+            });
+            auto_missed_minus.setOnClickListener(v -> {
+                if (autoMissedScore > 0) {
+                    autoMissedScore--;
+                }
+                auto_missed_text.setText(Integer.toString(autoMissedScore));
             });
             teleop_upper_plus.setOnClickListener(v -> {
                 if (teleopUpperScore < 99) {
@@ -818,19 +830,17 @@ public class MainActivity extends AppCompatActivity {
                     teleop_lower_text.setTextColor(Color.WHITE);
                     teleop_upper_text.setTextColor(Color.WHITE);
                     missedShotsText.setTextColor(Color.WHITE);
-                    seekbarcover.setImageResource(R.drawable.white);
-                    autoScoreAttempt.setBackgroundResource(R.drawable.seekbarwhite);
                     attemptedAutoText.setTextColor(Color.WHITE);
+                    auto_missed_text.setTextColor(Color.WHITE);
+
                 }
                 if (alliance.equals("red") && dev == 1) {
                     Background.setBackgroundResource(R.drawable.reddev);
-                    autoScoreAttempt.setBackgroundResource(R.drawable.seekbarwhite);
                     auto_lower_text.setTextColor(Color.WHITE);
                     auto_upper_text.setTextColor(Color.WHITE);
                     auto_no_auto.setTextColor(Color.WHITE);
                     toptext.setTextColor(Color.WHITE);
                     toptext2.setTextColor(Color.WHITE);
-                    seekbarcover.setImageResource(R.drawable.white);
                     missedtext.setTextColor(Color.WHITE);
                     bottomtext.setTextColor(Color.WHITE);
                     bottomtext2.setTextColor(Color.WHITE);
@@ -838,10 +848,10 @@ public class MainActivity extends AppCompatActivity {
                     teleop_upper_text.setTextColor(Color.WHITE);
                     missedShotsText.setTextColor(Color.WHITE);
                     attemptedAutoText.setTextColor(Color.WHITE);
+                    auto_missed_text.setTextColor(Color.WHITE);
                 }
                 if (alliance.equals("none") && dev == 1) {
                     Background.setBackgroundResource(R.drawable.nodev);
-                    autoScoreAttempt.setBackgroundResource(R.drawable.seekbarwhite);
                     auto_lower_text.setTextColor(Color.WHITE);
                     attemptedAutoText.setTextColor(Color.WHITE);
                     auto_upper_text.setTextColor(Color.WHITE);
@@ -854,7 +864,8 @@ public class MainActivity extends AppCompatActivity {
                     teleop_lower_text.setTextColor(Color.WHITE);
                     teleop_upper_text.setTextColor(Color.WHITE);
                     missedShotsText.setTextColor(Color.WHITE);
-                    seekbarcover.setImageResource(R.drawable.white);
+                    auto_missed_text.setTextColor(Color.WHITE);
+
                 }
             });
             //This is validation to make sure that the fields have been filled before pregame is closed
@@ -941,7 +952,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (Defense.getVisibility() == android.view.View.VISIBLE) {
-
                     if (playedDefense.isChecked()) {
                         String closeError = "";
 
@@ -1000,6 +1010,7 @@ public class MainActivity extends AppCompatActivity {
                 climbtimer = 0;
 
             });
+            autoAttempted = autoLowerScore + autoUpperScore + autoMissedScore;
             //These lines are the special function toggles.
             //The Pregame_box is a dev way to open and close pregame without filling out fields
             //The Endgame_box is a operator way to open and close endgame.
@@ -1071,10 +1082,9 @@ public class MainActivity extends AppCompatActivity {
                 teleop_lower_text.setTextColor(Color.BLACK);
                 teleop_upper_text.setTextColor(Color.BLACK);
                 missedShotsText.setTextColor(Color.BLACK);
-                autoAttempted.setBackgroundColor(Color.TRANSPARENT);
-                autoScoreAttempt.setBackgroundResource(R.drawable.seekbar);
-                seekbarcover.setImageResource(Color.TRANSPARENT);
                 attemptedAutoText.setTextColor(Color.BLACK);
+                auto_missed_text.setTextColor(Color.BLACK);
+
                 alliance = "blue";
             });
             //This sets the alliance red and sets the background color red.
@@ -1087,8 +1097,7 @@ public class MainActivity extends AppCompatActivity {
                 auto_lower_text.setTextColor(Color.BLACK);
                 auto_upper_text.setTextColor(Color.BLACK);
                 auto_no_auto.setTextColor(Color.BLACK);
-                autoAttempted.setBackgroundColor(Color.TRANSPARENT);
-                autoScoreAttempt.setBackgroundResource(R.drawable.seekbar);
+                auto_missed_text.setTextColor(Color.WHITE);
                 attemptedAutoText.setTextColor(Color.BLACK);
                 toptext.setTextColor(Color.BLACK);
                 toptext2.setTextColor(Color.BLACK);
@@ -1096,7 +1105,6 @@ public class MainActivity extends AppCompatActivity {
                 bottomtext.setTextColor(Color.BLACK);
                 bottomtext2.setTextColor(Color.BLACK);
                 teleop_lower_text.setTextColor(Color.BLACK);
-                seekbarcover.setImageResource(Color.TRANSPARENT);
                 teleop_upper_text.setTextColor(Color.BLACK);
                 missedShotsText.setTextColor(Color.BLACK);
                 alliance = "red";
@@ -1229,12 +1237,6 @@ public class MainActivity extends AppCompatActivity {
                     Endgame.setVisibility(View.VISIBLE);
                     Pregame.setVisibility(View.INVISIBLE);
                 }
-                if (autoUpperScore + autoLowerScore > Integer.parseInt(String.valueOf(autoAttempted.getProgress())) && dev == 0) {
-                    submitError += " More Auto than Auto Attempted,";
-                    autoAttempted.setBackgroundColor(Color.argb(255, 255, 255, 0));
-                    Endgame.setVisibility(View.INVISIBLE);
-                    Pregame.setVisibility(View.INVISIBLE);
-                }
                 if (team_input.getText().toString().equals("")) {
                     submitError += " No Team#,";
                     team_input.setBackgroundColor(Color.argb(255, 255, 255, 0));
@@ -1280,6 +1282,7 @@ public class MainActivity extends AppCompatActivity {
                         FileOutputStream fOut = new FileOutputStream(myFile, true);
                         PrintWriter myOutWriter = new PrintWriter(new OutputStreamWriter(fOut));
                         //This prints all of the lines into the file for transfer.
+                        autoAttempted = autoUpperScore+autoLowerScore+autoMissedScore;
                         myOutWriter.println("Scouter: " + name_input.getText());
                         myOutWriter.println("Team: " + team);
                         myOutWriter.println("Timestamp: " + time.format(new Date()));
@@ -1289,7 +1292,7 @@ public class MainActivity extends AppCompatActivity {
                         myOutWriter.println("Auto Top Score: " + autoUpperScore);
                         myOutWriter.println("Auto Bottom Score: " + autoLowerScore);
                         myOutWriter.println("No Auto: " + auto_no_auto.isChecked());
-                        myOutWriter.println("Attempted Auto: " + autoAttempted.getProgress());
+                        myOutWriter.println("Attempted Auto: " + autoAttempted);
                         myOutWriter.println("Teleop Top Score: " + teleopUpperScore);
                         myOutWriter.println("Teleop Bottom Score: " + teleopLowerScore);
                         myOutWriter.println("Missed Shots: " + missedScore);
@@ -1387,16 +1390,16 @@ public class MainActivity extends AppCompatActivity {
                     auto_upper_plus.setAlpha((float) 1);
                     auto_upper_text.setAlpha((float) 1);
                     toptext.setAlpha((float) 1);
-                    autoAttempted.setEnabled(true);
-                    autoScoreAttempt.setAlpha((float) 1);
+                    auto_upper_minus.setEnabled(true);
+                    auto_upper_minus.setAlpha((float) 1);
+                    auto_upper_plus.setEnabled(true);
+                    auto_upper_plus.setAlpha((float) 1);
                     attemptedAutoText.setAlpha((float) 1);
                     bottomtext.setAlpha((float) 1);
                     notes.setText("");
                     scouterName = name_input.getText().toString();
-                    autoAttempted.setBackgroundColor(Color.TRANSPARENT);
                     auto_no_autoColor.setBackgroundColor(Color.TRANSPARENT);
                     name_input.setText("");
-                    autoAttempted.setProgress(0);
                     round_input.setText(String.valueOf(roundfill));
                     team_input.setText("");
                     endgame_results.setSelection(0);
@@ -1428,6 +1431,8 @@ public class MainActivity extends AppCompatActivity {
                     Defense.setVisibility(View.INVISIBLE);
                     startDefenseTimer.setText("Start Timer");
                     climbTimerStart.setText("Start Timer");
+                    autoMissedScore = 0;
+                    auto_missed_text.setText("0");
                     climbtimerreset = 0;
                     timerReset = 0;
                     milisecondsclimbraw = 0;
@@ -1495,8 +1500,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
     //Tells the code where to store the entries
     private File getDataDirectory() {
         File directory = Environment.getExternalStorageDirectory();

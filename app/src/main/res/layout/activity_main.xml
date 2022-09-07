@@ -135,12 +135,40 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
+        android:id="@+id/auto_missed_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/auto_lower_minus"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/hubauto2"
+        app:layout_constraintTop_toBottomOf="@+id/auto_upper_plus"
+        app:srcCompat="@drawable/plus"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
         android:id="@+id/auto_lower_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auto_upper_minus"
+        app:srcCompat="@drawable/minus"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/auto_missed_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/auto_upper_minus"
         app:srcCompat="@drawable/minus"
@@ -175,6 +203,20 @@
     //Both upper Texts
 
     //Pregame Stuff
+
+    <TextView
+        android:id="@+id/auto_missed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="215dp"
+        android:layout_marginBottom="71dp"
+        android:text="0"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/auto_no_autocolor"
+        app:layout_constraintEnd_toStartOf="@+id/auto_lower_minus"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toEndOf="@+id/auto_lower_plus"
+        app:layout_constraintTop_toTopOf="@+id/auto_no_autocolor" />
 
     <ImageView
         android:id="@+id/hubTele"
@@ -333,15 +375,15 @@
 
     <TextView
         android:id="@+id/autoAttempted"
-        android:layout_width="259dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        android:text="Attempted Auto"
+        android:layout_width="96dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:text="Missed Shots"
         android:textColor="#000000"
-        android:textSize="29dp"
-        app:layout_constraintBottom_toTopOf="@+id/autoAttemptedBar"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="25dp"
+        app:layout_constraintStart_toEndOf="@+id/hubauto2"
         app:layout_constraintTop_toBottomOf="@+id/auto_lower_plus" />
 
     <Button
@@ -406,18 +448,6 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextContrastCheck" />
 
-    <ImageView
-        android:id="@+id/whiteseekbar"
-        android:layout_width="246dp"
-        android:layout_height="13dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="22dp"
-        android:scaleX="20"
-        app:layout_constraintStart_toEndOf="@+id/hubauto2"
-        app:layout_constraintTop_toBottomOf="@+id/autoAttempted"
-        app:srcCompat="@drawable/white" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Pregame"
         android:layout_width="400dp"
@@ -432,7 +462,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/alliance_text"
@@ -782,31 +812,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rrlogo"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-
-    <SeekBar
-        android:id="@+id/autoAttemptedBar"
-        style="@android:style/Widget.Material.Light.SeekBar"
-        android:layout_width="270dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="256dp"
-        android:layout_marginLeft="256dp"
-        android:indeterminate="false"
-        android:max="6"
-        android:progress="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoAttempted" />
-
-    <ImageView
-        android:id="@+id/autoScoreAttempt"
-        android:layout_width="270dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="256dp"
-        android:layout_marginLeft="256dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/seekbar"
-        android:elevation="1dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoAttempted" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Defense"
