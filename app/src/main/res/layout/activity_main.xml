@@ -211,6 +211,7 @@
         android:layout_marginTop="215dp"
         android:layout_marginBottom="71dp"
         android:text="0"
+        android:textColor="@color/black"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/auto_no_autocolor"
         app:layout_constraintEnd_toStartOf="@+id/auto_lower_minus"

@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
             if (getTeams() != "") {
                 teamAutofill.setChecked(true);
             }
+
             round_input.setText(String.valueOf(roundfill));
             Drawable textBackground = round_input.getBackground();
             Drawable nameBackground = name_input.getBackground();
@@ -1097,7 +1098,7 @@ public class MainActivity extends AppCompatActivity {
                 auto_lower_text.setTextColor(Color.BLACK);
                 auto_upper_text.setTextColor(Color.BLACK);
                 auto_no_auto.setTextColor(Color.BLACK);
-                auto_missed_text.setTextColor(Color.WHITE);
+                auto_missed_text.setTextColor(Color.BLACK);
                 attemptedAutoText.setTextColor(Color.BLACK);
                 toptext.setTextColor(Color.BLACK);
                 toptext2.setTextColor(Color.BLACK);
@@ -1357,7 +1358,7 @@ public class MainActivity extends AppCompatActivity {
                             myOutWriter.println("Climb Time: BadData");
                         }
                         if ((climbResult.getSelectedItem().toString().equals("NONE")) && milisecondsclimbraw == 0) {
-                            myOutWriter.println("Climb Time: 0");
+                            myOutWriter.println("Climb Time: NONE");
                         }
 
                         myOutWriter.flush();
@@ -1379,6 +1380,12 @@ public class MainActivity extends AppCompatActivity {
                     missedScore = 0;
                     auto_lower_text.setEnabled(true);
                     auto_upper_text.setEnabled(true);
+                    auto_missed_minus.setEnabled(true);
+                    auto_missed_plus.setEnabled(true);
+                    auto_missed_text.setEnabled(true);
+                    auto_missed_minus.setAlpha((float) 1);
+                    auto_missed_plus.setAlpha((float) 1);
+                    auto_missed_text.setAlpha((float) 1);
                     auto_upper_minus.setEnabled(true);
                     auto_upper_plus.setEnabled(true);
                     auto_lower_minus.setEnabled(true);
